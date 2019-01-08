@@ -1,737 +1,1874 @@
 MADE MAP
-[34m[Robot 1640 Log][0m "Created pilgrim"
-[34m[Robot 3218 Log][0m "Created pilgrim"
-[31m[Robot 2127 Log][0m "Created pilgrim"
-[31m[Robot 568 Log][0m "Created pilgrim"
-[34m[Robot 2627 Log][0m "FOUND KARBONITE"
-[34m[Robot 2627 Log][0m [17,5]
-[34m[Robot 4067 Log][0m "FOUND KARBONITE"
-[34m[Robot 4067 Log][0m [10,32]
-[31m[Robot 43 Log][0m "FOUND KARBONITE"
-[31m[Robot 43 Log][0m [41,5]
-[31m[Robot 537 Log][0m "FOUND KARBONITE"
-[31m[Robot 537 Log][0m [48,32]
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [9,10]
-[34m[Robot 2627 Log][0m 1
-[34m[Robot 4067 Log][0m "MOVING"
-[34m[Robot 4067 Log][0m [8,29]
-[34m[Robot 4067 Log][0m 1
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [49,10]
-[31m[Robot 43 Log][0m 1
-[31m[Robot 537 Log][0m "MOVING"
-[31m[Robot 537 Log][0m [50,29]
-[31m[Robot 537 Log][0m 1
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [8,11]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "MOVING"
-[34m[Robot 4067 Log][0m [9,30]
-[34m[Robot 4067 Log][0m 1
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [50,11]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "MOVING"
-[31m[Robot 537 Log][0m [49,30]
-[31m[Robot 537 Log][0m 1
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [7,10]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "MOVING"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 1
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [51,10]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "MOVING"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 1
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [7,9]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "TRY BUILDING CHURCH"
-[34m[Robot 4067 Log][0m "BUILD FUCKING CHURCH"
-[34m[Robot 4067 Log][0m [10,31]
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [51,9]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "TRY BUILDING CHURCH"
-[31m[Robot 537 Log][0m "BUILD FUCKING CHURCH"
-[31m[Robot 537 Log][0m [48,31]
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [7,8]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [51,8]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [8,7]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [50,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [9,6]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [49,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [10,5]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [48,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [11,4]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [47,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [12,3]
-[34m[Robot 2627 Log][0m -1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [46,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [13,2]
-[34m[Robot 2627 Log][0m 0
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [45,7]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [14,2]
-[34m[Robot 2627 Log][0m 1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [44,7]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [15,3]
-[34m[Robot 2627 Log][0m 1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [43,6]
-[31m[Robot 43 Log][0m -1
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "MOVING"
-[34m[Robot 2627 Log][0m [16,4]
-[34m[Robot 2627 Log][0m 1
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "MOVING"
-[31m[Robot 43 Log][0m [42,5]
-[31m[Robot 43 Log][0m 0
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "TRY BUILDING CHURCH"
-[34m[Robot 2627 Log][0m "BUILD FUCKING CHURCH"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Error][0m Cannot afford to build specified unit.
-[34m[Robot 4067 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 10
-[34m[Robot 4067 Log][0m 32
-[31m[Robot 43 Log][0m "TRY BUILDING CHURCH"
-[31m[Robot 43 Log][0m "BUILD FUCKING CHURCH"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Error][0m Cannot afford to build specified unit.
-[31m[Robot 537 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 48
-[31m[Robot 537 Log][0m 32
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "FUCKING MINE"
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "FUCKING MINE"
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 10
-[34m[Robot 4067 Log][0m 32
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 48
-[31m[Robot 537 Log][0m 32
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 10
-[34m[Robot 4067 Log][0m 32
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 48
-[31m[Robot 537 Log][0m 32
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 10
-[34m[Robot 4067 Log][0m 32
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 48
-[31m[Robot 537 Log][0m 32
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 4067 Log][0m [10,31]
-[34m[Robot 4067 Log][0m 10
-[34m[Robot 4067 Log][0m 32
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 537 Log][0m [48,31]
-[31m[Robot 537 Log][0m 48
-[31m[Robot 537 Log][0m 32
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
-[34m[Robot 2627 Log][0m "GIVE CHURCH KARB SHIT"
-[34m[Robot 2627 Log][0m [17,4]
-[34m[Robot 2627 Log][0m 17
-[34m[Robot 2627 Log][0m 5
-[34m[Robot 2627 Error][0m Cannot give to empty square.
-[34m[Robot 4067 Log][0m "FUCKING MINE"
-[31m[Robot 43 Log][0m "GIVE CHURCH KARB SHIT"
-[31m[Robot 43 Log][0m [41,4]
-[31m[Robot 43 Log][0m 41
-[31m[Robot 43 Log][0m 5
-[31m[Robot 43 Error][0m Cannot give to empty square.
-[31m[Robot 537 Log][0m "FUCKING MINE"
+[34m[Robot 2306 Log][0m "Created pilgrim"
+[34m[Robot 577 Log][0m "Created pilgrim"
+[31m[Robot 642 Log][0m "Created pilgrim"
+[31m[Robot 2469 Log][0m "Created pilgrim"
+[34m[Robot 3643 Log][0m "FOUND CASTLE"
+[34m[Robot 3643 Log][0m "FOUND KARBONITE"
+[34m[Robot 3643 Log][0m [8,15]
+[34m[Robot 2631 Log][0m "FOUND CASTLE"
+[34m[Robot 2631 Log][0m "FOUND KARBONITE"
+[34m[Robot 2631 Log][0m [8,38]
+[31m[Robot 1047 Log][0m "FOUND CASTLE"
+[31m[Robot 1047 Log][0m "FOUND KARBONITE"
+[31m[Robot 1047 Log][0m [30,15]
+[31m[Robot 586 Log][0m "FOUND CASTLE"
+[31m[Robot 586 Log][0m "FOUND KARBONITE"
+[31m[Robot 586 Log][0m [30,38]
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [6,7]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "MOVING"
+[34m[Robot 2631 Log][0m [7,36]
+[34m[Robot 2631 Log][0m 1
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [32,7]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "MOVING"
+[31m[Robot 586 Log][0m [31,36]
+[31m[Robot 586 Log][0m 1
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [7,8]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "MOVING"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 1
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [31,8]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "MOVING"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 1
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,9]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "TRY BUILDING CHURCH"
+[34m[Robot 2631 Log][0m "BUILD FUCKING CHURCH"
+[34m[Robot 2631 Log][0m [8,37]
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,9]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "TRY BUILDING CHURCH"
+[31m[Robot 586 Log][0m "BUILD FUCKING CHURCH"
+[31m[Robot 586 Log][0m [30,37]
+[34m[Robot 3643 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,10]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,10]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,11]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,11]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,12]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,12]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,13]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,13]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "HEADING TOWARDS KARBONITE TO MINE FOR CASTLE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MINING FOR CASTLE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MINING FOR CASTLE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,15]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,15]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [9,14]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [10,13]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,13]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [9,12]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [31,12]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,11]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [32,11]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [7,10]
+[34m[Robot 3643 Log][0m -1
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "MOVING BACK TO CASTLE TO GIVE DRUGS"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [33,10]
+[31m[Robot 1047 Log][0m -1
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [6,9]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [32,9]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [7,10]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [31,10]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,11]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,11]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,12]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,12]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,13]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,13]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "MOVING"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 1
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "MOVING"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 1
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "TRY BUILDING CHURCH"
+[34m[Robot 3643 Log][0m "BUILD FUCKING CHURCH"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "TRY BUILDING CHURCH"
+[31m[Robot 1047 Log][0m "BUILD FUCKING CHURCH"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 3643 Log][0m [8,14]
+[34m[Robot 3643 Log][0m 8
+[34m[Robot 3643 Log][0m 15
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 1047 Log][0m [30,14]
+[31m[Robot 1047 Log][0m 30
+[31m[Robot 1047 Log][0m 15
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "FUCKING MINE"
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "GIVE CHURCH KARB SHIT"
+[34m[Robot 2631 Log][0m [8,37]
+[34m[Robot 2631 Log][0m 8
+[34m[Robot 2631 Log][0m 38
+[31m[Robot 1047 Log][0m "FUCKING MINE"
+[31m[Robot 586 Log][0m "GIVE CHURCH KARB SHIT"
+[31m[Robot 586 Log][0m [30,37]
+[31m[Robot 586 Log][0m 30
+[31m[Robot 586 Log][0m 38
+[34m[Robot 3643 Log][0m "FUCKING MINE"
+[34m[Robot 2631 Log][0m "FUCKING MINE"
+[31m[Robot 1047 Log][0m "FUCKING MINE"

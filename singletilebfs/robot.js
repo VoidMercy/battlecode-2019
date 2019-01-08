@@ -20,7 +20,7 @@ var dict = {};
 class MyRobot extends BCAbstractRobot {
 
     canBuild(unit) {
-        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
+        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.karbonite > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
 
     hash(x, y) {
@@ -70,7 +70,7 @@ class MyRobot extends BCAbstractRobot {
                     if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
-                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
                         }
                     }
                 }
@@ -130,9 +130,10 @@ class MyRobot extends BCAbstractRobot {
             for (var i = 0; i < alldirs.length; i++) {
                 var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
                 if (tempid > 0) {
-                    var robottype = this.getRobot(tempid);
+                    var robottype = this.getRobot(tempid).unit;
                     if (robottype == SPECS.CASTLE) {
-                        castleloc = [this.me.x + alldirs[i][0]][this.me.y + alldirs[i][1]];
+                        this.log("FOUND CASTLE");
+                        castleloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                         break;
                     }
                 }
