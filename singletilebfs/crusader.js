@@ -4,11 +4,24 @@ import {SPECS} from 'battlecode';
 var alldirs = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]]
 
 var target = null;
-
+var reachedTarget = false;
 
 export var Crusader = function() {
-	if (target == null || (this.me.x == target[0] && this.me.y == target[1])) {
-		target = [(this.me.x + 30) % this.map[0].length, (this.me.y + 30) % this.map.length];
-	}
+	if (target == null) {
+		target = this.oppositeCoords([this.me.x, this.me.y]);
+	} else if (target[0] == this.me.x && target[1] == this.me.y) {
+        reachedTarget = true;
+    }
+    //TODO: attack if close enough xd
+    var robotsnear = this.getVisibleRobots();
+    for (var i = 0; i < robotsnear.length; i++) {
+        if (robotsnear[i].team != this.me.team) {
+            //enemy team, chase!!!
+            //picks first enemy in list
+            this.log("Chase the enemy!");
+            return this.greedyMove([robotsnear[i].x, robotsnear[i].y]);
+        }
+    }
+
 	return this.moveto(target);
 }

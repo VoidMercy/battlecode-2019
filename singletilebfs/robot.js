@@ -16,6 +16,30 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    greedyMove(dest) {
+        //TODO: make it possible to move multiple tiles at once xd
+        //note: this moves backwards if it cant move closer lol
+        var minVal = 999999999;
+        var minDir = null;
+        for (var i = 0; i < alldirs.length; i++) {
+            var newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            var dist = this.distance(newloc, dest);
+            var visMap = this.getVisibleRobotMap();
+            if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist < minVal) {
+                minVal = dist;
+                minDir = alldirs[i];
+            }
+        }
+        return this.move(minDir[0], minDir[1]);
+    }
+
+    oppositeCoords(loc) {
+        //TODO: only switch one of the coords based on determined symmetry
+        var xsize = this.map[0].length; //should be square but justin case
+        var ysize = this.map.length;
+        return [(xsize - loc[0]) % xsize, (ysize - loc[1]) % ysize];
+    }
+
     validCoords(loc) {
         var xsize = this.map[0].length; //should be square but justin case
         var ysize = this.map.length;
@@ -71,7 +95,7 @@ class MyRobot extends BCAbstractRobot {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
-                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
+                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
                             distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
@@ -131,7 +155,7 @@ class MyRobot extends BCAbstractRobot {
     }
 
     turn() {
-
+        //this.log(this.me);
         if (this.me.unit === SPECS.CRUSADER) {
             return Crusader.call(this);
         }

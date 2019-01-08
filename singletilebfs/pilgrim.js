@@ -14,13 +14,15 @@ export var Pilgrim = function(self) {
         //find the castle i was spawned from
         var tempmap = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {
-            var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
-            if (tempid > 0) {
-                var robottype = this.getRobot(tempid).unit;
-                if (robottype == SPECS.CASTLE) {
-                    this.log("FOUND CASTLE");
-                    castleloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                    break;
+            if (this.validCoords([this.me.y + alldirs[i][1], this.me.x + alldirs[i][0]])) {
+                var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
+                if (tempid > 0) {
+                    var robottype = this.getRobot(tempid).unit;
+                    if (robottype == SPECS.CASTLE) {
+                        this.log("FOUND CASTLE");
+                        castleloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                        break;
+                    }
                 }
             }
         }
