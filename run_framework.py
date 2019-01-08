@@ -1,6 +1,8 @@
 import sys
 import subprocess
-import os
+import osg
+# TODO:
+# - have bots output the size of the map and starting conditions at beginning
 docstr = """Usage: framework.py foldername"""
 if len(sys.argv) != 2:
     print(docstr)
