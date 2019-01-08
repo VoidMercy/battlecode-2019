@@ -9,6 +9,8 @@ import { Preacher } from 'preacher.js'
 //moved global vars to their respective file
 var alldirs = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]]
 
+var symmetry; //1 is vertical, 0 is horizontal
+
 //pathfinding vars
 var targetlocation = null;
 var moves = null;
@@ -35,9 +37,34 @@ class MyRobot extends BCAbstractRobot {
 
     oppositeCoords(loc) {
         //TODO: only switch one of the coords based on determined symmetry
-        var xsize = this.map[0].length; //should be square but justin case
-        var ysize = this.map.length;
-        return [(xsize - loc[0]) % xsize, (ysize - loc[1]) % ysize];
+        var size = this.map.length;
+        var ret = [loc[0], loc[1]];
+        ret[1 - this.symmetry] = (size - ret[1 - this.symmetry]) % size;
+        return ret;
+    }
+
+    arraysEqual(arr1, arr2) {
+        if(arr1.length !== arr2.length)
+            return false;
+        for(var i = arr1.length; i--;) {
+            if(arr1[i] !== arr2[i])
+                return false;
+        }
+
+        return true;
+    }
+
+    symmetricType() {
+        // determine if map is horizontally or vertically symmetric
+        const ysize = this.map.length;
+        for (var i=0; i < ysize/2; i++) {
+            if (!this.arraysEqual(this.map[i], this.map[ysize-i-1])) {
+                // row is not equal to corresponding row, must be vertically(?) symmetric
+                return 1;
+            }
+        }
+        return 0;
+
     }
 
     validCoords(loc) {
@@ -80,6 +107,9 @@ class MyRobot extends BCAbstractRobot {
     }
 
     moveto(dest) {
+        if (dest[0] == this.me.x && dest[1] == this.me.y) {
+            return; //at target, do nothing
+        }
         if (!(this.hash(...dest) in dict)) {
             this.log("START BFS");
             //run bfs
@@ -155,7 +185,10 @@ class MyRobot extends BCAbstractRobot {
     }
 
     turn() {
-        //this.log(this.me);
+        if (this.me.turn == 1) {
+            // first turn, calc symmetry
+            this.symmetry = this.symmetricType();
+        }
         if (this.me.unit === SPECS.CRUSADER) {
             return Crusader.call(this);
         }
