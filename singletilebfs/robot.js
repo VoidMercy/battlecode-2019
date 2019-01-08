@@ -38,7 +38,7 @@ class MyRobot extends BCAbstractRobot {
         //TODO: only switch one of the coords based on determined symmetry
         var size = this.map.length;
         var ret = [loc[0], loc[1]];
-        ret[1 - this.symmetry] = (size - ret[1 - this.symmetry]) % size;
+        ret[1 - symmetry] = (size - ret[1 - symmetry]) % size;
         return ret;
     }
 
@@ -186,7 +186,7 @@ class MyRobot extends BCAbstractRobot {
     turn() {
         if (this.me.turn == 1) {
             // first turn, calc symmetry
-            this.symmetry = this.symmetricType();
+            symmetry = this.symmetricType();
         }
         if (this.me.unit === SPECS.CRUSADER) {
             return Crusader.call(this);
