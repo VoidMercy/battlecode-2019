@@ -28,7 +28,7 @@ class MyRobot extends BCAbstractRobot {
                 //can produce pilgrim
                 var robotsnear = this.getVisibleRobotMap();
                 for (var i = 0; i < alldirs.length; i++) {
-                    if (robotsnear[this.me.x + alldirs[i][0]][this.me.y + alldirs[i][0]] == 0) {
+                    if (robotsnear[this.me.x + alldirs[i][0]][this.me.y + alldirs[i][0]] == -1) {
                         this.log("Created pilgrim");
                         pilgrimcount++;
                         return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][0]);
@@ -57,20 +57,20 @@ class MyRobot extends BCAbstractRobot {
             //move to karbonite
                 var dirvec = [karblocation[0] - this.me.x, karblocation[1] - this.me.y];
                 var mag = Math.sqrt(dirvec[0] * dirvec[0] + dirvec[1] * dirvec[1]);
-                dirvec[0] = Math.trunc(dirvec[0] / mag * SPECS.UNITS[this.me.unit].SPEED);
-                dirvec[1] = Math.trunc(dirvec[1] / mag * SPECS.UNITS[this.me.unit].SPEED);
+                dirvec[0] = Math.trunc(dirvec[0] / mag * SPECS.UNITS[SPECS.PILGRIM].SPEED);
+                dirvec[1] = Math.trunc(dirvec[1] / mag * SPECS.UNITS[SPECS.PILGRIM].SPEED);
                 this.log("Fucking move direction");
                 this.log(dirvec[0].toString());
                 this.log(dirvec[1].toString());
 
-                this.move(dirvec[0] - this.me.x, dirvec[1] - this.me.y);
+                return this.move(dirvec[0] - this.me.x, dirvec[1] - this.me.y);
             } else {
                 if (builtchurch == false && this.canBuild(SPECS.CHURCH)) {
                     //build factory
                     var robotsnear = this.getVisibleRobotMap();
 
                     for (var i = 0; i < alldirs.length; i++) {
-                        if (robotsnear[this.me.x + alldirs[i][0]][this.me.y + alldirs[i][0]] == 0) {
+                        if (robotsnear[this.me.x + alldirs[i][0]][this.me.y + alldirs[i][0]] == -1) {
                             builtchurch = true;
                             log("BUILD FUCKING CHURCH");
                             churchloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][0]];
