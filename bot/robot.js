@@ -12,11 +12,11 @@ var builtchurch = false;
 var churchloc = null;
 var castleloc = null;
 
-class MyRobot extends BCAbstractRobot {
+//pathfinding vars
+var targetlocation = null;
+var moves = null;
 
-    checkEmpty(xloc, yloc) {
-        var robotsnear = this.getVisibleRobotMap();
-    }
+class MyRobot extends BCAbstractRobot {
 
     canBuild(unit) {
         return this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_KARBONITE
@@ -26,6 +26,10 @@ class MyRobot extends BCAbstractRobot {
         return x * 99999 + y;
     }
 
+    unhash(shit) {
+        return [Math.floor(shit / 99999), shit % 99999];
+    }
+
     adjacent(loc1, loc2) {
         if (Math.abs(loc1[0] - loc2[0]) + Math.abs(loc1[1] - loc2[1]) > 2) {
             return false;
@@ -33,17 +37,71 @@ class MyRobot extends BCAbstractRobot {
         return true;
     }
 
-    moveto(dest) {
-        var dirvec = [dest[0] - this.me.x, dest[1] - this.me.y];
-        var mag = Math.sqrt(dirvec[0] * dirvec[0] + dirvec[1] * dirvec[1]);
-        dirvec[0] = Math.trunc(dirvec[0] / mag * Math.sqrt(SPECS.UNITS[this.me.unit].SPEED));
-        dirvec[1] = Math.trunc(dirvec[1] / mag * Math.sqrt(SPECS.UNITS[this.me.unit].SPEED));
-        this.log("Fucking move");
-        this.log(this.me.x);
-        this.log(this.me.y);
-        this.log(dest);
+    distance(loc1, loc2) {
+        return (loc1[0] - loc2[0]) * (loc1[0] - loc2[0]) + (loc1[1] - loc2[1]) * (loc1[1] - loc2[1]);
+    }
 
-        return this.move(dirvec[0], dirvec[1]);
+    moveto(dest) {
+
+        if (targetlocation == null) {
+            moves = null;
+        } else if (this.hash(...dest) != this.hash(...targetlocation)) {
+            moves = null;
+        }
+
+        targetlocation = dest;
+
+        if (moves != null) {
+            //continue moving in moves
+            var nextmove = this.unhash(moves.pop());
+            this.log("MOVING");
+            this.log([this.me.x, this.me.y]);
+            this.log(nextmove);
+
+            this.move(nextmove - this.me.x, nextmove - this.me.y);
+
+        } else {
+            var moverange = SPECS.UNITS[this.me.unit].SPEED;
+            targetlocation = dest;
+            var tempmoves = [];
+            var queue = [];
+            var visited = [];
+            var backtrace = {};
+            queue.push([this.me.x, this.me.y]);
+            visited.push(this.hash(this.me.x, this.me.y));
+            while (queue.length != 0) {
+                var cur = queue.shift();
+                this.log(cur);
+                if (this.hash(...cur) == this.hash(...dest)) {
+                    //reached dest
+                    backtrace[this.hash(...dest)] = this.hash(...cur);
+                    var current = this.hash(...dest);
+                    this.log("CANCER");
+                    while (current in backtrace) {
+                        this.log(current);
+                        tempmoves.push(current);
+                        current = backtrace[current];
+                    }
+                    moves = tempmoves;
+                    this.log("PATHFIND");
+                    this.log([this.me.x, this.me.y]);
+                    this.log(dest);
+                    this.log(moves);
+                    return this.moveto(dest);
+                }
+
+                //iterate all possible moves and add to queue
+                for (var i = cur[0] - Math.sqrt(moverange); i < cur[0] + Math.sqrt(moverange); i++) {
+                    for (var j = cur[1] - Math.sqrt(moverange); j < cur[1] + Math.sqrt(moverange); j++) {
+                        if (visited.includes(this.hash(i, j)) == false && this._bc_check_on_map(i, j) && this.map[j][i] == true && this.distance([i, j], cur) <= moverange) {
+                            queue.push([i, j]);
+                            visited.push(this.hash(i, j));
+                            backtrace[this.hash(i, j)] = this.hash(cur[0], cur[1]);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     turn() {
