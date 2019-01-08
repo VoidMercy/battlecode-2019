@@ -66,7 +66,7 @@ export var Pilgrim = function(self) {
 
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                    if (robotsnear[nextloc[1]][nextloc[0]] <= 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] <= 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                         builtchurch = true;
                         this.log("BUILD FUCKING CHURCH");
                         churchloc = [alldirs[i][0] + this.me.x, alldirs[i][1] + this.me.y];

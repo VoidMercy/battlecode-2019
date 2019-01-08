@@ -16,6 +16,12 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    validCoords(loc) {
+        var xsize = this.map[0].length; //should be square but justin case
+        var ysize = this.map.length;
+        return loc[0] >= 0 && loc[0] < xsize && loc[1] >= 0 && loc[1] < ysize;
+    }
+
     canBuild(unit) {
         return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.karbonite > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
@@ -90,7 +96,7 @@ class MyRobot extends BCAbstractRobot {
                 smallestdir = null;
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [this.me.x + moveoff[0] + alldirs[i][0], this.me.y + moveoff[1] + alldirs[i][1]];
-                    if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
+                    if (this.validCoords(nextloc) && distancetodest[nextloc[0]][nextloc[1]] != undefined) {
                         var tempdist = distancetodest[nextloc[0]][nextloc[1]];
                         if (visible[nextloc[1]][nextloc[0]] == 0) {
                             if (tempdist < smallest) {
