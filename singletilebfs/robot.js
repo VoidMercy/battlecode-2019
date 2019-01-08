@@ -7,6 +7,7 @@ import { Prophet } from 'prophet.js'
 import { Preacher } from 'preacher.js'
 
 //moved global vars to their respective file
+var alldirs = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]]
 
 //pathfinding vars
 var targetlocation = null;
