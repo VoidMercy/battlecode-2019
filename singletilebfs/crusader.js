@@ -42,13 +42,12 @@ export var Crusader = function() {
             return this.greedyMove(enemyLoc);
         }
     }
-    if (!reachedTarget) {
-        return this.moveto(target);
-    } else {
+    if (reachedTarget) {
         this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
         target = altTargets[targetNum];
-        return;
     }
+    
+    return this.moveto(target);
 }
