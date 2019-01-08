@@ -26,7 +26,7 @@ for x in glob.glob('*/'):
             s = subprocess.check_output(["bc19run", "-r", direc, "-b", x]).strip().split('\n')[-1]
             if " red won " in s or "Blue failed to initialize":
                 wins += 1
-            elif " blue won " not in s:
+            elif (" blue won " not in s) and ("Red failed to initialize" not in s):
                 print("weird error occurred: %s"%(s))
 
         print("bot %s won %d/%d games against %s."%(direc,wins,best_of,x))
