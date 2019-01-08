@@ -5,7 +5,14 @@ var target = null;
 var reachedTarget = false;
 var altTargets;
 var targetNum = 0;
-const range = 16;
+var unitVals = {
+    0: 25, //castle      (win condition)
+    1: 15, //church      (factory)
+    2: 20, //pilgrim     (worker)
+    3: 30, //crusader    (knight)
+    4: 40, //prophet     (ranger)
+    5: 50, //preacher    (mage)
+};
 
 export var Crusader = function() {
 	if (target == null) {
@@ -23,15 +30,26 @@ export var Crusader = function() {
     }
     //attack if adjacent
     var robotsnear = this.getVisibleRobots();
+    var enemies = [];
+    var maxValue = 0;
+    var toAttack = null;
     for (var i = 0; i < robotsnear.length; i++) {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
             if (this.distance(enemyLoc, [this.me.x, this.me.y]) <= 16) {
+                if (maxValue < unitVals[robotsnear[i].unit]) {
+                    toAttack = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                    maxValue = unitVals[robotsnear[i].unit];
+                }
                 //adjacent, a t t a c c
-                this.log("attacc");
-                return this.attack(enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y);
+                //this.log("attacc");
+                //return this.attack(enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y);
             }
         }
+    }
+    if (toAttack != null) {
+        this.log("attacc");
+        return this.attack(...toAttack);
     }
 
     for (var i = 0; i < robotsnear.length; i++) {
