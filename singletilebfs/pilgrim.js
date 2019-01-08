@@ -6,6 +6,7 @@ var karblocation = null;
 var builtchurch = false;
 var churchloc = null;
 var castleloc = null;
+var blacklistkarb = [];
 
 export var Pilgrim = function(self) {
     if (castleloc == null) {
@@ -26,6 +27,15 @@ export var Pilgrim = function(self) {
         }
     }
 
+    var robotsnear = this.getVisibleRobotMap();
+
+    if (karblocation != null) {
+        if (robotsnear[karblocation[1]][karblocation[0]] > 0) {
+            blacklistkarb.push(this.hash(karblocation));
+            karblocation = null;
+        }
+    }
+
     if (karblocation == null) {
         //find closest karbonite
         var queue = [];
@@ -34,7 +44,7 @@ export var Pilgrim = function(self) {
         visited.push(this.hash(this.me.x, this.me.y));
         while (queue.length != 0) {
             var cur = queue.shift();
-            if (this.karbonite_map[cur[1]][cur[0]] == true) {
+            if (this.karbonite_map[cur[1]][cur[0]] == true && !(blacklistkarb.includes(this.hash(...cur)))) {
                 karblocation = cur;
                 this.log("FOUND KARBONITE");
                 this.log(cur);
@@ -50,6 +60,8 @@ export var Pilgrim = function(self) {
         }
     }
 
+
+
     if (builtchurch == false) {
         // i didn't build a church yet
         if (this.canBuild(SPECS.CHURCH)) {
@@ -61,7 +73,6 @@ export var Pilgrim = function(self) {
             } else {
                 this.log("TRY BUILDING CHURCH");
                 //build church
-                var robotsnear = this.getVisibleRobotMap();
 
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
