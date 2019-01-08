@@ -18,7 +18,7 @@ export var Pilgrim = function(self) {
                 var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
                 if (tempid > 0) {
                     var robottype = this.getRobot(tempid).unit;
-                    if (robottype == SPECS.CASTLE) {
+                    if (robottype == SPECS.CASTLE || robottype == SPECS.CHURCH) {
                         this.log("FOUND CASTLE");
                         castleloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                         break;
