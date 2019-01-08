@@ -16,6 +16,7 @@ exclude = "asdf asdfg"
 excludelist = exclude.split(' ')
 
 direc = sys.argv[1]
+print(direc)
 for x in glob.glob('*/'):
     if (x not in excludelist) and os.path.isfile(x + 'robot.js'):
         # works
