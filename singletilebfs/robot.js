@@ -15,11 +15,12 @@ var castleloc = null;
 //pathfinding vars
 var targetlocation = null;
 var moves = null;
+var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
     canBuild(unit) {
-        return this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_KARBONITE
+        return this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
 
     hash(x, y) {
@@ -41,71 +42,61 @@ class MyRobot extends BCAbstractRobot {
         return (loc1[0] - loc2[0]) * (loc1[0] - loc2[0]) + (loc1[1] - loc2[1]) * (loc1[1] - loc2[1]);
     }
 
-    moveto(dest) {
+    zeros(dimensions) {
+        var array = [];
 
-        if (targetlocation == null) {
-            moves = null;
-        } else if (this.hash(...dest) != this.hash(...targetlocation)) {
-            moves = null;
+        for (var i = 0; i < dimensions[0]; ++i) {
+            array.push(dimensions.length == 1 ? 99999999 : this.zeros(dimensions.slice(1)));
         }
 
-        targetlocation = dest;
+        return array;
+    }
 
-        if (moves != null) {
-            //continue moving in moves
-            var nextmove = this.unhash(moves.pop());
-            this.log("MOVING");
-            this.log([this.me.x, this.me.y]);
-            this.log(nextmove);
-
-            this.move(nextmove - this.me.x, nextmove - this.me.y);
-
-        } else {
-            var moverange = SPECS.UNITS[this.me.unit].SPEED;
-            targetlocation = dest;
-            var tempmoves = [];
+    moveto(dest) {
+        if (!(this.hash(...dest) in dict)) {
+            //run bfs
             var queue = [];
             var visited = [];
-            var backtrace = {};
-            queue.push([this.me.x, this.me.y]);
-            visited.push(this.hash(this.me.x, this.me.y));
+            queue.push(this.hash(...dest));
+            visited.push(this.hash(...dest));
+            var y = this.map.length;
+            var x = this.map[0].length;
+            var distancetodest = this.zeros([x, y]);
             while (queue.length != 0) {
-                var cur = queue.shift();
-                this.log(cur);
-                if (this.hash(...cur) == this.hash(...dest)) {
-                    //reached dest
-                    backtrace[this.hash(...dest)] = this.hash(...cur);
-                    var current = this.hash(...dest);
-                    this.log("CANCER");
-                    while (current in backtrace) {
-                        this.log(current);
-                        tempmoves.push(current);
-                        current = backtrace[current];
-                    }
-                    moves = tempmoves;
-                    this.log("PATHFIND");
-                    this.log([this.me.x, this.me.y]);
-                    this.log(dest);
-                    this.log(moves);
-                    return this.moveto(dest);
-                }
-
-                //iterate all possible moves and add to queue
-                for (var i = cur[0] - Math.sqrt(moverange); i < cur[0] + Math.sqrt(moverange); i++) {
-                    for (var j = cur[1] - Math.sqrt(moverange); j < cur[1] + Math.sqrt(moverange); j++) {
-                        if (visited.includes(this.hash(i, j)) == false && this._bc_check_on_map(i, j) && this.map[j][i] == true && this.distance([i, j], cur) <= moverange) {
-                            queue.push([i, j]);
-                            visited.push(this.hash(i, j));
-                            backtrace[this.hash(i, j)] = this.hash(cur[0], cur[1]);
+                var cur = this.unhash(queue.shift());
+                for (var i = 0; i < alldirs.length; i++) {
+                    var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
+                        if (!(visited.includes(this.hash(...nextloc)))) {
+                            queue.push(this.hash(...nextloc));
+                            visited.push(this.hash(...nextloc));
+                            distancetodest[nextloc[0]][nextloc[1]]  = distancetodest[cur[0]][cur[1]] + 1;
                         }
                     }
                 }
             }
+
+            dict[this.hash(...dest)] = distancetodest;
+            return this.moveto(dest);
+        } else {
+            var smallest = 99999999999;
+            var smallestdir = null;
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                var tempdist = this.distance(nextloc, dest);
+                if (tempdist < smallest && this.getVisibleRobotMap()[nextloc[1]][nextloc[0]] <= 0) {
+                    smallest = tempdist;
+                    smallestdir = alldirs[i];
+                }
+            }
+            this.log("MOVING");
+            this.log([this.me.x, this.me.y]);
+            this.log(smallestdir);
+            return this.move(smallestdir[0], smallestdir[1]);
         }
     }
 
     turn() {
-
 
         if (this.me.unit == SPECS.CASTLE) {
             return this.runCastle();
