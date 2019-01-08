@@ -3,9 +3,10 @@ import {alldirs} from 'constants.js'
 
 export var Prophet = function() {
 	// ranger
+
 	if (target == null) {
         var opposite = this.oppositeCoords([this.me.x, this.me.y]);
-        altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [this.map.length / 2, this.map.length / 2], [this.me.x, this.me.y]];
+        altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [this.me.x, this.me.y]];
         for (var i = 0; i < altTargets.length; i++) {
             if (!this.map[altTargets[i][1]][altTargets[i][0]]) {
                 altTargets.splice(i, 1); //remove impassable tile targets
@@ -20,8 +21,9 @@ export var Prophet = function() {
     for (var i = 0; i < robotsnear.length; i++) {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+
             const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-            if (dist <= 64 && dist >=16) {
+            if (dist <= 64 && dist >= 16) {
                 //adjacent, a t t a c c
                 this.log("attacc");
                 return this.attack(enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y);
@@ -48,14 +50,13 @@ export var Prophet = function() {
             return this.greedyMove(enemyLoc);
         }
     }
-    if (!reachedTarget) {
-        return this.moveto(target);
-    } else {
+    if (reachedTarget) {
         this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
         target = altTargets[targetNum];
-        return;
     }
-    return;
+    
+    return this.moveto(target);
+
 }
