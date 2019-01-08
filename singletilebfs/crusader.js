@@ -13,7 +13,7 @@ export var Crusader = function() {
     //attack if adjacent
     var robotsnear = this.getVisibleRobots();
     for (var i = 0; i < robotsnear.length; i++) {
-        if (robotsnear[i].team != this.me.team) {
+        if (robotsnear[i].isVisible() && robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
             if (this.distance(enemyLoc, [this.me.x, this.me.y]) <= 2) {
                 //adjacent, a t t a c c
