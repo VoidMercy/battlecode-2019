@@ -20,15 +20,15 @@ var dict = {};
 class MyRobot extends BCAbstractRobot {
 
     canBuild(unit) {
-        return this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
+        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
 
     hash(x, y) {
-        return x * 99999 + y;
+        return x * 9999 + y;
     }
 
     unhash(shit) {
-        return [Math.floor(shit / 99999), shit % 99999];
+        return [Math.floor(shit / 9999), shit % 9999];
     }
 
     adjacent(loc1, loc2) {
@@ -42,14 +42,14 @@ class MyRobot extends BCAbstractRobot {
         return (loc1[0] - loc2[0]) * (loc1[0] - loc2[0]) + (loc1[1] - loc2[1]) * (loc1[1] - loc2[1]);
     }
 
-    zeros(dimensions) {
-        var array = [];
+    createarr(width, height) {
+        var x = new Array(width);
 
-        for (var i = 0; i < dimensions[0]; ++i) {
-            array.push(dimensions.length == 1 ? 99999999 : this.zeros(dimensions.slice(1)));
+        for (var i = 0; i < x.length; i++) {
+          x[i] = new Array(height);
         }
 
-        return array;
+        return x;
     }
 
     moveto(dest) {
@@ -57,41 +57,58 @@ class MyRobot extends BCAbstractRobot {
             //run bfs
             var queue = [];
             var visited = [];
-            queue.push(this.hash(...dest));
-            visited.push(this.hash(...dest));
+            queue.push(dest);
             var y = this.map.length;
             var x = this.map[0].length;
-            var distancetodest = this.zeros([x, y]);
+            var starthash = this.hash(this.me.x, this.me.y);
+            var distancetodest = this.createarr(x, y);
+            distancetodest[dest[0]][dest[1]] = 0;
             while (queue.length != 0) {
-                var cur = this.unhash(queue.shift());
+                var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
-                    var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
                     if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
-                        if (!(visited.includes(this.hash(...nextloc)))) {
-                            queue.push(this.hash(...nextloc));
-                            visited.push(this.hash(...nextloc));
-                            distancetodest[nextloc[0]][nextloc[1]]  = distancetodest[cur[0]][cur[1]] + 1;
+                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                            queue.push(nextloc);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
                         }
                     }
                 }
             }
 
             dict[this.hash(...dest)] = distancetodest;
-            return this.moveto(dest);
+            return this._bc_null_action();
         } else {
-            var smallest = 99999999999;
+            // var moveoff = [0, 0];
+            var smallest = null;
             var smallestdir = null;
+            var distancetodest = dict[this.hash(...dest)];
+            // var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            var visible = this.getVisibleRobotMap();
+
+            // do {
+            smallest = 99999999999;
+            smallestdir = null;
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                var tempdist = this.distance(nextloc, dest);
-                if (tempdist < smallest && this.getVisibleRobotMap()[nextloc[1]][nextloc[0]] <= 0) {
-                    smallest = tempdist;
-                    smallestdir = alldirs[i];
+                if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
+                    var tempdist = distancetodest[nextloc[0]][nextloc[1]];
+                    if (tempdist < smallest && visible[nextloc[1]][nextloc[0]] <= 0) {
+                        smallest = tempdist;
+                        smallestdir = alldirs[i];
+                    }
                 }
             }
+                // moveoff[0] += smallestdir[0];
+                // moveoff[1] += smallestdir[1];
+            // } while (this.distance(moveoff, [0, 0]) <= moveradius);
+
+            // moveoff[0] -= smallestdir[0];
+            // moveoff[1] -= smallestdir[1];
+
             this.log("MOVING");
             this.log([this.me.x, this.me.y]);
-            this.log(smallestdir);
+            this.log(smallestdir[1]);
             return this.move(smallestdir[0], smallestdir[1]);
         }
     }
@@ -134,10 +151,12 @@ class MyRobot extends BCAbstractRobot {
                     karblocation = cur;
                     this.log("FOUND KARBONITE");
                     this.log(cur);
+                    return this._bc_null_action();
                     break;
                 }
                 for (var i = 0; i < alldirs.length; i++) {
-                    if (visited.includes(this.hash(cur[0] + alldirs[i][0], cur[1] + alldirs[i][1])) == false) {
+                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                    if (this._bc_check_on_map(...nextloc) && visited.includes(this.hash(...nextloc)) == false) {
                         queue.push([cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]]);
                         visited.push(this.hash(cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]));
                     }
@@ -154,11 +173,13 @@ class MyRobot extends BCAbstractRobot {
                     //move to karbonite location
                     return this.moveto(karblocation);
                 } else {
+                    this.log("TRY BUILDING CHURCH");
                     //build church
                     var robotsnear = this.getVisibleRobotMap();
 
                     for (var i = 0; i < alldirs.length; i++) {
-                        if (robotsnear[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]] == -1) {
+                        var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                        if (robotsnear[nextloc[1]][nextloc[0]] <= 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                             builtchurch = true;
                             this.log("BUILD FUCKING CHURCH");
                             churchloc = [alldirs[i][0] + this.me.x, alldirs[i][1] + this.me.y];
@@ -217,7 +238,8 @@ class MyRobot extends BCAbstractRobot {
             //can produce pilgrim
             var robotsnear = this.getVisibleRobotMap();
             for (var i = 0; i < alldirs.length; i++) {
-                if (robotsnear[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]] == 0) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                     this.log("Created pilgrim");
                     pilgrimcount++;
                     return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][1]);
