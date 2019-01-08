@@ -91,7 +91,7 @@ export var Pilgrim = function(self) {
                 }
             } else {
                 //i gots the drugs, now move to castle and give drugs
-                if (this.adjacent([this.me.x, this.me.y], castleloc)) {
+                if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
                     this.log("GIVING TO CASTLE");
                     return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
                 } else {
