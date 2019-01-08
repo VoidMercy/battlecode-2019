@@ -6,8 +6,7 @@ import { Pilgrim } from 'pilgrim.js'
 import { Prophet } from 'prophet.js'
 import { Preacher } from 'preacher.js'
 
-//moved global vars to their respective file
-var alldirs = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]]
+import {alldirs} from 'constants.js'
 
 var symmetry; //1 is vertical, 0 is horizontal
 
