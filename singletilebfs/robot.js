@@ -67,7 +67,7 @@ class MyRobot extends BCAbstractRobot {
                     if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
-                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
                         }
                     }
                 }
@@ -90,9 +90,14 @@ class MyRobot extends BCAbstractRobot {
                     var nextloc = [this.me.x + moveoff[0] + alldirs[i][0], this.me.y + moveoff[1] + alldirs[i][1]];
                     if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
                         var tempdist = distancetodest[nextloc[0]][nextloc[1]];
-                        if (tempdist < smallest && visible[nextloc[1]][nextloc[0]] <= 0) {
-                            smallest = tempdist;
-                            smallestdir = alldirs[i];
+                        if (visible[nextloc[1]][nextloc[0]] <= 0) {
+                            if (tempdist < smallest) {
+                                smallest = tempdist;
+                                smallestdir = alldirs[i];
+                            } else if (tempdist == smallest && this.distance(dest, nextloc) < this.distance(dest, [this.me.x + moveoff[0] + smallestdir[0], this.me.y + moveoff[1] + smallestdir[1]])) {
+                                smallest = tempdist;
+                                smallestdir = alldirs[i];
+                            }
                         }
                     }
                 }

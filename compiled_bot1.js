@@ -1,6 +1,6 @@
 'use strict';
 
-var SPECS = {"COMMUNICATION_BITS":16,"CASTLE_TALK_BITS":8,"MAX_ROUNDS":1000,"TRICKLE_FUEL":25,"INITIAL_KARBONITE":100,"INITIAL_FUEL":500,"MINE_FUEL_COST":1,"KARBONITE_YIELD":2,"FUEL_YIELD":10,"MAX_TRADE":1024,"MAX_BOARD_SIZE":64,"MAX_ID":4096,"CASTLE":0,"CHURCH":1,"PILGRIM":2,"CRUSADER":3,"PROPHET":4,"PREACHER":5,"RED":0,"BLUE":1,"CHESS_INITIAL":100,"CHESS_EXTRA":20,"UNITS":[{"CONSTRUCTION_KARBONITE":null,"CONSTRUCTION_FUEL":null,"KARBONITE_CAPACITY":null,"FUEL_CAPACITY":null,"SPEED":0,"FUEL_PER_MOVE":null,"STARTING_HP":100,"VISION_RADIUS":10,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":50,"CONSTRUCTION_FUEL":200,"KARBONITE_CAPACITY":null,"FUEL_CAPACITY":null,"SPEED":0,"FUEL_PER_MOVE":null,"STARTING_HP":50,"VISION_RADIUS":10,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":10,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":1,"STARTING_HP":10,"VISION_RADIUS":10,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":20,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":9,"FUEL_PER_MOVE":1,"STARTING_HP":40,"VISION_RADIUS":6,"ATTACK_DAMAGE":10,"ATTACK_RADIUS":[1,4],"ATTACK_FUEL_COST":10,"DAMAGE_SPREAD":0},{"CONSTRUCTION_KARBONITE":25,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":2,"STARTING_HP":20,"VISION_RADIUS":8,"ATTACK_DAMAGE":10,"ATTACK_RADIUS":[4,8],"ATTACK_FUEL_COST":25,"DAMAGE_SPREAD":0},{"CONSTRUCTION_KARBONITE":30,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":3,"STARTING_HP":60,"VISION_RADIUS":4,"ATTACK_DAMAGE":20,"ATTACK_RADIUS":[1,4],"ATTACK_FUEL_COST":15,"DAMAGE_SPREAD":9}]};
+var SPECS = {"COMMUNICATION_BITS":16,"CASTLE_TALK_BITS":8,"MAX_ROUNDS":1000,"TRICKLE_FUEL":25,"INITIAL_KARBONITE":100,"INITIAL_FUEL":500,"MINE_FUEL_COST":1,"KARBONITE_YIELD":2,"FUEL_YIELD":10,"MAX_TRADE":1024,"MAX_BOARD_SIZE":64,"MAX_ID":4096,"CASTLE":0,"CHURCH":1,"PILGRIM":2,"CRUSADER":3,"PROPHET":4,"PREACHER":5,"RED":0,"BLUE":1,"CHESS_INITIAL":100,"CHESS_EXTRA":20,"UNITS":[{"CONSTRUCTION_KARBONITE":null,"CONSTRUCTION_FUEL":null,"KARBONITE_CAPACITY":null,"FUEL_CAPACITY":null,"SPEED":0,"FUEL_PER_MOVE":null,"STARTING_HP":100,"VISION_RADIUS":100,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":50,"CONSTRUCTION_FUEL":200,"KARBONITE_CAPACITY":null,"FUEL_CAPACITY":null,"SPEED":0,"FUEL_PER_MOVE":null,"STARTING_HP":50,"VISION_RADIUS":100,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":10,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":1,"STARTING_HP":10,"VISION_RADIUS":100,"ATTACK_DAMAGE":null,"ATTACK_RADIUS":null,"ATTACK_FUEL_COST":null,"DAMAGE_SPREAD":null},{"CONSTRUCTION_KARBONITE":20,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":9,"FUEL_PER_MOVE":1,"STARTING_HP":40,"VISION_RADIUS":36,"ATTACK_DAMAGE":10,"ATTACK_RADIUS":[1,4],"ATTACK_FUEL_COST":10,"DAMAGE_SPREAD":0},{"CONSTRUCTION_KARBONITE":25,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":2,"STARTING_HP":20,"VISION_RADIUS":64,"ATTACK_DAMAGE":10,"ATTACK_RADIUS":[4,8],"ATTACK_FUEL_COST":25,"DAMAGE_SPREAD":0},{"CONSTRUCTION_KARBONITE":30,"CONSTRUCTION_FUEL":50,"KARBONITE_CAPACITY":20,"FUEL_CAPACITY":100,"SPEED":4,"FUEL_PER_MOVE":3,"STARTING_HP":60,"VISION_RADIUS":16,"ATTACK_DAMAGE":20,"ATTACK_RADIUS":[1,4],"ATTACK_FUEL_COST":15,"DAMAGE_SPREAD":3}]};
 
 function insulate(content) {
     return JSON.parse(JSON.stringify(content));
@@ -249,137 +249,61 @@ class BCAbstractRobot {
     }
 }
 
+var x = 0;
+
+var Crusader = function() {
+    this.log("Crusader counter: " + x++);
+    this.log("Crusader health: " + this.me.health);
+    const choices = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+    const choice = choices[Math.floor(Math.random()*choices.length)];
+    return this.move(...choice);
+};
+
 //all variables
-var alldirs = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+var alldirs$1 = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
 
 //castle variables
 var pilgrimcount = 0;
+
+var Castle = function() {
+    if (this.canBuild(SPECS.PILGRIM) && pilgrimcount < 1) {
+            //can produce pilgrim
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs$1.length; i++) {
+                var nextloc = [this.me.x + alldirs$1[i][0], this.me.y + alldirs$1[i][1]];
+                if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    this.log("Created pilgrim");
+                    pilgrimcount++;
+                    return this.buildUnit(SPECS.PILGRIM, alldirs$1[i][0], alldirs$1[i][1]);
+                }
+            }
+        }
+};
+
+var Church = function() {
+    return;
+};
+
+//all variables
+var alldirs$3 = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
 
 //pilgrim variables
 var karblocation = null;
 var builtchurch = false;
 var churchloc = null;
 var castleloc = null;
-var dict = {};
 
-class MyRobot extends BCAbstractRobot {
-
-    canBuild(unit) {
-        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.fuel > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
-    }
-
-    hash(x, y) {
-        return x * 9999 + y;
-    }
-
-    unhash(shit) {
-        return [Math.floor(shit / 9999), shit % 9999];
-    }
-
-    adjacent(loc1, loc2) {
-        if (Math.abs(loc1[0] - loc2[0]) + Math.abs(loc1[1] - loc2[1]) > 2) {
-            return false;
-        }
-        return true;
-    }
-
-    distance(loc1, loc2) {
-        return (loc1[0] - loc2[0]) * (loc1[0] - loc2[0]) + (loc1[1] - loc2[1]) * (loc1[1] - loc2[1]);
-    }
-
-    createarr(width, height) {
-        var x = new Array(width);
-
-        for (var i = 0; i < x.length; i++) {
-          x[i] = new Array(height);
-        }
-
-        return x;
-    }
-
-    moveto(dest) {
-        if (!(this.hash(...dest) in dict)) {
-            //run bfs
-            var queue = [];
-            queue.push(dest);
-            var y = this.map.length;
-            var x = this.map[0].length;
-            var starthash = this.hash(this.me.x, this.me.y);
-            var distancetodest = this.createarr(x, y);
-            distancetodest[dest[0]][dest[1]] = 0;
-            while (queue.length != 0) {
-                var cur = queue.shift();
-                for (var i = 0; i < alldirs.length; i++) {
-                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
-                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
-                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
-                            queue.push(nextloc);
-                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
-                        }
-                    }
-                }
-            }
-
-            dict[this.hash(...dest)] = distancetodest;
-            return this._bc_null_action();
-        } else {
-            // var moveoff = [0, 0];
-            var smallest = null;
-            var smallestdir = null;
-            var distancetodest = dict[this.hash(...dest)];
-            // var moveradius = SPECS.UNITS[this.me.unit].SPEED;
-            var visible = this.getVisibleRobotMap();
-
-            // do {
-            smallest = 99999999999;
-            smallestdir = null;
-            for (var i = 0; i < alldirs.length; i++) {
-                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
-                    var tempdist = distancetodest[nextloc[0]][nextloc[1]];
-                    if (tempdist < smallest && visible[nextloc[1]][nextloc[0]] <= 0) {
-                        smallest = tempdist;
-                        smallestdir = alldirs[i];
-                    }
-                }
-            }
-                // moveoff[0] += smallestdir[0];
-                // moveoff[1] += smallestdir[1];
-            // } while (this.distance(moveoff, [0, 0]) <= moveradius);
-
-            // moveoff[0] -= smallestdir[0];
-            // moveoff[1] -= smallestdir[1];
-
-            this.log("MOVING");
-            this.log([this.me.x, this.me.y]);
-            this.log(smallestdir[1]);
-            return this.move(smallestdir[0], smallestdir[1]);
-        }
-    }
-
-    turn() {
-
-        if (this.me.unit == SPECS.CASTLE) {
-            return this.runCastle();
-        } else if (this.me.unit == SPECS.PILGRIM) {
-            return this.runPilgrim();
-        }
-
-    }
-
-    runPilgrim() {
-        if (castleloc == null) {
+var Pilgrim = function(self) {
+    if (castleloc == null) {
             //find the castle i was spawned from
             var tempmap = this.getVisibleRobotMap();
-            if (tempmap == undefined) {
-                this.log("WTF API??");
-            }
-            for (var i = 0; i < alldirs.length; i++) {
-                var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
+            for (var i = 0; i < alldirs$3.length; i++) {
+                var tempid = tempmap[this.me.y + alldirs$3[i][1]][this.me.x + alldirs$3[i][0]];
                 if (tempid > 0) {
-                    var robottype = this.getRobot(tempid);
+                    var robottype = this.getRobot(tempid).unit;
                     if (robottype == SPECS.CASTLE) {
-                        castleloc = [this.me.x + alldirs[i][0]][this.me.y + alldirs[i][1]];
+                        this.log("FOUND CASTLE");
+                        castleloc = [this.me.x + alldirs$3[i][0], this.me.y + alldirs$3[i][1]];
                         break;
                     }
                 }
@@ -401,11 +325,11 @@ class MyRobot extends BCAbstractRobot {
                     return this._bc_null_action();
                     break;
                 }
-                for (var i = 0; i < alldirs.length; i++) {
-                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                for (var i = 0; i < alldirs$3.length; i++) {
+                    var nextloc = [cur[0] + alldirs$3[i][0], cur[1] + alldirs$3[i][1]];
                     if (this._bc_check_on_map(...nextloc) && visited.includes(this.hash(...nextloc)) == false) {
-                        queue.push([cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]]);
-                        visited.push(this.hash(cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]));
+                        queue.push([cur[0] + alldirs$3[i][0], cur[1] + alldirs$3[i][1]]);
+                        visited.push(this.hash(cur[0] + alldirs$3[i][0], cur[1] + alldirs$3[i][1]));
                     }
                 }
             }
@@ -424,14 +348,14 @@ class MyRobot extends BCAbstractRobot {
                     //build church
                     var robotsnear = this.getVisibleRobotMap();
 
-                    for (var i = 0; i < alldirs.length; i++) {
-                        var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                    for (var i = 0; i < alldirs$3.length; i++) {
+                        var nextloc = [this.me.x + alldirs$3[i][0], this.me.y + alldirs$3[i][1]];
                         if (robotsnear[nextloc[1]][nextloc[0]] <= 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                             builtchurch = true;
                             this.log("BUILD FUCKING CHURCH");
-                            churchloc = [alldirs[i][0] + this.me.x, alldirs[i][1] + this.me.y];
+                            churchloc = [alldirs$3[i][0] + this.me.x, alldirs$3[i][1] + this.me.y];
                             this.log(churchloc);
-                            return this.buildUnit(SPECS.CHURCH, alldirs[i][0], alldirs[i][1]);
+                            return this.buildUnit(SPECS.CHURCH, alldirs$3[i][0], alldirs$3[i][1]);
                         }
                     }
                 }
@@ -478,22 +402,148 @@ class MyRobot extends BCAbstractRobot {
             }
             
         }
+    return;
+};
+
+var Prophet = function() {
+    return;
+};
+
+var Preacher = function() {
+    return;
+};
+
+//moved global vars to their respective file
+var alldirs$6 = [[0,-1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+var dict = {};
+
+class MyRobot extends BCAbstractRobot {
+
+    canBuild(unit) {
+        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.karbonite > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
 
-    runCastle() {
-        if (this.canBuild(SPECS.PILGRIM) && pilgrimcount < 1) {
-            //can produce pilgrim
-            var robotsnear = this.getVisibleRobotMap();
-            for (var i = 0; i < alldirs.length; i++) {
-                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-                    this.log("Created pilgrim");
-                    pilgrimcount++;
-                    return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][1]);
+    hash(x, y) {
+        return x * 9999 + y;
+    }
+
+    unhash(shit) {
+        return [Math.floor(shit / 9999), shit % 9999];
+    }
+
+    adjacent(loc1, loc2) {
+        if (Math.abs(loc1[0] - loc2[0]) + Math.abs(loc1[1] - loc2[1]) > 2) {
+            return false;
+        }
+        return true;
+    }
+
+    distance(loc1, loc2) {
+        return (loc1[0] - loc2[0]) * (loc1[0] - loc2[0]) + (loc1[1] - loc2[1]) * (loc1[1] - loc2[1]);
+    }
+
+    createarr(width, height) {
+        var x = new Array(width);
+
+        for (var i = 0; i < x.length; i++) {
+          x[i] = new Array(height);
+        }
+
+        return x;
+    }
+
+    moveto(dest) {
+        if (!(this.hash(...dest) in dict)) {
+            //run bfs
+            var queue = [];
+            queue.push(dest);
+            var y = this.map.length;
+            var x = this.map[0].length;
+            var starthash = this.hash(this.me.x, this.me.y);
+            var distancetodest = this.createarr(x, y);
+            distancetodest[dest[0]][dest[1]] = 0;
+            while (queue.length != 0) {
+                var cur = queue.shift();
+                for (var i = 0; i < alldirs$6.length; i++) {
+                    var nextloc = [cur[0] + alldirs$6[i][0], cur[1] + alldirs$6[i][1]];
+                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] == true) {
+                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                            queue.push(nextloc);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                        }
+                    }
                 }
             }
+
+            dict[this.hash(...dest)] = distancetodest;
+            return this._bc_null_action();
+        } else {
+            var moveoff = [0, 0];
+            var smallest = 99999999999;
+            var smallestdir = null;
+            var distancetodest = dict[this.hash(...dest)];
+            var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            var visible = this.getVisibleRobotMap();
+
+            while (1 == 1) {
+                smallest = 99999999999;
+                smallestdir = null;
+                for (var i = 0; i < alldirs$6.length; i++) {
+                    var nextloc = [this.me.x + moveoff[0] + alldirs$6[i][0], this.me.y + moveoff[1] + alldirs$6[i][1]];
+                    if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
+                        var tempdist = distancetodest[nextloc[0]][nextloc[1]];
+                        if (visible[nextloc[1]][nextloc[0]] <= 0) {
+                            if (tempdist < smallest) {
+                                smallest = tempdist;
+                                smallestdir = alldirs$6[i];
+                            } else if (tempdist == smallest && this.distance(dest, nextloc) < this.distance(dest, [this.me.x + moveoff[0] + smallestdir[0], this.me.y + moveoff[1] + smallestdir[1]])) {
+                                smallest = tempdist;
+                                smallestdir = alldirs$6[i];
+                            }
+                        }
+                    }
+                }
+                if (this.distance([moveoff[0] + smallestdir[0], moveoff[1] + smallestdir[1]], [0, 0]) <= moveradius) {
+                    moveoff[0] += smallestdir[0];
+                    moveoff[1] += smallestdir[1];
+                    if (smallest == 0) {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            this.log("MOVING");
+            this.log([this.me.x, this.me.y]);
+            this.log(moveoff);
+            return this.move(moveoff[0], moveoff[1]);
         }
     }
+
+    turn() {
+
+        if (this.me.unit === SPECS.CRUSADER) {
+            return Crusader.call(this);
+        }
+        else if (this.me.unit === SPECS.CASTLE) {
+            return Castle.call(this);
+        }
+        else if (this.me.unit === SPECS.CHURCH) {
+            return Church.call(this);
+        }
+        else if (this.me.unit === SPECS.PILGRIM) {
+            return Pilgrim.call(this);
+        }
+        else if (this.me.unit === SPECS.PROPHET) {
+            return Prophet.call(this);
+        }
+        else if (this.me.unit === SPECS.PREACHER) {
+            return Preacher.call(this);
+        }
+
+    }
+
 }
 
 var robot = new MyRobot();
