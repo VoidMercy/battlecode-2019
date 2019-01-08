@@ -51,6 +51,7 @@ class MyRobot extends BCAbstractRobot {
 
     moveto(dest) {
         if (!(this.hash(...dest) in dict)) {
+            this.log("START BFS");
             //run bfs
             var queue = [];
             var visited = [];
@@ -74,6 +75,7 @@ class MyRobot extends BCAbstractRobot {
             }
 
             dict[this.hash(...dest)] = distancetodest;
+            this.log("BFS DONE");
             return this._bc_null_action();
         } else {
             var moveoff = [0, 0];
