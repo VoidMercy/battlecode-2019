@@ -16,6 +16,30 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    arraysEqual(arr1, arr2) {
+        if(arr1.length !== arr2.length)
+            return false;
+        for(var i = arr1.length; i--;) {
+            if(arr1[i] !== arr2[i])
+                return false;
+        }
+
+        return true;
+    }
+
+    symmetricType() {
+        // determine if map is horizontally or vertically symmetric
+        const ysize = this.map.length;
+        for (var i=0; i < ysize/2; i++) {
+            if (!arraysEqual(this.map[i], this.map[ysize-i-1])) {
+                // row is not equal to corresponding row, must be vertically(?) symmetric
+                return 1;
+            }
+        }
+        return 0;
+
+    }
+
     validCoords(loc) {
         var xsize = this.map[0].length; //should be square but justin case
         var ysize = this.map.length;
