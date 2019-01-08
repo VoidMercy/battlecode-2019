@@ -135,51 +135,34 @@ class MyRobot extends BCAbstractRobot {
 
             dict[this.hash(...dest)] = distancetodest;
             this.log("BFS DONE");
-            return this._bc_null_action();
+            return this.moveto(dest);
         } else {
-            var moveoff = [0, 0];
-            var smallest = 99999999999;
-            var smallestdir = null;
-            var distancetodest = dict[this.hash(...dest)];
+
             var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            var distancetodest = dict[this.hash(...dest)];
+            var smallest = distancetodest[this.me.x][this.me.y];
+            var smallestcoord = [this.me.x, this.me.y];
             var visible = this.getVisibleRobotMap();
 
-            while (1 == 1) {
-                smallest = 99999999999;
-                smallestdir = null;
-                for (var i = 0; i < alldirs.length; i++) {
-                    var nextloc = [this.me.x + moveoff[0] + alldirs[i][0], this.me.y + moveoff[1] + alldirs[i][1]];
-                    if (this.validCoords(nextloc) && distancetodest[nextloc[0]][nextloc[1]] != undefined) {
-                        var tempdist = distancetodest[nextloc[0]][nextloc[1]];
-                        if (visible[nextloc[1]][nextloc[0]] == 0) {
-                            if (tempdist < smallest) {
-                                smallest = tempdist;
-                                smallestdir = alldirs[i];
-                            } else if (tempdist == smallest && this.distance(dest, nextloc) < this.distance(dest, [this.me.x + moveoff[0] + smallestdir[0], this.me.y + moveoff[1] + smallestdir[1]])) {
-                                smallest = tempdist;
-                                smallestdir = alldirs[i];
-                            }
+            for (var i = this.me.x - Math.sqrt(moveradius); i < this.me.x + Math.sqrt(moveradius); i++) {
+                for (var j = this.me.y - Math.sqrt(moveradius); j < this.me.y + Math.sqrt(moveradius); j++) {
+                    if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && visible[j][i] == 0 && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                        if (distancetodest[i][j] < smallest) {
+                            smallest = distancetodest[i][j];
+                            smallestcoord = [i, j];
+                        } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
+                            smallest = distancetodest[i][j];
+                            smallestcoord = [i, j];
                         }
                     }
                 }
-                if (smallestdir == null) {
-                    break;
-                }
-                if (this.distance([moveoff[0] + smallestdir[0], moveoff[1] + smallestdir[1]], [0, 0]) <= moveradius) {
-                    moveoff[0] += smallestdir[0];
-                    moveoff[1] += smallestdir[1];
-                    if (smallest == 0) {
-                        break;
-                    }
-                } else {
-                    break;
-                }
             }
+            
 
             this.log("MOVING");
             this.log([this.me.x, this.me.y]);
-            this.log(moveoff);
-            return this.move(moveoff[0], moveoff[1]);
+            this.log(smallestcoord);
+            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
         }
     }
 

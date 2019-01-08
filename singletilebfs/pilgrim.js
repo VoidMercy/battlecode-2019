@@ -38,7 +38,6 @@ export var Pilgrim = function(self) {
                 karblocation = cur;
                 this.log("FOUND KARBONITE");
                 this.log(cur);
-                return this._bc_null_action();
                 break;
             }
             for (var i = 0; i < alldirs.length; i++) {
