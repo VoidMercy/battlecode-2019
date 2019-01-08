@@ -32,6 +32,16 @@ export var Prophet = function() {
     for (var i = 0; i < robotsnear.length; i++) {
         if (robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+            if (this.distance(enemyLoc, [this.me.x, this.me.y]) < 16) {
+	            this.log("run away");
+	            return this.greedyMoveAway(enemyLoc);
+            }
+        }
+    }
+
+    for (var i = 0; i < robotsnear.length; i++) {
+        if (robotsnear[i].team != this.me.team) {
+            var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
             //enemy team, chase!!!
             //picks first enemy in list
             this.log("Chase the enemy!");

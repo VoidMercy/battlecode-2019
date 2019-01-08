@@ -34,6 +34,21 @@ class MyRobot extends BCAbstractRobot {
         return this.move(minDir[0], minDir[1]);
     }
 
+    greedyMoveAway(dest) {
+        var maxVal = -1;
+        var maxDir = null;
+        for (var i = 0; i < alldirs.length; i++) {
+            const newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            const dist = this.distance(newloc, dest);
+            const visMap = this.getVisibleRobotMap();
+            if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist > maxVal) {
+                maxVal = dist;
+                maxDir = alldirs[i];
+            }
+        }
+        return this.move(minDir[0], minDir[1]);
+    }
+
     oppositeCoords(loc) {
         //TODO: only switch one of the coords based on determined symmetry
         var size = this.map.length;
