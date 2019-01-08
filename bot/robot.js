@@ -54,7 +54,7 @@ class MyRobot extends BCAbstractRobot {
                 //can produce pilgrim
                 var robotsnear = this.getVisibleRobotMap();
                 for (var i = 0; i < alldirs.length; i++) {
-                    if (robotsnear[this.me.x + alldirs[i][0]][this.me.y + alldirs[i][0]] == -1) {
+                    if (robotsnear[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]] == 0) {
                         this.log("Created pilgrim");
                         pilgrimcount++;
                         return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][1]);
@@ -113,7 +113,8 @@ class MyRobot extends BCAbstractRobot {
                         if (robotsnear[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]] != -1) {
                             builtchurch = true;
                             this.log("BUILD FUCKING CHURCH");
-                            churchloc = [alldirs[i][0], alldirs[i][1]];
+                            churchloc = [alldirs[i][0] + this.me.x, alldirs[i][1] + this.me.y];
+                            this.log(churchloc);
                             return this.buildUnit(SPECS.CHURCH, alldirs[i][0], alldirs[i][1]);
                         }
                     }
@@ -132,7 +133,7 @@ class MyRobot extends BCAbstractRobot {
                         }
                     } else {
                         //i gots the drugs, not move to castle and give drugs
-                        if (adjacent([this.me.x, this.me.y], castleloc)) {
+                        if (this.adjacent([this.me.x, this.me.y], castleloc)) {
                             this.log("GIVING TO CASTLE");
                             return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
                         } else {
@@ -142,13 +143,16 @@ class MyRobot extends BCAbstractRobot {
                     }
                 }
             } else {
-                if (adjacent([this.me.x, this.me.y], karblocation)) {
+                if (this.adjacent([this.me.x, this.me.y], karblocation)) {
                     //mine shit
                     if (this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY) {
                         this.log("FUCKING MINE");
                         return this.mine();
                     } else {
                         this.log("GIVE CHURCH KARB SHIT");
+                        this.log(churchloc);
+                        this.log(this.me.x);
+                        this.log(this.me.y);
                         return this.give(churchloc[0] - this.me.x, churchloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
                     }
                 } else {
