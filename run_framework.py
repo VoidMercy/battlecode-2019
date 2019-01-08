@@ -16,6 +16,7 @@ exclude = "asdf asdfg"
 excludelist = exclude.split(' ')
 
 direc = sys.argv[1]
+print(direc)
 for x in glob.glob('*/'):
     if (x not in excludelist) and os.path.isfile(x + 'robot.js'):
         # works
@@ -23,8 +24,10 @@ for x in glob.glob('*/'):
         wins = 0
         for i in range(best_of):
             s = subprocess.check_output(["bc19run", "-r", direc, "-b", x]).strip().split('\n')[-1]
-            if " red " in s:
+            if " red won " in s or "Blue failed to initialize":
                 wins += 1
+            elif " blue won " not in s:
+                print("weird error occurred: %s"%(s))
 
         print("bot %s won %d/%d games against %s."%(direc,wins,best_of,x))
 
