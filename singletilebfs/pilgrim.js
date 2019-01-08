@@ -30,8 +30,9 @@ export var Pilgrim = function(self) {
     var robotsnear = this.getVisibleRobotMap();
 
     if (karblocation != null) {
-        if (robotsnear[karblocation[1]][karblocation[0]] > 0) {
-            blacklistkarb.push(this.hash(karblocation));
+        if ((this.me.x != karblocation[0] || this.me.y != karblocation[1]) && robotsnear[karblocation[1]][karblocation[0]] > 0) {
+            this.log("OCCUPIED KARBONITE SQUARE");
+            blacklistkarb.push(this.hash(...karblocation));
             karblocation = null;
         }
     }
