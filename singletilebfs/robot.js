@@ -92,7 +92,7 @@ class MyRobot extends BCAbstractRobot {
                     var nextloc = [this.me.x + moveoff[0] + alldirs[i][0], this.me.y + moveoff[1] + alldirs[i][1]];
                     if (distancetodest[nextloc[0]][nextloc[1]] != undefined) {
                         var tempdist = distancetodest[nextloc[0]][nextloc[1]];
-                        if (visible[nextloc[1]][nextloc[0]] <= 0) {
+                        if (visible[nextloc[1]][nextloc[0]] == 0) {
                             if (tempdist < smallest) {
                                 smallest = tempdist;
                                 smallestdir = alldirs[i];
@@ -102,6 +102,9 @@ class MyRobot extends BCAbstractRobot {
                             }
                         }
                     }
+                }
+                if (smallestdir == null) {
+                    break;
                 }
                 if (this.distance([moveoff[0] + smallestdir[0], moveoff[1] + smallestdir[1]], [0, 0]) <= moveradius) {
                     moveoff[0] += smallestdir[0];
