@@ -60,7 +60,7 @@ class MyRobot extends BCAbstractRobot {
                 maxDir = alldirs[i];
             }
         }
-        return this.move(minDir[0], minDir[1]);
+        return this.move(maxDir[0], maxDir[1]);
     }
 
     oppositeCoords(loc) {
