@@ -9,8 +9,8 @@ if len(sys.argv) != 2:
     print(docstr)
     exit()
 
-best_of = 1
-exclude = "asdf asdfg"
+best_of = 5
+exclude = "sample_bot/ crusaderspam/"
 
 
 excludelist = exclude.split(' ')
@@ -18,7 +18,7 @@ excludelist = exclude.split(' ')
 direc = sys.argv[1]
 print(direc)
 for x in glob.glob('*/'):
-    if (x not in excludelist) and os.path.isfile(x + 'robot.js'):
+    if (x in excludelist) and os.path.isfile(x + 'robot.js'):
         # works
         print("Testing %s"%x)
         wins = 0
