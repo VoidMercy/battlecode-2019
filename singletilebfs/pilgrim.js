@@ -131,7 +131,13 @@ export var Pilgrim = function(self) {
     } else {
         if (this.adjacent([this.me.x, this.me.y], karblocation)) {
             //mine shit
-            if (this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY) {
+            var check = null;
+            if (karbfuel == 0) {
+                check = this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY;
+            } else {
+                check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
+            }
+            if (check) {
                 this.log("FUCKING MINE");
                 return this.mine();
             } else {
