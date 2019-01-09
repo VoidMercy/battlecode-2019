@@ -33,7 +33,7 @@ export var Prophet = function() {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
 
                 const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                if (dist <= 64 && dist >= 16) {
+                if (dist <= SPECS.UNITS[this.me.unit].ATTACK_RADIUS[1] && dist >= SPECS.UNITS[this.me.unit].ATTACK_RADIUS[0]) {
                     //adjacent, a t t a c c
                     this.log("attacc");
                     return this.attack(enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y);
@@ -44,7 +44,7 @@ export var Prophet = function() {
         for (var i = 0; i < robotsnear.length; i++) {
             if (robotsnear[i].team != this.me.team) {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
-                if (this.distance(enemyLoc, [this.me.x, this.me.y]) < 16) {
+                if (this.distance(enemyLoc, [this.me.x, this.me.y]) < SPECS.UNITS[this.me.unit].ATTACK_RADIUS[0]) {
                     this.log("run away");
                     return this.greedyMoveAway(enemyLoc);
                 }

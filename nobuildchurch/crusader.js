@@ -35,8 +35,8 @@ export var Crusader = function() {
     for (var i = 0; i < robotsnear.length; i++) {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
-            if ((this.distance(enemyLoc, [this.me.x, this.me.y]) <= 16 && robotsnear[i].unit != SPECS.PROPHET) || 
-                (this.distance(enemyLoc, [this.me.x, this.me.y]) < 16)) { //if on boundary of prophets, dont attack and instead move into no attack zone
+            if ((this.distance(enemyLoc, [this.me.x, this.me.y]) <= SPECS.UNITS[this.me.unit].ATTACK_RADIUS[1] && robotsnear[i].unit != SPECS.PROPHET) || 
+                (this.distance(enemyLoc, [this.me.x, this.me.y]) < SPECS.UNITS[this.me.unit].ATTACK_RADIUS[1])) { //if on boundary of prophets, dont attack and instead move into no attack zone
                 if (maxValue < unitVals[robotsnear[i].unit]) {
                     toAttack = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
                     maxValue = unitVals[robotsnear[i].unit];
