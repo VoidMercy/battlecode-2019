@@ -4,7 +4,7 @@ import {alldirs} from 'constants.js'
 export var Prophet = function() {
 	// ranger
 
-	var offenseFlag = 0;
+	var offenseFlag = 1;
 	// defend if 0, attack if 1
 
 	if (offenseFlag == 1) {
