@@ -17,12 +17,45 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    generateInitialPosSignalVal(relDest) {
+        //protocol specs
+        //lsb 3 bits are used for what type of signal
+        //rn "7" denotes starting pos
+        //for starting pos, msb 6 bits will be dx, next msb 6 bits with be dy relative to position of church
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 6;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 32; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        ret = ret << 4; //shift to align bits
+        ret += 7; //lsb 3 bits
+        return ret;
+    }
+
+    decodeSignal(signal) {
+        if (signal % 8 == 7) {
+            //initial pos signal
+            var ret = [signal >> 10,(signal >> 4) % 64];
+            for (var i = 0; i < 2; i++) {
+                if (ret[i] >= 32) {
+                    ret[i] -= 32;
+                    ret[i] = ret[i] * -1;
+                }
+            }
+            return ret;
+        }
+    }
+
     build(unittype) {
         if (this.canBuild(unittype)) {
             var robotsnear = this.getVisibleRobotMap();
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-                if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                     //this.log("Create unit!");
                     return this.buildUnit(unittype, alldirs[i][0], alldirs[i][1]);
                 }

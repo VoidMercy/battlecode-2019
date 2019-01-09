@@ -5,17 +5,56 @@ var target = null;
 var reachedTarget = false;
 var altTargets;
 var targetNum = 0;
+var castleLoc = null;
 
 export var Prophet = function() {
 	// ranger
 
-    var offenseFlag = 1;
+    var offenseFlag = 0;
     // defend if 0, attack if 1
+
+    if (this.me.turn == 1) {
+        //first turn, find location of church/castle and obtain initial pos
+        var tempmap = this.getVisibleRobotMap();
+        for (var i = 0; i < alldirs.length; i++) {
+            var nextLoc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
+            if (this.validCoords(nextLoc) && tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
+               (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
+                //church/castle i spawned on
+                castleLoc = nextLoc;
+                break;
+            }
+        }
+        this.log(castleLoc);
+    }
+    var tempmap = this.getVisibleRobotMap();
+    var robot = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
+    if (robot.signal != -1) {
+        this.log("SIGNAL");
+        this.log(this.me.turn);
+        this.log(robot.signal);
+    }
+    /*if (this.me.turn == 2) {
+        var tempmap = this.getVisibleRobotMap();
+        var robot = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
+        if (robot.signal != -1) {
+            this.log("SIGNAL");
+            this.log(robot.signal);
+            var relStartPos = this.decodeSignal(robot.signal);
+            target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
+            this.log("Received: ");
+            this.log(relStartPos);
+        } else {
+            this.log("NO SIGNAL!");
+        }
+    }*/
 
     if (offenseFlag == 1) {
         // offensive ranger code
         if (target == null) {
             var opposite = this.oppositeCoords([this.me.x, this.me.y]);
+            //todo: use comms to get enemy castle locations
             altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-8], [this.map.length-8, this.map.length-8], [this.map.length-8, 0], [this.me.x, this.me.y]];
             for (var i = 0; i < altTargets.length; i++) {
                 if (this.validCoords([altTargets[i][0], altTargets[i][1]]) && !this.map[altTargets[i][1]][altTargets[i][0]]) {

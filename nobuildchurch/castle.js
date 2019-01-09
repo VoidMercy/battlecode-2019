@@ -1,11 +1,12 @@
 import {SPECS} from 'battlecode';
-import {alldirs} from 'constants.js'
+import {alldirs, range10} from 'constants.js'
 
 //castle variables
 var pilgrimcount = 0;
 var underattack = false;
 var karbonite_patches = 0;
 var fuel_patches = 0;
+var directionIndex = 0; //used for assigning where units go
 
 export var Castle = function() {
 
@@ -48,6 +49,13 @@ export var Castle = function() {
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.build(SPECS.PROPHET);
             if (result != null) {
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[directionIndex]);
+                this.log("sent: ");
+                this.log(range10[directionIndex]);
+                this.log(signal);
+                directionIndex++;
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return result;
             }
         }
