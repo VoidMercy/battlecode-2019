@@ -40,7 +40,11 @@ export var Pilgrim = function(self) {
         }
     }
 
-    if (karblocation == null) {
+    var pass = false;
+    while (karblocation == null) {
+        if (pass) {
+            blacklistkarb = [];
+        }
         //find closest karbonite
         var queue = [];
         var visited = [];
@@ -72,6 +76,7 @@ export var Pilgrim = function(self) {
                 }
             }
         }
+        pass = true;
     }
 
 

@@ -108,7 +108,7 @@ export var Castle = function() {
         underattack = true;
     }
     
-    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 3 + fuel_patches / 3 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2))) {
+    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 3 + fuel_patches / 3 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3))) {
         //can produce pilgrim
         var robotsnear = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {
