@@ -6,7 +6,7 @@ var pilgrimcount = 0;
 var underattack = false;
 var karbonite_patches = 0;
 var fuel_patches = 0;
-var directionIndex = 0; //used for assigning where units go
+var usedDefensePositions = []; //used for assigning where units go
 
 export var Castle = function() {
 
@@ -28,10 +28,17 @@ export var Castle = function() {
     var friendlies = [0, 0, 0, 0, 0, 0];
     var defense_units = [0, 0, 0, 0, 0, 0];
     var defense_robots = [];
+    var minDist = 9999999;
+    var closestEnemy;
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
             numenemy[robot.unit]++;
+            var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
+            if (dist < minDist) {
+                minDist = dist;
+                closestEnemy = robot;
+            }
         } else {
             friendlies[robot.unit]++;
             if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
@@ -49,12 +56,21 @@ export var Castle = function() {
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.build(SPECS.PROPHET);
             if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
                 //send signal for starting pos
-                var signal = this.generateInitialPosSignalVal(range10[directionIndex]);
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
                 this.log("sent: ");
-                this.log(range10[directionIndex]);
+                this.log(range10[bestIndex]);
                 this.log(signal);
-                directionIndex++;
+                usedDefensePositions.push(bestIndex);
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return result;
             }
