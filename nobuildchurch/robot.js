@@ -225,6 +225,9 @@ class MyRobot extends BCAbstractRobot {
             //this.log("MOVING");
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
+            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+                return this._bc_null_action();
+            }
             return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
         }
     }
