@@ -13,7 +13,7 @@ export var Prophet = function() {
             }
         }
         target = altTargets[targetNum];
-	} else if (target[0] == this.me.x && target[1] == this.me.y) {
+	} else if (this.distance(target, [this.me.x, this.me.y]) <= SPECS.UNITS[this.me.unit].SPEED) {
         reachedTarget = true;
     }
     //attack if adjacent
