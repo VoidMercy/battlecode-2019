@@ -77,12 +77,19 @@ export var Pilgrim = function(self) {
     // check my surroundings
 
 
-    var check = null;
+    var check = false;
     if (karbfuel == 0) {
         check = this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY;
     } else {
         check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
     }
+    var check2 = false;
+    var nearby = this.getVisibleRobots();
+    for (var i = 0; i < nearby.length && !check2; i++) {
+        //check if any enemies are nearby
+        check2 = check2 || (this.isVisible(nearby[i]) && nearby[i].team != this.me.team);
+    }
+    check = check && !check2;
     if (check) {
         //i didn't finish mining yet
         if (this.me.x != karblocation[0] || this.me.y != karblocation[1]) {
