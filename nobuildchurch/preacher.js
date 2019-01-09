@@ -7,6 +7,7 @@ export var Preacher = function() {
 
     if (this.me.turn == 1) {
         //first turn, find location of church/castle and obtain initial pos
+        //todo: allow reassignment of target
         var tempmap = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {
             var nextLoc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
