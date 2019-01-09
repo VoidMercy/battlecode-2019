@@ -18,7 +18,7 @@ export var Crusader = function() {
 	if (target == null) {
         //todo: make targets based on castle locs, not spawn/church loc
         var opposite = this.oppositeCoords([this.me.x, this.me.y]);
-        altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-1], [this.map.length-1, this.map.length-1], [this.map.length-1, 0], [this.me.x, this.me.y]];
+        altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-5], [this.map.length-5, this.map.length-5], [this.map.length-5, 0], [this.me.x, this.me.y]];
         for (var i = 0; i < altTargets.length; i++) {
             if (this.validCoords([altTargets[i][0], altTargets[i][1]]) && !this.map[altTargets[i][1]][altTargets[i][0]]) {
                 altTargets.splice(i, 1); //remove impassable tile targets
@@ -48,7 +48,7 @@ export var Crusader = function() {
         }
     }
     if (toAttack != null) {
-        this.log("attacc");
+        //this.log("attacc");
         return this.attack(...toAttack);
     }
 
@@ -57,12 +57,12 @@ export var Crusader = function() {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
             //enemy team, chase!!!
             //picks first enemy in list
-            this.log("Chase the enemy!");
+            //this.log("Chase the enemy!");
             return this.greedyMove(enemyLoc);
         }
     }
     if (reachedTarget) {
-        this.log("Switching targets!");
+        //this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
         target = altTargets[targetNum];

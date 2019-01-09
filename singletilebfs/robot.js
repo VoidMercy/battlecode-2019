@@ -23,7 +23,7 @@ class MyRobot extends BCAbstractRobot {
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                 if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-                    this.log("Create unit!");
+                    //this.log("Create unit!");
                     return this.buildUnit(unittype, alldirs[i][0], alldirs[i][1]);
                 }
             }
@@ -141,7 +141,7 @@ class MyRobot extends BCAbstractRobot {
             return; //at target, do nothing
         }
         if (!(this.hash(...dest) in dict)) {
-            this.log("START BFS");
+            //this.log("START BFS");
             //run bfs
             var queue = [];
             var visited = [];
@@ -165,7 +165,7 @@ class MyRobot extends BCAbstractRobot {
             }
 
             dict[this.hash(...dest)] = distancetodest;
-            this.log("BFS DONE");
+            //this.log("BFS DONE");
             return this.moveto(dest);
         } else {
 
@@ -190,9 +190,9 @@ class MyRobot extends BCAbstractRobot {
             }
             
 
-            this.log("MOVING");
-            this.log([this.me.x, this.me.y]);
-            this.log(smallestcoord);
+            //this.log("MOVING");
+            //this.log([this.me.x, this.me.y]);
+            //this.log(smallestcoord);
             return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
         }
     }
