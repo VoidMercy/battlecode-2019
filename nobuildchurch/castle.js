@@ -39,19 +39,7 @@ export var Castle = function() {
             }
         }
     }
-    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 2 + fuel_patches / 2 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2))) {
-        //can produce pilgrim
-        var robotsnear = this.getVisibleRobotMap();
-        for (var i = 0; i < alldirs.length; i++) {
-            var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-            if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-                this.log("Created pilgrim");
-                pilgrimcount++;
-                return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][1]);
-            }
-        }
-    }
-    
+
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
     } else {
@@ -79,4 +67,19 @@ export var Castle = function() {
         }*/
         underattack = true;
     }
+    
+    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 2 + fuel_patches / 2 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2))) {
+        //can produce pilgrim
+        var robotsnear = this.getVisibleRobotMap();
+        for (var i = 0; i < alldirs.length; i++) {
+            var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                this.log("Created pilgrim");
+                pilgrimcount++;
+                return this.buildUnit(SPECS.PILGRIM, alldirs[i][0], alldirs[i][1]);
+            }
+        }
+    }
+    
+    
 }
