@@ -1,6 +1,11 @@
 import {SPECS} from 'battlecode';
 import {alldirs} from 'constants.js'
 
+var target = null;
+var reachedTarget = false;
+var altTargets;
+var targetNum = 0;
+
 export var Prophet = function() {
 	// ranger
 
