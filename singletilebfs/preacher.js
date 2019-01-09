@@ -10,7 +10,7 @@ export var Preacher = function() {
         if(!this.validCoords(attack_x, attack_y)) continue;
         var curr_score = 0;
         var attack_count = 0;
-        for(var j = 0; j < preacherattackdirs.length; j+) {
+        for(var j = 0; j < preacherattackdirs.length; j++) {
             var target_x = attack_x + preacherattackdirs[j][0], target_y = attack_y + preacherattackdirs[j][1];
             var target_robot = vismap[target_y][target_x];
             if(target_robot.team == this.me.team) {
