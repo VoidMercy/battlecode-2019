@@ -36,9 +36,26 @@ class MyRobot extends BCAbstractRobot {
         return ret;
     }
 
+    generateRepositionSignal(relDest) {
+        //same as initial pos but msbs denote relative loc of enemy
+        //lsb are "6"
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 6;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 32; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        ret = ret << 4; //shift to align bits
+        ret += 6; //lsb 3 bits
+        return ret;
+    }
+
     decodeSignal(signal) {
-        if (signal % 8 == 7) {
-            //initial pos signal
+        if (signal % 8 == 7 || signal % 8 == 6) { //decoding is the same
+            //initial pos signal or reposition signal
             var ret = [signal >> 10,(signal >> 4) % 64];
             for (var i = 0; i < 2; i++) {
                 if (ret[i] >= 32) {

@@ -6,6 +6,7 @@ var reachedTarget = false;
 var altTargets;
 var targetNum = 0;
 var castleLoc = null;
+var tempTarget = null;
 
 export var Prophet = function() {
 	// ranger
@@ -13,10 +14,9 @@ export var Prophet = function() {
     var offenseFlag = 0;
     // defend if 0, attack if 1
 
+    var tempmap = this.getVisibleRobotMap();
     if (this.me.turn == 1) {
         //first turn, find location of church/castle and obtain initial pos
-        //todo: allow reassignment of target
-        var tempmap = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {
             var nextLoc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
             var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
@@ -38,6 +38,23 @@ export var Prophet = function() {
             }
         }
         this.log(castleLoc);
+    }
+
+    if (tempmap[castleLoc[1]][castleLoc[0]] > 0) {
+        var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
+        if (castle.signal != -1 && castle.signal % 8 == 6) {
+            this.log("REPOSITIONAL SIGNAL");
+            this.log(castle.signal);
+            var relStartPos = this.decodeSignal(castle.signal);
+            tempTarget = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
+            this.log("Received: ");
+            this.log(relStartPos);
+        }
+    }
+
+    if (tempTarget != null && this.distance(tempTarget, [this.me.x, this.me.y]) <= 4) {
+        //close enough to temp target, we are probably aggrod onto enemy and/or enemy is dead now
+        tempTarget = null;
     }
 
     if (offenseFlag == 1) {
@@ -128,7 +145,13 @@ export var Prophet = function() {
             this.log("prophet attacc");
             return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
         }
-        if (this.me.x != target[0] || this.me.y != target[1]) {
+
+        if (tempTarget != null) {
+            this.log("repositioning ecks dee");
+            return this.moveto(tempTarget);
+        }    
+
+        if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
             this.log("prophet moving to defensive position!");
             return this.moveto(target);
         }

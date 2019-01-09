@@ -7,9 +7,12 @@ var underattack = false;
 var karbonite_patches = 0;
 var fuel_patches = 0;
 var usedDefensePositions = []; //used for assigning where units go
+var curFlatEnemyVector = null;
+var turnsSinceLastReposition = 0; //prevent spamming if we're surrounded lol
 
 export var Castle = function() {
-
+    
+    turnsSinceLastReposition++;
     if (this.me.turn == 1) {
         for (var i = 0; i < this.map[0].length; i++) {
             for (var j = 0; j < this.map.length; j++) {
@@ -29,13 +32,13 @@ export var Castle = function() {
     var defense_units = [0, 0, 0, 0, 0, 0];
     var defense_robots = [];
     var minDist = 9999999;
-    var closestEnemy;
+    var closestEnemy = null;
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
             numenemy[robot.unit]++;
             var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
-            if (dist < minDist) {
+            if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
                 minDist = dist;
                 closestEnemy = robot;
             }
@@ -45,6 +48,21 @@ export var Castle = function() {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
             }
+        }
+    }
+
+    if (closestEnemy != null && this.fuel >= 10 && turnsSinceLastReposition >= 10) {
+        var enemVector = [closestEnemy.x - this.me.x, closestEnemy.y - this.me.y];
+        for (var i = 0; i < 2; i++) {
+            enemVector[i] = Math.round(enemVector[i] / Math.max(...enemVector));
+        }
+        if (curFlatEnemyVector == null || curFlatEnemyVector[0] != enemVector[0] || curFlatEnemyVector[1] != enemVector[1]) {
+            //enemies are in a different direction, broadcast to erry1
+            curFlatEnemyVector = enemVector;
+            var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y]);
+            this.log("sending reposition signal!");
+            this.signal(signal, 10);
+            turnsSinceLastReposition = 0;
         }
     }
 
