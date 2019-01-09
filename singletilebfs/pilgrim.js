@@ -19,7 +19,7 @@ export var Pilgrim = function(self) {
                 if (tempid > 0) {
                     var robottype = this.getRobot(tempid).unit;
                     if (robottype == SPECS.CASTLE || robottype == SPECS.CHURCH) {
-                        this.log("FOUND CASTLE");
+                        //this.log("FOUND CASTLE");
                         castleloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                         break;
                     }
@@ -32,7 +32,7 @@ export var Pilgrim = function(self) {
 
     if (karblocation != null) {
         if ((this.me.x != karblocation[0] || this.me.y != karblocation[1]) && robotsnear[karblocation[1]][karblocation[0]] > 0) {
-            this.log("OCCUPIED KARBONITE SQUARE");
+            //this.log("OCCUPIED KARBONITE SQUARE");
             karbfuel = (karbfuel + 1) % 2;
             blacklistkarb.push(this.hash(...karblocation));
             karblocation = null;
@@ -50,15 +50,15 @@ export var Pilgrim = function(self) {
             if (karbfuel == 0) {
                 if (this.karbonite_map[cur[1]][cur[0]] == true && !(blacklistkarb.includes(this.hash(...cur)))) {
                     karblocation = cur;
-                    this.log("FOUND KARBONITE");
-                    this.log(cur);
+                    //this.log("FOUND KARBONITE");
+                    //this.log(cur);
                     break;
                 }
             } else {
                 if (this.fuel_map[cur[1]][cur[0]] == true && !(blacklistkarb.includes(this.hash(...cur)))) {
                     karblocation = cur;
-                    this.log("FOUND FUEL");
-                    this.log(cur);
+                    //this.log("FOUND FUEL");
+                    //this.log(cur);
                     break;
                 }
             }
@@ -84,16 +84,16 @@ export var Pilgrim = function(self) {
                 //move to karbonite location
                 return this.moveto(karblocation);
             } else {
-                this.log("TRY BUILDING CHURCH");
+                //this.log("TRY BUILDING CHURCH");
                 //build church
 
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                     if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] <= 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                         builtchurch = true;
-                        this.log("BUILD FUCKING CHURCH");
+                        //this.log("BUILD FUCKING CHURCH");
                         churchloc = [alldirs[i][0] + this.me.x, alldirs[i][1] + this.me.y];
-                        this.log(churchloc);
+                        //this.log(churchloc);
                         return this.buildUnit(SPECS.CHURCH, alldirs[i][0], alldirs[i][1]);
                     }
                 }
@@ -111,19 +111,19 @@ export var Pilgrim = function(self) {
                 //i didn't finish mining yet
                 if (this.me.x != karblocation[0] || this.me.y != karblocation[1]) {
                     //move to karbonite
-                    this.log("HEADING TOWARDS KARBONITE TO MINE FOR CASTLE");
+                    //this.log("HEADING TOWARDS KARBONITE TO MINE FOR CASTLE");
                     return this.moveto(karblocation);
                 } else {
-                    this.log("MINING FOR CASTLE");
+                    //this.log("MINING FOR CASTLE");
                     return this.mine();
                 }
             } else {
                 //i gots the drugs, now move to castle and give drugs
                 if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
-                    this.log("GIVING TO CASTLE");
+                    //this.log("GIVING TO CASTLE");
                     return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
                 } else {
-                    this.log("MOVING BACK TO CASTLE TO GIVE DRUGS");
+                    //this.log("MOVING BACK TO CASTLE TO GIVE DRUGS");
                     return this.moveto(castleloc);
                 }
             }
@@ -141,10 +141,10 @@ export var Pilgrim = function(self) {
                 this.log("FUCKING MINE");
                 return this.mine();
             } else {
-                this.log("GIVE CHURCH KARB SHIT");
-                this.log(churchloc);
-                this.log(this.me.x);
-                this.log(this.me.y);
+                //this.log("GIVE CHURCH KARB SHIT");
+                //this.log(churchloc);
+                //this.log(this.me.x);
+                //this.log(this.me.y);
                 return this.give(churchloc[0] - this.me.x, churchloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
             }
         } else {

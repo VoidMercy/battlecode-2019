@@ -6,7 +6,7 @@ import { Pilgrim } from 'pilgrim.js'
 import { Prophet } from 'prophet.js'
 import { Preacher } from 'preacher.js'
 
-import {alldirs} from 'constants.js'
+import {alldirs, crusaderdirs, otherdirs} from 'constants.js'
 
 var symmetry; //1 is vertical, 0 is horizontal
 
@@ -23,7 +23,7 @@ class MyRobot extends BCAbstractRobot {
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                 if (robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-                    this.log("Create unit!");
+                    //this.log("Create unit!");
                     return this.buildUnit(unittype, alldirs[i][0], alldirs[i][1]);
                 }
             }
@@ -34,33 +34,35 @@ class MyRobot extends BCAbstractRobot {
     greedyMove(dest) {
         //TODO: make it possible to move multiple tiles at once xd
         //note: this moves backwards if it cant move closer lol
+        var dirs = ((this.me.unit == SPECS.CRUSADER) ? crusaderdirs : otherdirs);
         var minVal = 999999999;
         var minDir = null;
-        for (var i = 0; i < alldirs.length; i++) {
-            var newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+        for (var i = 0; i < dirs.length; i++) {
+            var newloc = [this.me.x + dirs[i][0], this.me.y + dirs[i][1]];
             var dist = this.distance(newloc, dest);
             var visMap = this.getVisibleRobotMap();
             if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist < minVal) {
                 minVal = dist;
-                minDir = alldirs[i];
+                minDir = dirs[i];
             }
         }
         return this.move(minDir[0], minDir[1]);
     }
 
     greedyMoveAway(dest) {
+        var dirs = ((this.me.unit == SPECS.CRUSADER) ? crusaderdirs : otherdirs);
         var maxVal = -1;
         var maxDir = null;
-        for (var i = 0; i < alldirs.length; i++) {
-            const newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+        for (var i = 0; i < dirs.length; i++) {
+            const newloc = [this.me.x + dirs[i][0], this.me.y + dirs[i][1]];
             const dist = this.distance(newloc, dest);
             const visMap = this.getVisibleRobotMap();
             if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist > maxVal) {
                 maxVal = dist;
-                maxDir = alldirs[i];
+                maxDir = dirs[i];
             }
         }
-        return this.move(minDir[0], minDir[1]);
+        return this.move(maxDir[0], maxDir[1]);
     }
 
     oppositeCoords(loc) {
@@ -139,7 +141,7 @@ class MyRobot extends BCAbstractRobot {
             return; //at target, do nothing
         }
         if (!(this.hash(...dest) in dict)) {
-            this.log("START BFS");
+            //this.log("START BFS");
             //run bfs
             var queue = [];
             var visited = [];
@@ -163,7 +165,7 @@ class MyRobot extends BCAbstractRobot {
             }
 
             dict[this.hash(...dest)] = distancetodest;
-            this.log("BFS DONE");
+            //this.log("BFS DONE");
             return this.moveto(dest);
         } else {
 
@@ -188,9 +190,9 @@ class MyRobot extends BCAbstractRobot {
             }
             
 
-            this.log("MOVING");
-            this.log([this.me.x, this.me.y]);
-            this.log(smallestcoord);
+            //this.log("MOVING");
+            //this.log([this.me.x, this.me.y]);
+            //this.log(smallestcoord);
             return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
         }
     }
