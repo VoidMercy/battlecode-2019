@@ -138,7 +138,6 @@ export var Pilgrim = function(self) {
                 check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
             }
             if (check) {
-                this.log("FUCKING MINE");
                 return this.mine();
             } else {
                 //this.log("GIVE CHURCH KARB SHIT");

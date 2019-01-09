@@ -4,8 +4,22 @@ import {alldirs} from 'constants.js'
 //castle variables
 var pilgrimcount = 0;
 var underattack = false;
+var karbonite_patches = 0;
+var fuel_patches = 0;
 
 export var Castle = function() {
+
+    if (this.me.turn == 1) {
+        for (var i = 0; i < this.map[0].length; i++) {
+            for (var j = 0; j < this.map.length; j++) {
+                if (this.karbonite_map[j][i]) {
+                    karbonite_patches++;
+                } else if (this.fuel_map[j][i]) {
+                    fuel_patches++;
+                }
+            }
+        }
+    }
 
     var robotsnear = this.getVisibleRobots();
     var robot = null;
@@ -25,8 +39,7 @@ export var Castle = function() {
             }
         }
     }
-    
-    if (this.canBuild(SPECS.PILGRIM) && friendlies[SPECS.PILGRIM] == 0) {
+    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 2 + fuel_patches / 2 && this.karbonite > SPECS.UNITS[SPECS.PROPHET].CONSTRUCTION_KARBONITE * 4 && this.fuel > SPECS.UNITS[SPECS.PROPHET].CONSTRUCTION_FUEL * 4))) {
         //can produce pilgrim
         var robotsnear = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {

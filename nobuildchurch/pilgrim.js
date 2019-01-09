@@ -74,6 +74,9 @@ export var Pilgrim = function(self) {
     }
 
 
+    // check my surroundings
+
+
     var check = null;
     if (karbfuel == 0) {
         check = this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY;
