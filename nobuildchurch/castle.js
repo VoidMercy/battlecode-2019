@@ -72,7 +72,7 @@ export var Castle = function() {
                 this.log(signal);
                 usedDefensePositions.push(bestIndex);
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
-                return result;
+                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
         }
         /*
