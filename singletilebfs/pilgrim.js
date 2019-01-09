@@ -129,7 +129,7 @@ export var Pilgrim = function(self) {
             }
         }
     } else {
-        if (this.adjacent([this.me.x, this.me.y], karblocation)) {
+        if (this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
             //mine shit
             var check = null;
             if (karbfuel == 0) {
