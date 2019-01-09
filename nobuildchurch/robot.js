@@ -188,7 +188,6 @@ class MyRobot extends BCAbstractRobot {
                     }
                 }
             }
-            
 
             //this.log("MOVING");
             //this.log([this.me.x, this.me.y]);
