@@ -43,7 +43,7 @@ export var Castle = function() {
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
     } else {
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
+        if ((numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER]) * 2 > defense_units[SPECS.PROPHET]) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.build(SPECS.PROPHET);
@@ -62,7 +62,7 @@ export var Castle = function() {
         underattack = true;
     }
     
-    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 2 + fuel_patches / 2 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2))) {
+    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 || (friendlies[SPECS.PILGRIM] < karbonite_patches / 3 + fuel_patches / 3 && this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 && this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2))) {
         //can produce pilgrim
         var robotsnear = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {

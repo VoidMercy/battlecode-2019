@@ -7,6 +7,7 @@ var karblocation = null;
 var builtchurch = false;
 var churchloc = null;
 var castleloc = null;
+var goback = false;
 var blacklistkarb = [];
 
 export var Pilgrim = function(self) {
@@ -83,14 +84,15 @@ export var Pilgrim = function(self) {
     } else {
         check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
     }
-    var check2 = false;
     var nearby = this.getVisibleRobots();
-    for (var i = 0; i < nearby.length && !check2; i++) {
-        //check if any enemies are nearby
-        check2 = check2 || (this.isVisible(nearby[i]) && nearby[i].team != this.me.team);
+    for (var i = 0; i < nearby.length; i++) {
+        //check if any enemies can attack me
+        if (SPECS.UNITS[nearby[i].unit].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y]) + 4) {
+            goback = true;
+            break;
+        }
     }
-    check = check && !check2;
-    if (check) {
+    if (check && !goback) {
         //i didn't finish mining yet
         if (this.me.x != karblocation[0] || this.me.y != karblocation[1]) {
             //move to karbonite
@@ -104,6 +106,7 @@ export var Pilgrim = function(self) {
         //i gots the drugs, now move to castle and give drugs
         if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
             //this.log("GIVING TO CASTLE");
+            goback = false;
             return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
         } else {
             //this.log("MOVING BACK TO CASTLE TO GIVE DRUGS");

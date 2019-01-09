@@ -9,7 +9,7 @@ var targetNum = 0;
 export var Prophet = function() {
 	// ranger
 
-    var offenseFlag = 1;
+    var offenseFlag = 0;
     // defend if 0, attack if 1
 
     if (offenseFlag == 1) {
