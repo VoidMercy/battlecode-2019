@@ -87,7 +87,7 @@ export var Pilgrim = function(self) {
     var nearby = this.getVisibleRobots();
     for (var i = 0; i < nearby.length; i++) {
         //check if any enemies can attack me
-        if (SPECS.UNITS[nearby[i].unit].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y]) + 4) {
+        if (nearby[i].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y]) + 4) {
             goback = true;
             break;
         }
@@ -103,8 +103,28 @@ export var Pilgrim = function(self) {
             return this.mine();
         }
     } else {
-        //i gots the drugs, now move to castle and give drugs
-        if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
+        var enemies = this.getVisibleRobots();
+            //move away from closest enemy if it is offensive
+        var minDist = 99999;
+        var closest = null;
+        for (var i = 0; i < enemies.length; i++) {
+            if (enemies[i].team != this.me.team && SPECS.UNITS[enemies[i].unit].ATTACK_RADIUS != null && this.distance([this.me.x, this.me.y], [enemies[i].x, enemies[i].y]) < minDist) {
+                minDist = this.distance([this.me.x, this.me.y], [enemies[i].x, enemies[i].y]);
+                closest = enemies[i];
+                //find closest attacking unit
+            }
+        }
+        if (closest != null && this.me.fuel == 0 && this.me.karbonite == 0) {
+            //i gave the drugs and enemies are coming!!
+            
+            //this.log(enemies);
+            //this.log(this.me);
+            this.log("running awaay after giving resources!");
+            //this.log(typeof closest);
+            //this.log(closest);
+            return this.greedyMoveAway([closest.x, closest.y]);
+        } else if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
+            //i gots the drugs, now move to castle and give drugs
             //this.log("GIVING TO CASTLE");
             goback = false;
             return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);

@@ -124,11 +124,11 @@ export var Prophet = function() {
 
         if (minDist <= 64 && minDist >= 16) {
             //adjacent, a t t a c c
-            this.log("attacc");
+            this.log("prophet attacc");
             return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
         }
         if (this.me.x != target[0] || this.me.y != target[1]) {
-            this.log("moving to defensive position!");
+            this.log("prophet moving to defensive position!");
             return this.moveto(target);
         }
         return;

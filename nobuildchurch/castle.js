@@ -51,7 +51,29 @@ export var Castle = function() {
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
     } else {
-        if ((numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER]) * 2 > defense_units[SPECS.PROPHET]) {
+        if (numenemy[SPECS.CRUSADER]*2 > defense_units[SPECS.PREACHER]) {
+            this.log("CREATE PREACHER FOR DEFENSE");
+            var result = this.build(SPECS.PREACHER);
+            if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex = -1;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                usedDefensePositions.push(bestIndex);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+            }
+        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER]) * 2 > defense_units[SPECS.PROPHET]) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.build(SPECS.PROPHET);
@@ -60,7 +82,7 @@ export var Castle = function() {
                 var bestIndex;
                 for (var i = 0; i < range10.length; i++) {
                     var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (this.validCoords(nextloc) && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
                         minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
                         bestIndex = i;
                     }
