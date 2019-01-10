@@ -12,26 +12,32 @@ export var getLocs = function() {
                 for (var k = 0; k < range10exceptalldirs.length; k++) {
                     const tempx = i+range10exceptalldirs[k][0];
                     const tempy = j+range10exceptalldirs[k][1];
-                    if (compound_map[tempx][tempy] == null) {
-                        compound_map[tempx][tempy] = 0;
+                    if (this.validCoords([tempx, tempy])) {
+                        if (compound_map[tempx][tempy] == null) {
+                            compound_map[tempx][tempy] = 0;
+                        }
+                        if (this.map[tempy][tempx] &&
+                            !this.karbonite_map[tempy][tempx] && !this.fuel_map[tempy][tempx]) {
+                               compound_map[tempx][tempy] += 3;
+                        }
                     }
-                    if (this.validCoords([tempx, tempy]) && this.map[tempy][tempx] &&
-                     !this.karbonite_map[tempy][tempx] && !this.fuel_map[tempy][tempx]) {
-                        compound_map[tempx][tempy] += 3;
-                    }
+                    
                 }
 
                 //immediately adjacent squares - worth more!
                 for (var k = 0; k < alldirs.length; k++) {
                     const tempx = i+alldirs[k][0];
                     const tempy = j+alldirs[k][1];
-                    if (compound_map[tempx][tempy] == null) {
-                        compound_map[tempx][tempy] = 0;
+                    if (this.validCoords([tempx, tempy])) {
+                        if (compound_map[tempx][tempy] == null) {
+                            compound_map[tempx][tempy] = 0;
+                        }
+                        if (this.map[tempy][tempx] &&
+                            !this.karbonite_map[tempy][tempx]  && !this.fuel_map[tempy][tempx]) {
+                            compound_map[tempx][tempy] += 10;
+                        }
                     }
-                    if (this.validCoords([tempx, tempy]) && this.map[tempy][tempx] &&
-                     !this.karbonite_map[tempy][tempx]  && !this.fuel_map[tempy][tempx]) {
-                        compound_map[tempx][tempy] += 10;
-                    }
+                    
                 }
 
             }

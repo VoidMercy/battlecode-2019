@@ -32,8 +32,46 @@ export var Pilgrim = function(self) {
     }
 
     if (potentialChurchLocs == null) {
+        //generate church heuristic map
         potentialChurchLocs = getLocs.call(this);
-        this.log(potentialChurchLocs);
+        //this.log(potentialChurchLocs);
+    }
+
+    //if u can see a church or castle closer to ur current karb deposit, start depositing there.
+    var findChurchCastle = this.getVisibleRobots();
+    for (var i = 0; i < findChurchCastle.length; i++) {
+        var tmprobot = findChurchCastle[i];
+        if (this.isVisible(tmprobot) && tmprobot.team == this.me.team &&
+           (tmprobot.unit == SPECS.CHURCH || tmprobot.unit == SPECS.CASTLE) &&
+           karblocation != null && this.distance([tmprobot.x, tmprobot.y], karblocation) < this.distance(castleloc, karblocation)) {
+            //if robot is visible, same team, either church or castle, i have a carb location, and its closer, then switch locs
+            castleloc = [tmprobot.x, tmprobot.y];
+        }
+    }
+
+    //if we have excess resources and are far enough away from our nearest church/castle, then build a church
+    //filler values for now idk
+    if (this.karbonite > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_KARBONITE * 2 && 
+        this.fuel > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_FUEL * 2 && karblocation != null && 
+        this.distance(karblocation, castleloc) > 100 && this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
+        //only build if on my karblocation cuz thats easy and ensures at least somewhat good placements
+        //now check around to pick highest value from kevins crusty heuristic
+        var highestVal = 0;
+        var buildDir = null;
+        for (var i = 0; i < alldirs.length; i++) {
+            var loc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            if (this.validCoords(loc) && potentialChurchLocs[loc[0]][loc[1]] > highestVal) {
+                //this.log(potentialChurchLocs[loc[0]][loc[1]]);
+                //this.log(highestVal);
+                highestVal = potentialChurchLocs[loc[0]][loc[1]];
+                buildDir = alldirs[i];
+            }
+        }
+        if (buildDir != null) {
+            //checks all passed and have picked best dir, build teh church :OO
+            this.log("build church :OOO");
+            return this.buildUnit(SPECS.CHURCH, buildDir[0], buildDir[1]);
+        }
     }
 
     var robotsnear = this.getVisibleRobotMap();
