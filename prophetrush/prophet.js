@@ -23,6 +23,8 @@ export var Prophet = function() {
     }
     //attack if adjacent
     var robotsnear = this.getVisibleRobots();
+    var bestTarget = null;
+    var bestScore = -1;
     for (var i = 0; i < robotsnear.length; i++) {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
             var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
@@ -30,10 +32,21 @@ export var Prophet = function() {
             const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
             if (dist <= 64 && dist >= 16) {
                 //adjacent, a t t a c c
-                this.log("attacc");
-                return this.attack(enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y);
+                // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
+                // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
+                var score = (100 + robotsnear[i].unit * 100 - dist);
+                if (score > bestScore) {
+                    bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                    bestScore = score;
+                }
             }
+
         }
+    }
+    if (bestTarget != null) {
+
+        this.log("attacc");
+        return this.attack(...bestTarget);
     }
 
     for (var i = 0; i < robotsnear.length; i++) {
