@@ -4,6 +4,7 @@ import * as Comms from 'communication.js'
 
 var enemylocs = [];
 var curtarget = 0;
+var attackmode = false;
 
 export var Preacher = function() {
 
@@ -18,6 +19,27 @@ export var Preacher = function() {
             this.log("SICEME")
             sicesignal = nearbyrobots[i].signal;
             this.log(sicesignal);
+            //parse signal
+            /*
+            if (sicesignal == 8192) {
+                //toggle attackmode
+                if (nearbyrobots[i].team == this.me.team) {
+                    if (attackmode) {
+                        this.log("ATTACKMODE OFF");
+                        attackmode = false;
+                    } else {
+                        this.log("ATTACKMODE ON");
+                        attackmode = true;
+                    }
+                }
+                
+            } else */
+            if (sicesignal >= 4096 && this.me.turn < 20) {
+                //receive enemy castle location information
+                enemylocs.push(Comms.Decompress12Bits(sicesignal - 4096));
+                this.log("PREACHER RECEIVED ENEMY");
+                this.log(enemylocs);
+            }
         }
         if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PILGRIM) {
             pilgrimsice = nearbyrobots[i];
@@ -27,17 +49,6 @@ export var Preacher = function() {
     if (pilgrimsice == null) {
         //don't see a pilgrim oh no
         this.log("RIP NO PILGRIM");
-    }
-
-    //parse pilgrim signals
-    if (sicesignal != null) {
-        if (sicesignal >= 4096 && this.me.turn < 20) {
-            //receive enemy castle location information
-            enemylocs.push(Comms.Decompress12Bits(sicesignal - 4096));
-            this.log("PREACHER RECEIVED ENEMY");
-            this.log(enemylocs);
-        }
-        
     }
 
     //attack
@@ -85,6 +96,83 @@ export var Preacher = function() {
         return this.attack(...best_score_locs);
     }
 
+    //look at preachers around me
+    var friendlypreachers = [];
+    var enemypreachers = [];
+    var mindist = 999;
+    var mindist2 = 999;
+    var closestfriendly = null;
+    var closestenemy = null;
+    for (var i = 0; i < nearbyrobots.length; i++) {
+        if (nearbyrobots[i].unit == SPECS.PREACHER) {
+            if (nearbyrobots[i].team == this.me.team) {
+                friendlypreachers.push(nearbyrobots[i]);
+                var temp = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                if (temp < mindist) {
+                    mindist = temp;
+                    closestfriendly = nearbyrobots[i];
+                }
+            } else {
+                enemypreachers.push(nearbyrobots[i]);
+                var temp = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                if (temp < mindist2) {
+                    mindist2 = temp;
+                    closestenemy = nearbyrobots[i];
+                }
+            }
+        }
+    }
+
+    var spreadout = false;
+    for (var i = 0; i < friendlypreachers.length; i++) {
+        for (var j = 0; i < enemypreachers.length; j++) {
+            if (this.distance([friendlypreachers[i].x, friendlypreachers[i].y], [enemypreachers[j].x, enemypreachers[j].y]) <= SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS) {
+                this.log("ENGAGEMENT");
+                spreadout = true;
+            }
+        }
+    }
+
+    //if can't attack anything move apart from each other
+    if (spreadout && closestfriendly != null) {
+        if (mindist <= 2) { //too close
+            //greedy move away
+            var maxVal = -1;
+            var maxDir = null;
+            for (var i = 0; i < alldirs.length; i++) {
+                const newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                const dist = this.distance(newloc, [closestfriendly.x, closestfriendly.y]);
+                const visMap = this.getVisibleRobotMap();
+                if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist > maxVal) {
+                    if (closestenemy != null && this.distance(newloc, [closestenemy.x, closestenemy.y]) > SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS) {
+                        maxVal = dist;
+                        maxDir = alldirs[i];
+                    }
+                }
+            }
+            if (maxDir == null) {
+                return this._bc_null_action();
+            }
+            return this.move(maxDir[0], maxDir[1]);
+        } else if (mindist > 8) { //too far
+            var minVal = 999999999;
+            var minDir = null;
+            for (var i = 0; i < alldirs.length; i++) {
+                var newloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                var dist = this.distance(newloc, [closestfriendly.x, closestfriendly.y]);
+                var visMap = this.getVisibleRobotMap();
+                if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist < minVal) {
+                    minVal = dist;
+                    minDir = alldirs[i];
+                }
+            }
+            if (minDir == null) {
+                return this._bc_null_action();
+            }
+            return this.move(minDir[0], minDir[1]);
+        }
+    }
+
     //move towards target
     if (curtarget < enemylocs.length) {
         if (this.distance([this.me.x, this.me.y], enemylocs[curtarget]) <= 4) {
@@ -94,8 +182,6 @@ export var Preacher = function() {
                 return this._bc_null_action();
             }
         }
-        this.log("MOVE!");
-        this.log(enemylocs[curtarget]);
         var move = this.moveto(enemylocs[curtarget], false);
         if (move != null && (pilgrimsice != null && this.distance([this.me.x + move[0], this.me.y + move[1]], [pilgrimsice.x, pilgrimsice.y]) < this.distance([this.me.x, this.me.y], [pilgrimsice.x, pilgrimsice.y]))) {
             return this.move(...move);
@@ -105,5 +191,6 @@ export var Preacher = function() {
             return this.move(...move);
         }
     }
+    
     return this._bc_null_action();
 }

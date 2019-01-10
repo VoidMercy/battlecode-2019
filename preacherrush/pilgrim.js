@@ -6,6 +6,7 @@ import * as Comms from 'communication.js'
 var spawnloc = null;
 var enemylocs = [];
 var curtarget = 0;
+var attackmode = false;
 
 export var Pilgrim = function(self) {
     this.log("PILGRIM TURN ");
@@ -58,12 +59,70 @@ var nearbyrobots = this.getVisibleRobots();
                 }
             }
             var signal = Comms.Compress12Bits(...enemylocs[this.me.turn - 5]) + 4096;
-            this.signal(signal, biggest + 1);
+            this.signal(signal, biggest);
         }
     }
 
     //move towards target
     if (this.me.turn >= 7 && curtarget < enemylocs.length) {
+
+        // look for preacher engagements
+        var enemies = [0, 0, 0, 0, 0, 0];
+        var closest = [999, 999, 999, 999, 999, 999];
+        var temp = null;
+        for (var i = 0; i < nearbyrobots.length; i++) {
+            if (nearbyrobots[i].team != this.me.team) {
+                enemies[nearbyrobots[i].unit]++;
+                temp = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                if (temp < closest[nearbyrobots[i].unit]) {
+                    closest[nearbyrobots[i].unit] = nearbyrobots[i];
+                }
+            }
+        }
+
+
+        // this.log("RADIUS");
+        // this.log(this.me.signal_radius);
+        //there are preachers near, ready for attack
+        if (!attackmode && enemies[SPECS.PREACHER] != 0 && this.distance([this.me.x, this.me.y], [closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]) <= SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1] + 5) {
+            var biggest = -1;
+            for (var i = 0; i < nearbyrobots.length; i++) {
+                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                    var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                    if (distance > biggest) {
+                        biggest = distance;
+                    }
+                }
+            }
+            attackmode = true;
+            this.log("SEND ATTACKMODE SIGNAL ON");
+            // this.signal(8192, biggest);
+        }
+        //no more preachers near
+        if (attackmode && enemies[SPECS.PREACHER] == 0) {
+            var biggest = -1;
+            for (var i = 0; i < nearbyrobots.length; i++) {
+                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                    var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                    if (distance > biggest) {
+                        biggest = distance;
+                    }
+                }
+            }
+            this.log("SEND ATTACKMODE SIGNAL OFF")
+            attackmode = false;
+            // this.signal(8192, biggest);
+        }
+
+        if (attackmode) {
+            //run away from the battlefield
+            if (this.distance([this.me.x, this.me.y], [closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]) < SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1] + 8) {
+                this.log("RUN AWAY FROM BATTLEFIELD");
+                return this.greedyMoveAway([closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]);
+            }
+            return this._bc_null_action();
+        }
+
         if (this.distance([this.me.x, this.me.y], enemylocs[curtarget]) <= 4) {
             //reached target
             curtarget++;
@@ -71,8 +130,6 @@ var nearbyrobots = this.getVisibleRobots();
                 return this._bc_null_action();
             }
         }
-        this.log("MOVE!");
-        this.log(enemylocs[curtarget]);
         var biggest = -1;
         for (var i = 0; i < nearbyrobots.length; i++) {
             if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
@@ -94,7 +151,6 @@ var nearbyrobots = this.getVisibleRobots();
         }
     }
 
-    var enemies = [0, 0, 0, 0, 0, 0];
-    // for (var i = 0; i < nearbyrobots.length; i++) 
+
     return this._bc_null_action();
 }
