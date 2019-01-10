@@ -13,7 +13,7 @@ export var Preacher = function() {
 
     //find pilgrim
     for (var i = 0; i < nearbyrobots.length; i++) {
-        if (nearbyrobots[i].signal > 0) {
+        if (nearbyrobots[i].signal != -1) {
             this.log("SICEME")
             sicesignal = nearbyrobots[i].signal;
             this.log(sicesignal);
@@ -31,7 +31,7 @@ export var Preacher = function() {
 
     //parse pilgrim signals
     if (sicesignal != null) {
-        if (sicesignal >= 256) {
+        if (sicesignal >= 256 && this.me.turn < 20) {
             //receive enemy castle location information
             enemylocs.push(Comms.Decompress8Bits(sicesignal - 256));
             this.log("PREACHER RECEIVED ENEMY");
@@ -79,6 +79,7 @@ export var Preacher = function() {
             best_score_locs = preacherdirs[i];
         }
     }
+
     if(best_score_locs != undefined) {
         this.log("PREACHER ATTACK");
         return this.attack(...best_score_locs);

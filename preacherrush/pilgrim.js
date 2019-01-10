@@ -81,7 +81,8 @@ export var Pilgrim = function(self) {
                 }
             }
         }
-        if (biggest >= SPECS.UNITS[SPECS.PREACHER].VISION_RADIUS) {
+        if (biggest >= SPECS.UNITS[SPECS.PREACHER].VISION_RADIUS * 2) {
+            this.log("SLOW");
             var move = this.moveto(enemylocs[curtarget], true);
         } else {
             var move = this.moveto(enemylocs[curtarget], false);
