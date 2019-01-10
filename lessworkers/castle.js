@@ -4,7 +4,6 @@ import * as Comms from 'communication.js'
 
 //castle variables
 var pilgrimcount = 0;
-var lastCount = -1;
 var underattack = false;
 var karbonite_patches = 0;
 var fuel_patches = 0;
@@ -16,7 +15,7 @@ var castle_locs = [];
 
 export var Castle = function() {
     var robotsnear = this.getVisibleRobots();
-
+    pilgrimcount = 0;
     turnsSinceLastReposition++;
     if (this.me.turn == 1) {
         this.log([["CASTLE_AT"], [this.me.x, this.me.y]]);
@@ -36,19 +35,23 @@ export var Castle = function() {
             }
         }
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
-    }
-    if(this.me.turn == 2) {
+    } else if(this.me.turn == 2) {
         for(var i = 0; i < robotsnear.length; i++) {
             if(robotsnear[i].castle_talk) {
                 castle_locs.push(Comms.Decompress8Bits(robotsnear[i].castle_talk));
             }
         }
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
-    }
-    if(this.me.turn == 3) {
+    } else if(this.me.turn == 3) {
         this.castleTalk(0);
         this.log(["CASTLES", castle_locs]);
         if(first_castle) this.log("is first castle");
+    } else {
+        for (var i = 0; i < robotsnear.length; i++) {
+            if (robotsnear[i].castle_talk == 1) {
+                pilgrimcount++;
+            }
+        }
     }
 
     var robot = null;
@@ -58,7 +61,6 @@ export var Castle = function() {
     var defense_robots = [];
     var minDist = 9999999;
     var closestEnemy = null;
-    var thisCount = 0; // lmao have to count urself
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
@@ -69,7 +71,6 @@ export var Castle = function() {
                 closestEnemy = robot;
             }
         } else {
-            thisCount++;
             friendlies[robot.unit]++;
             if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
@@ -77,12 +78,6 @@ export var Castle = function() {
             }
         }
     }
-    if (thisCount < lastCount) {
-        // we lost units! assume they're pilgrims for sake of creating more.
-        pilgrimcount = pilgrimcount - lastCount + thisCount;
-        this.log("we lost "+(lastCount-thisCount)+" units! pilgrimcount: "+pilgrimcount+ " lastcount: "+lastCount+" thiscount: "+thisCount);
-    }
-    lastCount = thisCount - 1;
 
     if (closestEnemy != null && this.fuel >= 10 && turnsSinceLastReposition >= 10) {
         var enemVector = [closestEnemy.x - this.me.x, closestEnemy.y - this.me.y];
@@ -171,7 +166,7 @@ export var Castle = function() {
     }
     
     if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 ||
-        (pilgrimcount < karbonite_patches / 3 + fuel_patches / 3 &&
+        (pilgrimcount < karbonite_patches / 2 + fuel_patches / 2 &&
          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
           this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3))) {
         //can produce pilgrim

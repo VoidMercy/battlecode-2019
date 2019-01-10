@@ -13,6 +13,10 @@ var blacklistkarb = [];
 var potentialChurchLocs = null;
 
 export var Pilgrim = function(self) {
+
+    if (this.me.turn > 3) { //to avoid conflicting with castle locations 
+        this.castleTalk(1); //1 signifies "im a pilgrim and im alive"
+    }
     var tempmap = this.getVisibleRobotMap();
     if (castleloc == null) {
         //find the castle i was spawned from

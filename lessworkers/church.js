@@ -16,7 +16,7 @@ export var Church = function() {
             prophetCount++;
         }
     }
-    this.log(prophetCount);
+    //this.log(prophetCount);
     if (prophetCount > 5 && this.fuel > 500) {
         this.log("signalling to go away ")
         this.signal(69, 100);
