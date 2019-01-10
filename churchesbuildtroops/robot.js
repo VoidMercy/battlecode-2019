@@ -115,6 +115,9 @@ class MyRobot extends BCAbstractRobot {
                 maxDir = dirs[i];
             }
         }
+        if (maxDir == null) {
+            return;
+        }
         return this.move(maxDir[0], maxDir[1]);
     }
 

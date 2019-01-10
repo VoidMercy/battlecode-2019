@@ -13,9 +13,9 @@ var blacklistkarb = [];
 var potentialChurchLocs = null;
 
 export var Pilgrim = function(self) {
+    var tempmap = this.getVisibleRobotMap();
     if (castleloc == null) {
         //find the castle i was spawned from
-        var tempmap = this.getVisibleRobotMap();
         for (var i = 0; i < alldirs.length; i++) {
             if (this.validCoords([this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]])) {
                 var tempid = tempmap[this.me.y + alldirs[i][1]][this.me.x + alldirs[i][0]];
@@ -60,7 +60,7 @@ export var Pilgrim = function(self) {
         var buildDir = null;
         for (var i = 0; i < alldirs.length; i++) {
             var loc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-            if (this.validCoords(loc) && potentialChurchLocs[loc[0]][loc[1]] > highestVal) {
+            if (this.validCoords(loc) && tempmap[loc[1]][loc[0]] == 0 && potentialChurchLocs[loc[0]][loc[1]] > highestVal) {
                 //this.log(potentialChurchLocs[loc[0]][loc[1]]);
                 //this.log(highestVal);
                 highestVal = potentialChurchLocs[loc[0]][loc[1]];

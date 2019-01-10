@@ -17,22 +17,24 @@ export var Prophet = function() {
         //first turn, find location of church/castle and obtain initial pos
         for (var i = 0; i < alldirs.length; i++) {
             var nextLoc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-            var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
-            if (this.validCoords(nextLoc) && tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
-               (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
-                //church/castle i spawned on
-                if (robot.signal != -1) {
-                    this.log("SIGNAL");
-                    this.log(robot.signal);
-                    var relStartPos = this.decodeSignal(robot.signal);
-                    target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
-                    this.log("Received: ");
-                    this.log(relStartPos);
-                } else {
-                    this.log("NO SIGNAL!");
+            if (this.validCoords(nextLoc)) {
+                var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
+                if (tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
+                (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
+                    //church/castle i spawned on
+                    if (robot.signal != -1) {
+                        this.log("SIGNAL");
+                        this.log(robot.signal);
+                        var relStartPos = this.decodeSignal(robot.signal);
+                        target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
+                        this.log("Received: ");
+                        this.log(relStartPos);
+                    } else {
+                        this.log("NO SIGNAL!");
+                    }
+                    castleLoc = nextLoc;
+                    break;
                 }
-                castleLoc = nextLoc;
-                break;
             }
         }
         this.log(castleLoc);
