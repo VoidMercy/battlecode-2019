@@ -13,6 +13,7 @@ class MyRobot extends BCAbstractRobot {
                 if (step % 10 === 0) {
                     //this.log("Building a crusader at " + (this.me.x+1) + ", " + (this.me.y+1));
                     var sice = this.buildUnit(SPECS.CRUSADER, 1, 1);
+                    this.log(this.getVisibleRobots());
                     if (sice != null) {
                         this.signal(1111, 5);
                         return sice;

@@ -135,12 +135,12 @@ export var Prophet = function() {
 
         }
 
-        if (minDist < 16) {
+        if (minDist <= 16) {
             // too close get away
             return this.greedyMoveAway(toTarget);
         }
 
-        if (minDist <= 64 && minDist >= 16) {
+        if (minDist <= 64 && minDist > 16) {
             //adjacent, a t t a c c
             this.log("prophet attacc");
             return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
