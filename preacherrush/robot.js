@@ -104,7 +104,7 @@ class MyRobot extends BCAbstractRobot {
     }
 
     canBuild(unit) {
-        return this.fuel > SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.karbonite > SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
+        return this.fuel >= SPECS.UNITS[unit].CONSTRUCTION_FUEL && this.karbonite >= SPECS.UNITS[unit].CONSTRUCTION_KARBONITE;
     }
 
     hash(x, y) {
@@ -136,11 +136,11 @@ class MyRobot extends BCAbstractRobot {
         return x;
     }
 
-    moveto(dest) {
+    moveto(dest, small) {
         if (dest[0] == this.me.x && dest[1] == this.me.y) {
             return; //at target, do nothing
         }
-        if (!(this.hash(...dest) in dict)) {
+        if (!(this.hash(...dest) in dict) || dict[this.hash(...dest)][this.me.x][this.me.y] == undefined) {
             //this.log("START BFS");
             //run bfs
             var queue = [];
@@ -153,6 +153,9 @@ class MyRobot extends BCAbstractRobot {
             distancetodest[dest[0]][dest[1]] = 0;
             while (queue.length != 0) {
                 var cur = queue.shift();
+                if (cur[0] == this.me.x && cur[1] == this.me.y) {
+                    break;
+                }
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
                     if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
@@ -170,6 +173,9 @@ class MyRobot extends BCAbstractRobot {
         } else {
 
             var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            if (small) {
+                moveradius = 1;
+            }
             var distancetodest = dict[this.hash(...dest)];
             var smallest = distancetodest[this.me.x][this.me.y];
             var smallestcoord = [this.me.x, this.me.y];
@@ -193,7 +199,10 @@ class MyRobot extends BCAbstractRobot {
             //this.log("MOVING");
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
-            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            if (smallestcoord[0] == this.me.x && smallestcoord[1] == this.me.y) {
+                return null;
+            }
+            return [smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y]
         }
     }
 
