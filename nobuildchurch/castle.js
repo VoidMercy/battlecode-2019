@@ -69,7 +69,7 @@ export var Castle = function() {
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
     } else {
-        if (numenemy[SPECS.CRUSADER]*2 > defense_units[SPECS.PREACHER]) {
+        if (numenemy[SPECS.CRUSADER] > defense_units[SPECS.PREACHER]) {
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = this.build(SPECS.PREACHER);
             if (result != null) {
