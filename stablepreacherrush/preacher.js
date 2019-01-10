@@ -4,7 +4,7 @@ import * as Comms from 'communication.js'
 
 var enemylocs = [];
 var curtarget = 0;
-var attackmode = [0, 0, 0];
+var attackmode = false;
 
 export var Preacher = function() {
 
@@ -22,36 +22,13 @@ export var Preacher = function() {
             //parse signal
             if (sicesignal == 8192) {
                 //toggle attackmode
-                this.log(nearbyrobots);
-                if (!("team" in nearbyrobots[i]) || nearbyrobots[i].team == this.me.team) {
-                    if (attackmode[0]) {
+                if (nearbyrobots[i].team == this.me.team) {
+                    if (attackmode) {
                         this.log("ATTACKMODE OFF");
-                        attackmode[0] = false;
+                        attackmode = false;
                     } else {
                         this.log("ATTACKMODE ON");
-                        attackmode[0] = true;
-                    }
-                }
-                
-            } else if (sicesignal == 8193) {
-                if (!("team" in nearbyrobots[i]) || nearbyrobots[i].team == this.me.team) {
-                    if (attackmode[1]) {
-                        this.log("ATTACKMODE OFF");
-                        attackmode[1] = false;
-                    } else {
-                        this.log("ATTACKMODE ON");
-                        attackmode[1] = true;
-                    }
-                }
-                
-            } else if (sicesignal == 8194) {
-                if (!("team" in nearbyrobots[i]) || nearbyrobots[i].team == this.me.team) {
-                    if (attackmode[2]) {
-                        this.log("ATTACKMODE OFF");
-                        attackmode[2] = false;
-                    } else {
-                        this.log("ATTACKMODE ON");
-                        attackmode[2] = true;
+                        attackmode = true;
                     }
                 }
                 
@@ -116,7 +93,7 @@ export var Preacher = function() {
         return this.attack(...best_score_locs);
     }
 
-    if (attackmode[0]) {
+    if (attackmode) {
         //if already in engagement (friendly and enemy can attack each other), then greedy move to attack while still keeping 1 tile apart
         var friendlypreachers = [];
         var enemypreachers = [];
@@ -214,15 +191,6 @@ export var Preacher = function() {
                 return this.move(minDir[0], minDir[1]);
             }
         }
-    } else if (attackmode[1]) {
-        var move = this.moveto(enemylocs[curtarget], false);
-        if (move != null) {
-            return this.move(...move);
-        } else {
-            return this._bc_null_action();
-        }
-    } else if (attackmode[2]) {
-
     } else {
         //move towards target
         if (curtarget < enemylocs.length) {
