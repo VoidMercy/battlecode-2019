@@ -69,6 +69,7 @@ export var Pilgrim = function(self) {
         // look for preacher engagements
         var enemies = [0, 0, 0, 0, 0, 0];
         var closest = [999, 999, 999, 999, 999, 999];
+        var friendlies = [];
         var closestenemy = null;
         var closestdist = 999;
         var temp = null;
@@ -83,6 +84,8 @@ export var Pilgrim = function(self) {
                     closestdist = temp;
                     closestenemy = nearbyrobots[i];
                 }
+            } else {
+                friendlies.push(nearbyrobots[i]);
             }
         }
 
@@ -156,12 +159,23 @@ export var Pilgrim = function(self) {
             this.signal(8194, biggest + 20);
         }
 
+
         if ((attackmode[0] || attackmode[1] || attackmode[2]) && closestenemy != null) {
+            var closestbattle = 999;
+            //find closest friendly unit to closest enemy
+            for (var i = 0; i < friendlies.length; i++) {
+                var temp = this.distance([closestenemy.x, closestenemy.y], [friendlies[i].x, friendlies[i].y]);
+                if (temp < closestbattle) {
+                    closestbattle = temp;
+                }
+            }
+
             //run away from the battlefield
-            if (this.distance([this.me.x, this.me.y], [closestenemy.x, closestenemy.y]) < SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 20) {
+            var distancetoenemy = this.distance([this.me.x, this.me.y], [closestenemy.x, closestenemy.y]);
+            if (distancetoenemy < closestbattle || (distancetoenemy <= closestbattle + 10 && distancetoenemy < SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 16)) {
                 this.log("RUN AWAY FROM BATTLEFIELD");
                 return this.greedyMoveAway([closestenemy.x, closestenemy.y]);
-            } else {
+            } else if (distancetoenemy > closestbattle + 10) {
                 this.log("DONT STAY TOO FAR FROM BATTLEFIELD");
                 var minVal = 999999999;
                 var minDir = null;
@@ -179,6 +193,7 @@ export var Pilgrim = function(self) {
                 }
                 return this.move(minDir[0], minDir[1]);
             }
+            return this._bc_null_action();
         }
 
         //keep moving towards target
