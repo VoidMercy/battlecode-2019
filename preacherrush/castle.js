@@ -39,11 +39,19 @@ export var Castle = function() {
             var range = null;
             for (var i = 0; i < robotsnear.length; i++) {
                 if (robotsnear[i].unit == SPECS.PILGRIM) {
+                    this.log("FOUND PILGRIM");
                     range = Math.floor(this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y])) + 1;
                     break;
                 }
             }
+            if (range == null) {
+                return this._bc_null_action();
+            }
             //tell worker locations of castles
+            this.log("CASTLE SIGNAL");
+            this.log(this.oppositeCoords(castle_locs[this.me.turn - 2]));
+            this.log(Comms.Compress12Bits(...this.oppositeCoords(castle_locs[this.me.turn - 2])));
+            this.log(range);
             this.signal(Comms.Compress12Bits(...this.oppositeCoords(castle_locs[this.me.turn - 2])), range);
         }
         if (first_castle) {

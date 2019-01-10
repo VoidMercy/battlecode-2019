@@ -14,7 +14,7 @@ export var Preacher = function() {
 
     //find pilgrim
     for (var i = 0; i < nearbyrobots.length; i++) {
-        if (nearbyrobots[i].signal > 0) {
+        if (nearbyrobots[i].signal >= 0 && nearbyrobots[i].signal_radius > 0) {
             this.log(nearbyrobots[i]);
             this.log("SICEME")
             sicesignal = nearbyrobots[i].signal;

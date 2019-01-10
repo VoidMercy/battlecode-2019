@@ -1,178 +1,371 @@
-[31m[Robot 1800 Log][0m [["CASTLE_AT"],[13,9]]
-[31m[Robot 1800 Log][0m "checking castle talk"
-[34m[Robot 3478 Log][0m [["CASTLE_AT"],[13,42]]
-[34m[Robot 3478 Log][0m "checking castle talk"
-[34m[Robot 3478 Log][0m "Created pilgrim"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 1
-[31m[Robot 3699 Log][0m [13,9]
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 2
-[31m[Robot 3699 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
-[31m[Robot 3699 Log][0m [[13,43]]
-[31m[Robot 3431 Log][0m {"type":"robot","id":1800,"team":0,"x":13,"y":9,"unit":0,"turn":2,"signal":875,"signal_radius":2}
-[31m[Robot 3431 Log][0m "SICEME"
-[31m[Robot 3431 Log][0m 875
-[34m[Robot 3478 Log][0m ["CASTLES",[[13,41]]]
-[34m[Robot 3478 Log][0m "is first castle"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 3
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 4
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 5
-[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
-[31m[Robot 3431 Log][0m "SICEME"
-[31m[Robot 3431 Log][0m 4971
-[31m[Robot 3431 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 3431 Log][0m [[13,43]]
-[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
-[31m[Robot 3109 Log][0m "SICEME"
-[31m[Robot 3109 Log][0m 4971
-[31m[Robot 3109 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 3109 Log][0m [[13,43]]
-[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
-[31m[Robot 3417 Log][0m "SICEME"
-[31m[Robot 3417 Log][0m 4971
-[31m[Robot 3417 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 3417 Log][0m [[13,43]]
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 6
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 7
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 8
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 9
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 10
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 11
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 12
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 13
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 14
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3478 Log][0m "Created pilgrim"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 15
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3478 Log][0m "Created pilgrim"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 16
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 17
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 18
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 19
-[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3478 Log][0m "sending reposition signal!"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[34m[Robot 3478 Log][0m "sent: "
-[34m[Robot 3478 Log][0m [0,-3]
-[34m[Robot 3478 Log][0m 567
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 20
-[31m[Robot 3699 Log][0m "SEND ATTACKMODE SIGNAL ON 8193"
-[31m[Robot 3699 Log][0m "RUN AWAY FROM BATTLEFIELD"
-[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
-[31m[Robot 3431 Log][0m "SICEME"
-[31m[Robot 3431 Log][0m 8193
-[31m[Robot 3431 Log][0m "ATTACKMODE ON"
-[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
-[31m[Robot 3109 Log][0m "SICEME"
-[31m[Robot 3109 Log][0m 8193
-[31m[Robot 3109 Log][0m "ATTACKMODE ON"
-[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
-[31m[Robot 3417 Log][0m "SICEME"
-[31m[Robot 3417 Log][0m 8193
-[31m[Robot 3417 Log][0m "ATTACKMODE ON"
-[34m[Robot 388 Log][0m "SIGNAL"
-[34m[Robot 388 Log][0m 567
-[34m[Robot 388 Log][0m "Received: "
-[34m[Robot 388 Log][0m [0,-3]
-[34m[Robot 388 Log][0m [13,42]
-[34m[Robot 388 Log][0m "attacc"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[34m[Robot 3478 Log][0m "sent: "
-[34m[Robot 3478 Log][0m [-1,-3]
-[34m[Robot 3478 Log][0m 34359
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 21
-[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
-[34m[Robot 388 Log][0m "attacc"
-[34m[Robot 148 Log][0m "SIGNAL"
-[34m[Robot 148 Log][0m 34359
-[34m[Robot 148 Log][0m "Received: "
-[34m[Robot 148 Log][0m [-1,-3]
-[34m[Robot 148 Log][0m [13,42]
-[34m[Robot 148 Log][0m "attacc"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[34m[Robot 3478 Log][0m "sent: "
-[34m[Robot 3478 Log][0m [0,-2]
-[34m[Robot 3478 Log][0m 551
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 22
-[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
-[34m[Robot 388 Log][0m "attacc"
-[34m[Robot 148 Log][0m "attacc"
-[34m[Robot 755 Log][0m "SIGNAL"
-[34m[Robot 755 Log][0m 551
-[34m[Robot 755 Log][0m "Received: "
-[34m[Robot 755 Log][0m [0,-2]
-[34m[Robot 755 Log][0m [13,42]
-[34m[Robot 755 Log][0m "attacc"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 23
-[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
-[31m[Robot 3431 Log][0m "PREACHER ATTACK"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 24
-[31m[Robot 3699 Log][0m "SEND ATTACKMODE SIGNAL OFF 8193"
-[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
-[31m[Robot 3431 Log][0m "SICEME"
-[31m[Robot 3431 Log][0m 8193
-[31m[Robot 3431 Log][0m "ATTACKMODE OFF"
-[31m[Robot 3431 Log][0m "PREACHER ATTACK"
-[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
-[31m[Robot 3109 Log][0m "SICEME"
-[31m[Robot 3109 Log][0m 8193
-[31m[Robot 3109 Log][0m "ATTACKMODE OFF"
-[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
-[31m[Robot 3417 Log][0m "SICEME"
-[31m[Robot 3417 Log][0m 8193
-[31m[Robot 3417 Log][0m "ATTACKMODE OFF"
-[31m[Robot 3417 Log][0m "PREACHER ATTACK"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 25
-[31m[Robot 3417 Log][0m "PREACHER ATTACK"
-[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
-[31m[Robot 3699 Log][0m "PILGRIM TURN "
-[31m[Robot 3699 Log][0m 26
-[31m[Robot 3109 Log][0m "PREACHER ATTACK"
-Game over, red won by castle annihilation.
+[31m[Robot 1231 Log][0m [["CASTLE_AT"],[31,4]]
+[31m[Robot 1231 Log][0m "checking castle talk"
+[34m[Robot 2434 Log][0m [["CASTLE_AT"],[31,35]]
+[34m[Robot 2434 Log][0m "checking castle talk"
+[34m[Robot 2434 Log][0m "Created pilgrim"
+[31m[Robot 2614 Log][0m [["CASTLE_AT"],[5,7]]
+[31m[Robot 2614 Log][0m "checking castle talk"
+[34m[Robot 1709 Log][0m [["CASTLE_AT"],[5,32]]
+[34m[Robot 1709 Log][0m "checking castle talk"
+[34m[Robot 1709 Log][0m "Created pilgrim"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 1
+[31m[Robot 3822 Log][0m [31,4]
+[31m[Robot 1231 Log][0m "FOUND PILGRIM"
+[31m[Robot 1231 Log][0m "CASTLE SIGNAL"
+[31m[Robot 1231 Log][0m [29,35]
+[31m[Robot 1231 Log][0m 1891
+[31m[Robot 1231 Log][0m 2
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 2
+[31m[Robot 3822 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
+[31m[Robot 3822 Log][0m [[29,35]]
+[31m[Robot 1553 Log][0m {"type":"robot","id":1231,"team":0,"x":31,"y":4,"unit":0,"turn":2,"signal":1891,"signal_radius":2}
+[31m[Robot 1553 Log][0m "SICEME"
+[31m[Robot 1553 Log][0m 1891
+[31m[Robot 1231 Log][0m "FOUND PILGRIM"
+[31m[Robot 1231 Log][0m "CASTLE SIGNAL"
+[31m[Robot 1231 Log][0m [5,35]
+[31m[Robot 1231 Log][0m 355
+[31m[Robot 1231 Log][0m 2
+[34m[Robot 2434 Log][0m ["CASTLES",[[29,33],[5,33]]]
+[34m[Robot 2434 Log][0m "is first castle"
+[34m[Robot 1709 Log][0m ["CASTLES",[[29,33],[5,33]]]
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 3
+[31m[Robot 3822 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
+[31m[Robot 3822 Log][0m [[29,35],[5,35]]
+[31m[Robot 1553 Log][0m {"type":"robot","id":1231,"team":0,"x":31,"y":4,"unit":0,"turn":3,"signal":355,"signal_radius":2}
+[31m[Robot 1553 Log][0m "SICEME"
+[31m[Robot 1553 Log][0m 355
+[31m[Robot 2427 Log][0m {"type":"robot","id":1231,"team":0,"x":31,"y":4,"unit":0,"turn":3,"signal":355,"signal_radius":2}
+[31m[Robot 2427 Log][0m "SICEME"
+[31m[Robot 2427 Log][0m 355
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 4
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 5
+[31m[Robot 1553 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":5,"signal":5987,"signal_radius":5}
+[31m[Robot 1553 Log][0m "SICEME"
+[31m[Robot 1553 Log][0m 5987
+[31m[Robot 1553 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 1553 Log][0m [[29,35]]
+[31m[Robot 2427 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":5,"signal":5987,"signal_radius":5}
+[31m[Robot 2427 Log][0m "SICEME"
+[31m[Robot 2427 Log][0m 5987
+[31m[Robot 2427 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 2427 Log][0m [[29,35]]
+[31m[Robot 1872 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":5,"signal":5987,"signal_radius":5}
+[31m[Robot 1872 Log][0m "SICEME"
+[31m[Robot 1872 Log][0m 5987
+[31m[Robot 1872 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 1872 Log][0m [[29,35]]
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 6
+[31m[Robot 1553 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":6,"signal":4451,"signal_radius":2}
+[31m[Robot 1553 Log][0m "SICEME"
+[31m[Robot 1553 Log][0m 4451
+[31m[Robot 1553 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 1553 Log][0m [[29,35],[5,35]]
+[31m[Robot 2427 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":6,"signal":4451,"signal_radius":2}
+[31m[Robot 2427 Log][0m "SICEME"
+[31m[Robot 2427 Log][0m 4451
+[31m[Robot 2427 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 2427 Log][0m [[29,35],[5,35]]
+[31m[Robot 1872 Log][0m {"type":"robot","id":3822,"team":0,"x":31,"y":3,"unit":2,"turn":6,"signal":4451,"signal_radius":2}
+[31m[Robot 1872 Log][0m "SICEME"
+[31m[Robot 1872 Log][0m 4451
+[31m[Robot 1872 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 1872 Log][0m [[29,35],[5,35]]
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 7
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 8
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 9
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 10
+[31m[Robot 2427 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 11
+[31m[Robot 2427 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 12
+[31m[Robot 2427 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 13
+[31m[Robot 2427 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 14
+[31m[Robot 2427 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 15
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 16
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 17
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 18
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 19
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 20
+[34m[Robot 2434 Log][0m "Created pilgrim"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 21
+[34m[Robot 2434 Log][0m "sending reposition signal!"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 2434 Log][0m "sent: "
+[34m[Robot 2434 Log][0m [-2,-2]
+[34m[Robot 2434 Log][0m 35367
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 22
+[31m[Robot 3822 Log][0m "SEND ATTACKMODE SIGNAL ON 8193"
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[31m[Robot 1553 Log][0m {"type":"robot","id":3822,"team":0,"x":26,"y":27,"unit":2,"turn":22,"signal":8193,"signal_radius":24}
+[31m[Robot 1553 Log][0m "SICEME"
+[31m[Robot 1553 Log][0m 8193
+[31m[Robot 1553 Log][0m "ATTACKMODE ON"
+[31m[Robot 2427 Log][0m {"type":"robot","id":3822,"team":0,"x":26,"y":27,"unit":2,"turn":22,"signal":8193,"signal_radius":24}
+[31m[Robot 2427 Log][0m "SICEME"
+[31m[Robot 2427 Log][0m 8193
+[31m[Robot 2427 Log][0m "ATTACKMODE ON"
+[31m[Robot 1872 Log][0m {"type":"robot","id":3822,"team":0,"x":26,"y":27,"unit":2,"turn":22,"signal":8193,"signal_radius":24}
+[31m[Robot 1872 Log][0m "SICEME"
+[31m[Robot 1872 Log][0m 8193
+[31m[Robot 1872 Log][0m "ATTACKMODE ON"
+[34m[Robot 789 Log][0m "SIGNAL"
+[34m[Robot 789 Log][0m 35367
+[34m[Robot 789 Log][0m "Received: "
+[34m[Robot 789 Log][0m [-2,-2]
+[34m[Robot 789 Log][0m [31,35]
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 2434 Log][0m "sent: "
+[34m[Robot 2434 Log][0m [-1,-2]
+[34m[Robot 2434 Log][0m 34343
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 23
+[31m[Robot 3822 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[31m[Robot 1872 Log][0m "PREACHER ATTACK"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "SIGNAL"
+[34m[Robot 994 Log][0m 34343
+[34m[Robot 994 Log][0m "Received: "
+[34m[Robot 994 Log][0m [-1,-2]
+[34m[Robot 994 Log][0m [31,35]
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 2434 Log][0m "sent: "
+[34m[Robot 2434 Log][0m [-3,-1]
+[34m[Robot 2434 Log][0m 36375
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 24
+[31m[Robot 3822 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 1546 Log][0m "SIGNAL"
+[34m[Robot 1546 Log][0m 36375
+[34m[Robot 1546 Log][0m "Received: "
+[34m[Robot 1546 Log][0m [-3,-1]
+[34m[Robot 1546 Log][0m [31,35]
+[34m[Robot 1546 Log][0m "attacc"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 25
+[31m[Robot 3822 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 1546 Log][0m "attacc"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 26
+[31m[Robot 3822 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 1546 Log][0m "attacc"
+[34m[Robot 2434 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 27
+[31m[Robot 3822 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 1546 Log][0m "attacc"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 28
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "attacc"
+[34m[Robot 994 Log][0m "attacc"
+[34m[Robot 1546 Log][0m "attacc"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 29
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "prophet moving to defensive position!"
+[34m[Robot 994 Log][0m "prophet moving to defensive position!"
+[34m[Robot 1546 Log][0m "prophet moving to defensive position!"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 30
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[34m[Robot 789 Log][0m "prophet moving to defensive position!"
+[34m[Robot 994 Log][0m "prophet moving to defensive position!"
+[34m[Robot 1546 Log][0m "prophet moving to defensive position!"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 31
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[34m[Robot 1546 Log][0m "prophet moving to defensive position!"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 32
+[31m[Robot 3822 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 33
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 34
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 35
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 36
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 37
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 38
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 39
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 40
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 41
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 42
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 43
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 44
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 45
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 46
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 47
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 48
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 49
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 50
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 51
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 52
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 53
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 54
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 55
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 56
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 57
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 58
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 59
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 60
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 61
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 62
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 63
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 64
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 65
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 66
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 67
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 68
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 69
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 70
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 71
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 72
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 73
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 74
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 75
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 76
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 77
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 78
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 79
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 80
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 81
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 82
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 83
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 84
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 85
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 86
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 87
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 88
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 89
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 90
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 91
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 92
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 93
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 94
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 95
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 96
+[34m[Robot 2434 Log][0m "Created pilgrim"
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 97
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 98
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 99
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 100
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 101
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 102
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 103
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 104
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 105
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 106
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 107
+[31m[Robot 3822 Log][0m "PILGRIM TURN "
+[31m[Robot 3822 Log][0m 108
