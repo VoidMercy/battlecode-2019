@@ -238,7 +238,7 @@ export var Preacher = function() {
                 return this.move(...move);
             } else if (pilgrimsice != null) {
                 return this.greedyMove([pilgrimsice.x, pilgrimsice.y]);
-            } else {
+            } else if (move != null) {
                 return this.move(...move);
             }
         }

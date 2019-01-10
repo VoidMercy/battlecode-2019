@@ -1,169 +1,178 @@
-[31m[Robot 1817 Log][0m [["CASTLE_AT"],[13,40]]
-[31m[Robot 1817 Log][0m "checking castle talk"
-[34m[Robot 3740 Log][0m [["CASTLE_AT"],[27,40]]
-[34m[Robot 3740 Log][0m "checking castle talk"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 1
-[31m[Robot 2424 Log][0m [13,40]
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 1
-[34m[Robot 159 Log][0m [27,40]
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 2
-[31m[Robot 2424 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
-[31m[Robot 2424 Log][0m [[28,41]]
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 2
-[34m[Robot 159 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
-[34m[Robot 159 Log][0m [[16,41]]
-[31m[Robot 3707 Log][0m {"type":"robot","id":1817,"team":0,"x":13,"y":40,"unit":0,"turn":2,"signal":1833,"signal_radius":2}
-[31m[Robot 3707 Log][0m "SICEME"
-[31m[Robot 3707 Log][0m 1833
-[34m[Robot 2824 Log][0m {"type":"robot","id":3740,"team":1,"x":27,"y":40,"unit":0,"turn":2,"signal":1065,"signal_radius":2}
-[34m[Robot 2824 Log][0m "SICEME"
-[34m[Robot 2824 Log][0m 1065
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 3
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 3
-[31m[Robot 1817 Error][0m TypeError: Cannot read property '14' of undefined
-    at MyRobot.build (vm.js:819:43)
-    at MyRobot.Castle (vm.js:331:25)
-    at MyRobot.turn (vm.js:1005:27)
-    at MyRobot._do_turn (vm.js:31:26)
-    at vm.js:1:7
-    at Script.runInContext (vm.js:107:20)
-    at VM.run (/usr/lib/node_modules/bc19/node_modules/vm2/lib/main.js:208:72)
-    at CrossVM.turn (/usr/lib/node_modules/bc19/vm.js:15:26)
-    at Game.enactTurn (/usr/lib/node_modules/bc19/game.js:720:34)
-    at Coldbrew.gameLoop (/usr/lib/node_modules/bc19/runtime.js:64:19)
-[34m[Robot 3740 Error][0m TypeError: Cannot read property '28' of undefined
-    at MyRobot.build (vm.js:797:43)
-    at MyRobot.Castle (vm.js:401:25)
-    at MyRobot.turn (vm.js:986:27)
-    at MyRobot._do_turn (vm.js:31:26)
-    at vm.js:1:7
-    at Script.runInContext (vm.js:107:20)
-    at VM.run (/usr/lib/node_modules/bc19/node_modules/vm2/lib/main.js:208:72)
-    at CrossVM.turn (/usr/lib/node_modules/bc19/vm.js:15:26)
-    at Game.enactTurn (/usr/lib/node_modules/bc19/game.js:720:34)
-    at Coldbrew.gameLoop (/usr/lib/node_modules/bc19/runtime.js:64:19)
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 4
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 4
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 5
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 5
-[31m[Robot 3707 Log][0m {"type":"robot","id":2424,"team":0,"x":13,"y":39,"unit":2,"turn":5,"signal":5929,"signal_radius":2}
-[31m[Robot 3707 Log][0m "SICEME"
-[31m[Robot 3707 Log][0m 5929
-[31m[Robot 3707 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 3707 Log][0m [[28,41]]
-[34m[Robot 2824 Log][0m {"type":"robot","id":159,"team":1,"x":27,"y":39,"unit":2,"turn":5,"signal":5161,"signal_radius":2}
-[34m[Robot 2824 Log][0m "SICEME"
-[34m[Robot 2824 Log][0m 5161
-[34m[Robot 2824 Log][0m "PREACHER RECEIVED ENEMY"
-[34m[Robot 2824 Log][0m [[16,41]]
-[31m[Robot 1799 Log][0m {"type":"robot","id":2424,"team":0,"x":13,"y":39,"unit":2,"turn":5,"signal":5929,"signal_radius":2}
-[31m[Robot 1799 Log][0m "SICEME"
-[31m[Robot 1799 Log][0m 5929
-[31m[Robot 1799 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 1799 Log][0m [[28,41]]
-[34m[Robot 1041 Log][0m {"type":"robot","id":159,"team":1,"x":27,"y":39,"unit":2,"turn":5,"signal":5161,"signal_radius":2}
-[34m[Robot 1041 Log][0m "SICEME"
-[34m[Robot 1041 Log][0m 5161
-[34m[Robot 1041 Log][0m "PREACHER RECEIVED ENEMY"
-[34m[Robot 1041 Log][0m [[16,41]]
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 6
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 6
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 7
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 7
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 8
-[31m[Robot 2424 Log][0m "SEND ATTACKMODE SIGNAL ON 8192"
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 8
-[31m[Robot 3707 Log][0m {"type":"robot","id":2424,"team":0,"x":15,"y":39,"unit":2,"turn":8,"signal":8192,"signal_radius":21}
-[31m[Robot 3707 Log][0m "SICEME"
-[31m[Robot 3707 Log][0m 8192
-[31m[Robot 3707 Log][0m [{"type":"robot","id":1817,"team":0,"x":13,"y":40,"unit":0,"turn":8,"signal":-1,"signal_radius":-1},{"type":"robot","id":2424,"team":0,"x":15,"y":39,"unit":2,"turn":8,"signal":8192,"signal_radius":21},{"type":"robot","id":3707,"team":0,"x":15,"y":38,"unit":5,"health":60,"karbonite":0,"fuel":0,"turn":7,"signal":0,"signal_radius":0},{"type":"robot","id":1799,"team":0,"x":14,"y":39,"unit":5,"turn":5,"signal":-1,"signal_radius":-1}]
-[31m[Robot 3707 Log][0m "ATTACKMODE ON"
-[31m[Robot 3707 Log][0m "TOO CLOSE"
-[31m[Robot 3707 Log][0m 2
-[31m[Robot 1799 Log][0m {"type":"robot","id":2424,"team":0,"x":15,"y":39,"unit":2,"turn":8,"signal":8192,"signal_radius":21}
-[31m[Robot 1799 Log][0m "SICEME"
-[31m[Robot 1799 Log][0m 8192
-[31m[Robot 1799 Log][0m [{"type":"robot","id":1817,"team":0,"x":13,"y":40,"unit":0,"turn":8,"signal":-1,"signal_radius":-1},{"type":"robot","id":2424,"team":0,"x":15,"y":39,"unit":2,"turn":8,"signal":8192,"signal_radius":21},{"type":"robot","id":3707,"team":0,"x":16,"y":37,"unit":5,"turn":7,"signal":-1,"signal_radius":-1},{"type":"robot","id":1799,"team":0,"x":14,"y":39,"unit":5,"health":60,"karbonite":0,"fuel":0,"turn":6,"signal":0,"signal_radius":0}]
-[31m[Robot 1799 Log][0m "ATTACKMODE ON"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 9
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 9
-[34m[Robot 159 Log][0m "SEND ATTACKMODE SIGNAL ON"
-[34m[Robot 2824 Log][0m {"type":"robot","id":159,"team":1,"x":21,"y":39,"unit":2,"turn":9,"signal":8192,"signal_radius":6}
-[34m[Robot 2824 Log][0m "SICEME"
-[34m[Robot 2824 Log][0m 8192
-[34m[Robot 2824 Log][0m "ATTACKMODE ON"
-[34m[Robot 1041 Log][0m {"type":"robot","id":159,"team":1,"x":21,"y":39,"unit":2,"turn":9,"signal":8192,"signal_radius":6}
-[34m[Robot 1041 Log][0m "SICEME"
-[34m[Robot 1041 Log][0m 8192
-[34m[Robot 1041 Log][0m "ATTACKMODE ON"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 10
-[31m[Robot 2424 Log][0m "RUN AWAY FROM BATTLEFIELD"
-[34m[Robot 159 Log][0m "PILGRIM TURN "
-[34m[Robot 159 Log][0m 10
-[34m[Robot 159 Log][0m "SEND ATTACKMODE SIGNAL ON"
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-[34m[Robot 2824 Log][0m "RIP NO PILGRIM"
-[34m[Robot 1041 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 11
-[31m[Robot 2424 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-[34m[Robot 2824 Log][0m "RIP NO PILGRIM"
-[34m[Robot 2824 Log][0m "PREACHER ATTACK"
-[31m[Robot 1799 Log][0m "PREACHER ATTACK"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 12
-[31m[Robot 2424 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 13
-[31m[Robot 2424 Log][0m "SEND ATTACKMODE SIGNAL OFF 8192"
-[31m[Robot 3707 Log][0m {"type":"robot","id":2424,"team":0,"x":17,"y":38,"unit":2,"turn":13,"signal":8192,"signal_radius":22}
-[31m[Robot 3707 Log][0m "SICEME"
-[31m[Robot 3707 Log][0m 8192
-[31m[Robot 3707 Log][0m [{"type":"robot","id":2424,"team":0,"x":17,"y":38,"unit":2,"turn":13,"signal":8192,"signal_radius":22},{"type":"robot","id":3707,"team":0,"x":16,"y":37,"unit":5,"health":40,"karbonite":1,"fuel":0,"turn":12,"signal":0,"signal_radius":0},{"type":"robot","id":1799,"team":0,"x":14,"y":39,"unit":5,"turn":10,"signal":-1,"signal_radius":-1}]
-[31m[Robot 3707 Log][0m "ATTACKMODE OFF"
-[31m[Robot 1799 Log][0m {"type":"robot","id":2424,"team":0,"x":17,"y":38,"unit":2,"turn":13,"signal":8192,"signal_radius":22}
-[31m[Robot 1799 Log][0m "SICEME"
-[31m[Robot 1799 Log][0m 8192
-[31m[Robot 1799 Log][0m [{"type":"robot","id":1817,"team":0,"x":13,"y":40,"unit":0,"turn":13,"signal":-1,"signal_radius":-1},{"type":"robot","id":2424,"team":0,"x":17,"y":38,"unit":2,"turn":13,"signal":8192,"signal_radius":22},{"type":"robot","id":3707,"team":0,"x":16,"y":38,"unit":5,"turn":12,"signal":-1,"signal_radius":-1},{"type":"robot","id":1799,"team":0,"x":14,"y":39,"unit":5,"health":60,"karbonite":0,"fuel":0,"turn":11,"signal":0,"signal_radius":0}]
-[31m[Robot 1799 Log][0m "ATTACKMODE OFF"
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 14
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 15
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 16
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 17
-[31m[Robot 2424 Log][0m "PILGRIM TURN "
-[31m[Robot 2424 Log][0m 18
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-[31m[Robot 1799 Log][0m "RIP NO PILGRIM"
-[31m[Robot 1799 Log][0m "PREACHER ATTACK"
-[31m[Robot 3707 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-[31m[Robot 1799 Log][0m "RIP NO PILGRIM"
-[31m[Robot 1799 Log][0m "PREACHER ATTACK"
-[31m[Robot 3707 Log][0m "RIP NO PILGRIM"
-[31m[Robot 3707 Log][0m "PREACHER ATTACK"
-Blue failed to initialize.
+[31m[Robot 1800 Log][0m [["CASTLE_AT"],[13,9]]
+[31m[Robot 1800 Log][0m "checking castle talk"
+[34m[Robot 3478 Log][0m [["CASTLE_AT"],[13,42]]
+[34m[Robot 3478 Log][0m "checking castle talk"
+[34m[Robot 3478 Log][0m "Created pilgrim"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 1
+[31m[Robot 3699 Log][0m [13,9]
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 2
+[31m[Robot 3699 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
+[31m[Robot 3699 Log][0m [[13,43]]
+[31m[Robot 3431 Log][0m {"type":"robot","id":1800,"team":0,"x":13,"y":9,"unit":0,"turn":2,"signal":875,"signal_radius":2}
+[31m[Robot 3431 Log][0m "SICEME"
+[31m[Robot 3431 Log][0m 875
+[34m[Robot 3478 Log][0m ["CASTLES",[[13,41]]]
+[34m[Robot 3478 Log][0m "is first castle"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 3
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 4
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 5
+[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
+[31m[Robot 3431 Log][0m "SICEME"
+[31m[Robot 3431 Log][0m 4971
+[31m[Robot 3431 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 3431 Log][0m [[13,43]]
+[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
+[31m[Robot 3109 Log][0m "SICEME"
+[31m[Robot 3109 Log][0m 4971
+[31m[Robot 3109 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 3109 Log][0m [[13,43]]
+[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":13,"y":8,"unit":2,"turn":5,"signal":4971,"signal_radius":5}
+[31m[Robot 3417 Log][0m "SICEME"
+[31m[Robot 3417 Log][0m 4971
+[31m[Robot 3417 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 3417 Log][0m [[13,43]]
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 6
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 7
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 8
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 9
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 10
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 11
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 12
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 13
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 14
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[34m[Robot 3478 Log][0m "Created pilgrim"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 15
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[34m[Robot 3478 Log][0m "Created pilgrim"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 16
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 17
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 18
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 19
+[31m[Robot 3109 Log][0m "RIP NO PILGRIM"
+[31m[Robot 3417 Log][0m "RIP NO PILGRIM"
+[34m[Robot 3478 Log][0m "sending reposition signal!"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3478 Log][0m "sent: "
+[34m[Robot 3478 Log][0m [0,-3]
+[34m[Robot 3478 Log][0m 567
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 20
+[31m[Robot 3699 Log][0m "SEND ATTACKMODE SIGNAL ON 8193"
+[31m[Robot 3699 Log][0m "RUN AWAY FROM BATTLEFIELD"
+[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
+[31m[Robot 3431 Log][0m "SICEME"
+[31m[Robot 3431 Log][0m 8193
+[31m[Robot 3431 Log][0m "ATTACKMODE ON"
+[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
+[31m[Robot 3109 Log][0m "SICEME"
+[31m[Robot 3109 Log][0m 8193
+[31m[Robot 3109 Log][0m "ATTACKMODE ON"
+[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":33,"unit":2,"turn":20,"signal":8193,"signal_radius":36}
+[31m[Robot 3417 Log][0m "SICEME"
+[31m[Robot 3417 Log][0m 8193
+[31m[Robot 3417 Log][0m "ATTACKMODE ON"
+[34m[Robot 388 Log][0m "SIGNAL"
+[34m[Robot 388 Log][0m 567
+[34m[Robot 388 Log][0m "Received: "
+[34m[Robot 388 Log][0m [0,-3]
+[34m[Robot 388 Log][0m [13,42]
+[34m[Robot 388 Log][0m "attacc"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3478 Log][0m "sent: "
+[34m[Robot 3478 Log][0m [-1,-3]
+[34m[Robot 3478 Log][0m 34359
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 21
+[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 388 Log][0m "attacc"
+[34m[Robot 148 Log][0m "SIGNAL"
+[34m[Robot 148 Log][0m 34359
+[34m[Robot 148 Log][0m "Received: "
+[34m[Robot 148 Log][0m [-1,-3]
+[34m[Robot 148 Log][0m [13,42]
+[34m[Robot 148 Log][0m "attacc"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3478 Log][0m "sent: "
+[34m[Robot 3478 Log][0m [0,-2]
+[34m[Robot 3478 Log][0m 551
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 22
+[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[34m[Robot 388 Log][0m "attacc"
+[34m[Robot 148 Log][0m "attacc"
+[34m[Robot 755 Log][0m "SIGNAL"
+[34m[Robot 755 Log][0m 551
+[34m[Robot 755 Log][0m "Received: "
+[34m[Robot 755 Log][0m [0,-2]
+[34m[Robot 755 Log][0m [13,42]
+[34m[Robot 755 Log][0m "attacc"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 23
+[31m[Robot 3699 Log][0m "DONT STAY TOO FAR FROM BATTLEFIELD"
+[31m[Robot 3431 Log][0m "PREACHER ATTACK"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 24
+[31m[Robot 3699 Log][0m "SEND ATTACKMODE SIGNAL OFF 8193"
+[31m[Robot 3431 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
+[31m[Robot 3431 Log][0m "SICEME"
+[31m[Robot 3431 Log][0m 8193
+[31m[Robot 3431 Log][0m "ATTACKMODE OFF"
+[31m[Robot 3431 Log][0m "PREACHER ATTACK"
+[31m[Robot 3109 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
+[31m[Robot 3109 Log][0m "SICEME"
+[31m[Robot 3109 Log][0m 8193
+[31m[Robot 3109 Log][0m "ATTACKMODE OFF"
+[31m[Robot 3417 Log][0m {"type":"robot","id":3699,"team":0,"x":12,"y":38,"unit":2,"turn":24,"signal":8193,"signal_radius":36}
+[31m[Robot 3417 Log][0m "SICEME"
+[31m[Robot 3417 Log][0m 8193
+[31m[Robot 3417 Log][0m "ATTACKMODE OFF"
+[31m[Robot 3417 Log][0m "PREACHER ATTACK"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 25
+[31m[Robot 3417 Log][0m "PREACHER ATTACK"
+[34m[Robot 3478 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 3699 Log][0m "PILGRIM TURN "
+[31m[Robot 3699 Log][0m 26
+[31m[Robot 3109 Log][0m "PREACHER ATTACK"
+Game over, red won by castle annihilation.
