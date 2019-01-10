@@ -1,5 +1,6 @@
 import {SPECS} from 'battlecode';
 import {alldirs, range10} from 'constants.js'
+import * as Comms from 'communication.js'
 
 //castle variables
 var pilgrimcount = 0;
@@ -9,11 +10,15 @@ var fuel_patches = 0;
 var usedDefensePositions = []; //used for assigning where units go
 var curFlatEnemyVector = null;
 var turnsSinceLastReposition = 0; //prevent spamming if we're surrounded lol
+var first_castle = true;
+var castle_locs = [];
 
 export var Castle = function() {
-    
+    var robotsnear = this.getVisibleRobots();
+
     turnsSinceLastReposition++;
     if (this.me.turn == 1) {
+        this.log([["CASTLE_AT"], [this.me.x, this.me.y]]);
         for (var i = 0; i < this.map[0].length; i++) {
             for (var j = 0; j < this.map.length; j++) {
                 if (this.karbonite_map[j][i]) {
@@ -23,9 +28,28 @@ export var Castle = function() {
                 }
             }
         }
+        this.log("checking castle talk");
+        for(var i = 0; i < robotsnear.length; i++) {
+            if(robotsnear[i].castle_talk) {
+                first_castle = false;
+            }
+        }
+        this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
+    }
+    if(this.me.turn == 2) {
+        for(var i = 0; i < robotsnear.length; i++) {
+            if(robotsnear[i].castle_talk) {
+                castle_locs.push(Comms.Decompress8Bits(robotsnear[i].castle_talk));
+            }
+        }
+        this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
+    }
+    if(this.me.turn == 3) {
+        this.castleTalk(0);
+        this.log(["CASTLES", castle_locs]);
+        if(first_castle) this.log("is first castle");
     }
 
-    var robotsnear = this.getVisibleRobots();
     var robot = null;
     var numenemy = [0, 0, 0, 0, 0, 0]; // crusaders, prophets, preachers
     var friendlies = [0, 0, 0, 0, 0, 0];
