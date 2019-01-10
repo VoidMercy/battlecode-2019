@@ -108,6 +108,9 @@ export var Castle = function() {
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;
+                if (usedDefensePositions.length == altTargets.length) {
+                    usedDefensePositions = [];
+                }
                 for (var i = 0; i < range10.length; i++) {
                     var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
                     if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {

@@ -71,7 +71,7 @@ export var Prophet = function() {
     // defend if 0, attack if 1, defend method 2 if 2
 
     if (offenseFlag == 1) {
-        this.log("offense flag activated");
+        //this.log("offense flag activated");
         // offensive ranger code
         if (target == null) {
             var opposite = this.oppositeCoords([this.me.x, this.me.y]);
@@ -139,7 +139,6 @@ export var Prophet = function() {
             targetNum = (targetNum + 1) % altTargets.length;
             target = altTargets[targetNum];
         }
-        
         return this.moveto(target);
 
 
@@ -179,7 +178,7 @@ export var Prophet = function() {
         }    
 
         if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
-            this.log("prophet moving to defensive position!");
+            //this.log("prophet moving to defensive position!");
             return this.moveto(target);
         }
         return;
@@ -230,7 +229,7 @@ export var Prophet = function() {
         }    
 
         if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
-            this.log("prophet moving to defensive position!");
+            //this.log("prophet moving to defensive position!");
             return this.moveto(target);
         }
         return;

@@ -96,6 +96,9 @@ class MyRobot extends BCAbstractRobot {
                 minDir = dirs[i];
             }
         }
+        if (minDir == null) {
+            return;
+        }
         return this.move(minDir[0], minDir[1]);
     }
 

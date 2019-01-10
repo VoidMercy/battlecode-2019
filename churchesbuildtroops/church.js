@@ -17,13 +17,13 @@ export var Church = function() {
         }
     }
     this.log(prophetCount);
-    if (prophetCount > 5 && this.fuel > 1000) {
+    if (prophetCount > 5 && this.fuel > 500) {
         this.log("signalling to go away ")
         this.signal(69, 100);
 
     }
 
-    if (this.karbonite > 500 && this.fuel > 500) {
+    if (this.karbonite > 250 && this.fuel > 500) {
         // lmoa build a prophet
         this.log("BUILDING RANGER!!!")
         var result = this.build(SPECS.PROPHET);
