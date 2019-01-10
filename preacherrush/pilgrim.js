@@ -174,10 +174,10 @@ export var Pilgrim = function(self) {
 
             //run away from the battlefield
             var distancetoenemy = this.distance([this.me.x, this.me.y], [closestenemy.x, closestenemy.y]);
-            if (distancetoenemy < closestbattle || (distancetoenemy <= closestbattle + 13 && distancetoenemy < SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 20)) {
+            if (distancetoenemy < closestbattle || (distancetoenemy <= closestbattle + 10 && distancetoenemy < SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 16)) {
                 this.log("RUN AWAY FROM BATTLEFIELD");
                 return this.greedyMoveAway([closestenemy.x, closestenemy.y]);
-            } else if (distancetoenemy > closestbattle + 13 && distancetoenemy >= SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 2) {
+            } else if (distancetoenemy > closestbattle + 13 && distancetoenemy >= SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 16) {
                 this.log("DONT STAY TOO FAR FROM BATTLEFIELD");
                 var minVal = 999999999;
                 var minDir = null;
@@ -230,12 +230,13 @@ export var Pilgrim = function(self) {
                 }
             }
         }
+        /*
         if (biggest >= SPECS.UNITS[SPECS.PREACHER].VISION_RADIUS * 2) {
             this.log("SLOW");
             var move = this.moveto(enemylocs[curtarget], true);
-        } else {
-            var move = this.moveto(enemylocs[curtarget], false);
-        }
+        } else {*/
+        var move = this.moveto(enemylocs[curtarget], false);
+        // }
         
         if (move != null) {
             if (closestcastle == null || this.distance([closestcastle.x, closestcastle.y], [this.me.x + move[0], this.me.y + move[1]]) > 2) {
