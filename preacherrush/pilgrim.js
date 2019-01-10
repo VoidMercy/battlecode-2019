@@ -84,7 +84,7 @@ var nearbyrobots = this.getVisibleRobots();
         // this.log("RADIUS");
         // this.log(this.me.signal_radius);
         //there are preachers near, ready for attack
-        if (!attackmode && enemies[SPECS.PREACHER] != 0 && this.distance([this.me.x, this.me.y], [closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]) <= SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1] + 5) {
+        if (!attackmode && enemies[SPECS.PREACHER] != 0) {
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
                 if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
@@ -96,7 +96,7 @@ var nearbyrobots = this.getVisibleRobots();
             }
             attackmode = true;
             this.log("SEND ATTACKMODE SIGNAL ON");
-            // this.signal(8192, biggest);
+            this.signal(8192, biggest + 5);
         }
         //no more preachers near
         if (attackmode && enemies[SPECS.PREACHER] == 0) {
@@ -111,12 +111,12 @@ var nearbyrobots = this.getVisibleRobots();
             }
             this.log("SEND ATTACKMODE SIGNAL OFF")
             attackmode = false;
-            // this.signal(8192, biggest);
+            this.signal(8192, biggest + 5);
         }
 
         if (attackmode) {
             //run away from the battlefield
-            if (this.distance([this.me.x, this.me.y], [closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]) < SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1] + 8) {
+            if (this.distance([this.me.x, this.me.y], [closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]) < SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1] * 3) {
                 this.log("RUN AWAY FROM BATTLEFIELD");
                 return this.greedyMoveAway([closest[SPECS.PREACHER].x, closest[SPECS.PREACHER].y]);
             }
