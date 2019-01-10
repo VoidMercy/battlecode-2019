@@ -13,14 +13,14 @@ export var Preacher = function() {
 
     //find pilgrim
     for (var i = 0; i < nearbyrobots.length; i++) {
-        if (nearbyrobots[i].signal != -1) {
+        if (nearbyrobots[i].signal > 0) {
+            this.log(nearbyrobots[i]);
             this.log("SICEME")
             sicesignal = nearbyrobots[i].signal;
             this.log(sicesignal);
         }
         if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PILGRIM) {
             pilgrimsice = nearbyrobots[i];
-            break;
         }
     }
 
@@ -31,9 +31,9 @@ export var Preacher = function() {
 
     //parse pilgrim signals
     if (sicesignal != null) {
-        if (sicesignal >= 256 && this.me.turn < 20) {
+        if (sicesignal >= 4096 && this.me.turn < 20) {
             //receive enemy castle location information
-            enemylocs.push(Comms.Decompress8Bits(sicesignal - 256));
+            enemylocs.push(Comms.Decompress12Bits(sicesignal - 4096));
             this.log("PREACHER RECEIVED ENEMY");
             this.log(enemylocs);
         }

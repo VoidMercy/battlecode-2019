@@ -44,7 +44,7 @@ export var Castle = function() {
                 }
             }
             //tell worker locations of castles
-            this.signal(Comms.Compress8Bits(...this.oppositeCoords(castle_locs[this.me.turn - 2])), range);
+            this.signal(Comms.Compress12Bits(...this.oppositeCoords(castle_locs[this.me.turn - 2])), range);
         }
         if (first_castle) {
             return this.build(SPECS.PREACHER);

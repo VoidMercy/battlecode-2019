@@ -11,6 +11,9 @@ export var Pilgrim = function(self) {
     this.log("PILGRIM TURN ");
     this.log(this.me.turn);
 
+var nearbyrobots = this.getVisibleRobots();
+
+
     //get castle i spawned from
     if (this.me.turn == 1) {
         var tempmap = this.getVisibleRobotMap();
@@ -36,7 +39,7 @@ export var Pilgrim = function(self) {
         var castle = this.getRobot(robotmap[spawnloc[1]][spawnloc[0]]);
         if (castle.signal != -1) {
             this.log("RECEIVE CASTLE LOCATION SIGNAL");
-            enemylocs.push(Comms.Decompress8Bits(castle.signal));
+            enemylocs.push(Comms.Decompress12Bits(castle.signal));
             this.log(enemylocs);
         }
     }
@@ -46,7 +49,6 @@ export var Pilgrim = function(self) {
         if (enemylocs.length > this.me.turn - 5) {
             //find farthest preacher
             var biggest = -1;
-            var nearbyrobots = this.getVisibleRobots();
             for (var i = 0; i < nearbyrobots.length; i++) {
                 if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
@@ -55,7 +57,7 @@ export var Pilgrim = function(self) {
                     }
                 }
             }
-            var signal = Comms.Compress8Bits(...enemylocs[this.me.turn - 5]) + 256;
+            var signal = Comms.Compress12Bits(...enemylocs[this.me.turn - 5]) + 4096;
             this.signal(signal, biggest + 1);
         }
     }
@@ -72,7 +74,6 @@ export var Pilgrim = function(self) {
         this.log("MOVE!");
         this.log(enemylocs[curtarget]);
         var biggest = -1;
-        var nearbyrobots = this.getVisibleRobots();
         for (var i = 0; i < nearbyrobots.length; i++) {
             if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
                 var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
@@ -92,5 +93,8 @@ export var Pilgrim = function(self) {
             return this.move(...move);
         }
     }
+
+    var enemies = [0, 0, 0, 0, 0, 0];
+    // for (var i = 0; i < nearbyrobots.length; i++) 
     return this._bc_null_action();
 }

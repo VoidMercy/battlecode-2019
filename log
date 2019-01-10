@@ -1,321 +1,264 @@
-[31m[Robot 1837 Log][0m [["CASTLE_AT"],[24,6]]
-[31m[Robot 1837 Log][0m "checking castle talk"
-[34m[Robot 3852 Log][0m [["CASTLE_AT"],[24,31]]
-[34m[Robot 3852 Log][0m "checking castle talk"
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 1
-[31m[Robot 2194 Log][0m [24,6]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 1
-[34m[Robot 2081 Log][0m [24,31]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 2
-[31m[Robot 2194 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
-[31m[Robot 2194 Log][0m [[25,33]]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 2
-[34m[Robot 2081 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
-[34m[Robot 2081 Log][0m [[25,9]]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 104
-[34m[Robot 3582 Log][0m "SICEME"
-[34m[Robot 3582 Log][0m 98
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 3
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 3
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 4
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 4
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 5
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 5
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 360
-[31m[Robot 2626 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 2626 Log][0m [[25,33]]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "SICEME"
-[34m[Robot 3582 Log][0m 354
-[34m[Robot 3582 Log][0m "PREACHER RECEIVED ENEMY"
-[34m[Robot 3582 Log][0m [[25,9]]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 360
-[31m[Robot 2604 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 2604 Log][0m [[25,33]]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "SICEME"
-[34m[Robot 3841 Log][0m 354
-[34m[Robot 3841 Log][0m "PREACHER RECEIVED ENEMY"
-[34m[Robot 3841 Log][0m [[25,9]]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "SICEME"
-[31m[Robot 599 Log][0m 360
-[31m[Robot 599 Log][0m "PREACHER RECEIVED ENEMY"
-[31m[Robot 599 Log][0m [[25,33]]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "SICEME"
-[34m[Robot 2978 Log][0m 354
-[34m[Robot 2978 Log][0m "PREACHER RECEIVED ENEMY"
-[34m[Robot 2978 Log][0m [[25,9]]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 6
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 6
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 7
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 7
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 8
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 8
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 9
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 9
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 10
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 10
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 11
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 11
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "MOVE!"
-[34m[Robot 3582 Log][0m [25,9]
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "MOVE!"
-[34m[Robot 2978 Log][0m [25,9]
-[31m[Robot 2194 Log][0m "PILGRIM TURN "
-[31m[Robot 2194 Log][0m 12
-[31m[Robot 2194 Log][0m "MOVE!"
-[31m[Robot 2194 Log][0m [25,33]
-[34m[Robot 2081 Log][0m "PILGRIM TURN "
-[34m[Robot 2081 Log][0m 12
-[34m[Robot 2081 Log][0m "MOVE!"
-[34m[Robot 2081 Log][0m [25,9]
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[34m[Robot 3582 Log][0m "PREACHER ATTACK"
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[34m[Robot 3841 Log][0m "SICEME"
-[34m[Robot 3841 Log][0m 0
-[34m[Robot 3841 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3841 Log][0m "MOVE!"
-[34m[Robot 3841 Log][0m [25,9]
-[31m[Robot 599 Log][0m "SICEME"
-[31m[Robot 599 Log][0m 0
-[31m[Robot 599 Log][0m "RIP NO PILGRIM"
-[31m[Robot 599 Log][0m "MOVE!"
-[31m[Robot 599 Log][0m [25,33]
-[34m[Robot 2978 Log][0m "SICEME"
-[34m[Robot 2978 Log][0m 0
-[34m[Robot 2978 Log][0m "RIP NO PILGRIM"
-[34m[Robot 2978 Log][0m "PREACHER ATTACK"
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "PREACHER ATTACK"
-[34m[Robot 3582 Log][0m "SICEME"
-[34m[Robot 3582 Log][0m 0
-[34m[Robot 3582 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3582 Log][0m "PREACHER ATTACK"
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "PREACHER ATTACK"
-[34m[Robot 3841 Log][0m "SICEME"
-[34m[Robot 3841 Log][0m 0
-[34m[Robot 3841 Log][0m "RIP NO PILGRIM"
-[34m[Robot 3841 Log][0m "PREACHER ATTACK"
-[34m[Robot 2978 Log][0m "SICEME"
-[34m[Robot 2978 Log][0m 0
-[34m[Robot 2978 Log][0m "RIP NO PILGRIM"
-[34m[Robot 2978 Log][0m "PREACHER ATTACK"
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "PREACHER ATTACK"
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "MOVE!"
-[31m[Robot 2604 Log][0m [25,33]
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "MOVE!"
-[31m[Robot 2626 Log][0m [25,33]
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "PREACHER ATTACK"
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "PREACHER ATTACK"
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "PREACHER ATTACK"
-[31m[Robot 2626 Log][0m "SICEME"
-[31m[Robot 2626 Log][0m 0
-[31m[Robot 2626 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2626 Log][0m "PREACHER ATTACK"
-[31m[Robot 2604 Log][0m "SICEME"
-[31m[Robot 2604 Log][0m 0
-[31m[Robot 2604 Log][0m "RIP NO PILGRIM"
-[31m[Robot 2604 Log][0m "PREACHER ATTACK"
+[31m[Robot 2590 Log][0m [["CASTLE_AT"],[3,15]]
+[31m[Robot 2590 Log][0m "checking castle talk"
+[34m[Robot 3820 Log][0m [["CASTLE_AT"],[44,15]]
+[34m[Robot 3820 Log][0m "checking castle talk"
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 1
+[31m[Robot 1794 Log][0m [3,15]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 2
+[31m[Robot 1794 Log][0m "RECEIVE CASTLE LOCATION SIGNAL"
+[31m[Robot 1794 Log][0m [[47,13]]
+[31m[Robot 2376 Log][0m {"type":"robot","id":2590,"team":0,"x":3,"y":15,"unit":0,"turn":2,"signal":3021,"signal_radius":2}
+[31m[Robot 2376 Log][0m "SICEME"
+[31m[Robot 2376 Log][0m 3021
+[34m[Robot 3820 Log][0m ["CASTLES",[[45,13]]]
+[34m[Robot 3820 Log][0m "is first castle"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 3
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 4
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 5
+[31m[Robot 2376 Log][0m {"type":"robot","id":1794,"team":0,"x":3,"y":14,"unit":2,"turn":5,"signal":7117,"signal_radius":2}
+[31m[Robot 2376 Log][0m "SICEME"
+[31m[Robot 2376 Log][0m 7117
+[31m[Robot 2376 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 2376 Log][0m [[47,13]]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m {"type":"robot","id":1794,"team":0,"x":3,"y":14,"unit":2,"turn":5,"signal":7117,"signal_radius":2}
+[31m[Robot 1288 Log][0m "SICEME"
+[31m[Robot 1288 Log][0m 7117
+[31m[Robot 1288 Log][0m "PREACHER RECEIVED ENEMY"
+[31m[Robot 1288 Log][0m [[47,13]]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 6
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 7
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 8
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 9
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 10
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 11
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 12
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 13
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 14
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 15
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 16
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 17
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 18
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 19
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 20
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 21
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 22
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 23
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 24
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "sending reposition signal!"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3820 Log][0m "sent: "
+[34m[Robot 3820 Log][0m [-1,-3]
+[34m[Robot 3820 Log][0m 34359
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 25
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 359 Log][0m "SIGNAL"
+[34m[Robot 359 Log][0m 34359
+[34m[Robot 359 Log][0m "Received: "
+[34m[Robot 359 Log][0m [-1,-3]
+[34m[Robot 359 Log][0m [44,15]
+[34m[Robot 359 Log][0m "attacc"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 1794 Log][0m "PILGRIM TURN "
+[31m[Robot 1794 Log][0m 26
+[31m[Robot 1794 Log][0m "MOVE!"
+[31m[Robot 1794 Log][0m [47,13]
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "PREACHER ATTACK"
+[34m[Robot 359 Log][0m "attacc"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3820 Log][0m "sent: "
+[34m[Robot 3820 Log][0m [-1,-2]
+[34m[Robot 3820 Log][0m 34343
+[31m[Robot 2376 Log][0m "RIP NO PILGRIM"
+[31m[Robot 2376 Log][0m "PREACHER ATTACK"
+[31m[Robot 1288 Log][0m "RIP NO PILGRIM"
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 359 Log][0m "attacc"
+[34m[Robot 3595 Log][0m "SIGNAL"
+[34m[Robot 3595 Log][0m 34343
+[34m[Robot 3595 Log][0m "Received: "
+[34m[Robot 3595 Log][0m [-1,-2]
+[34m[Robot 3595 Log][0m [44,15]
+[34m[Robot 3595 Log][0m "attacc"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 2376 Log][0m "RIP NO PILGRIM"
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "RIP NO PILGRIM"
+[31m[Robot 1288 Log][0m "PREACHER ATTACK"
+[34m[Robot 359 Log][0m "attacc"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3820 Log][0m "sent: "
+[34m[Robot 3820 Log][0m [-1,-1]
+[34m[Robot 3820 Log][0m 34327
+[31m[Robot 2376 Log][0m "RIP NO PILGRIM"
+[31m[Robot 2376 Log][0m "PREACHER ATTACK"
+[31m[Robot 1288 Log][0m "RIP NO PILGRIM"
+[31m[Robot 1288 Log][0m "MOVE!"
+[31m[Robot 1288 Log][0m [47,13]
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[34m[Robot 3820 Log][0m "Created pilgrim"
+[31m[Robot 2376 Log][0m "RIP NO PILGRIM"
+[31m[Robot 2376 Log][0m "PREACHER ATTACK"
+[31m[Robot 1288 Log][0m "RIP NO PILGRIM"
+[31m[Robot 1288 Log][0m "PREACHER ATTACK"
+[34m[Robot 3820 Log][0m "CREATE PROPHET FOR DEFENSE"
+[31m[Robot 2376 Log][0m "RIP NO PILGRIM"
+[31m[Robot 2376 Log][0m "MOVE!"
+[31m[Robot 2376 Log][0m [47,13]
+[31m[Robot 1288 Log][0m "RIP NO PILGRIM"
+[31m[Robot 1288 Log][0m "PREACHER ATTACK"
 Blue failed to initialize.
