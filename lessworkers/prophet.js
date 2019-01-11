@@ -40,7 +40,7 @@ export var Prophet = function() {
         }
         this.log(castleLoc);
     }
-
+    
     if (tempmap[castleLoc[1]][castleLoc[0]] > 0) {
         var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
         if (castle.signal != -1 && castle.signal % 8 == 6) {

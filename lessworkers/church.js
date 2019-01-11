@@ -4,29 +4,44 @@ import {alldirs, range10} from 'constants.js'
 //church vars
 var crusadercount = 0;
 var pilgrimcount = 0;
+var lategameUnitCount = 0;
 
 export var Church = function() {
 
     var prophetCount = 0;
+    var preacherCount = 0;
     var robotsnear = this.getVisibleRobots();
     var robot = null;
     for (var i=0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
-        if (this.isVisible(robot) && robot.team == this.me.team && robot.unit == SPECS.PROPHET) {
-            prophetCount++;
+        if (this.isVisible(robot) && robot.team == this.me.team) {
+            if (robot.unit == SPECS.PROPHET) {
+                prophetCount++;
+            }
+            if (robot.unit == SPECS.PREACHER) {
+                preacherCount++;
+            }
         }
     }
     //this.log(prophetCount);
-    if (prophetCount > 5 && this.fuel > 500) {
+    if (prophetCount + preacherCount > 5 && this.fuel > 500) {
         this.log("signalling to go away ")
-        this.signal(69, 100);
-
+        this.signal(69, 25);
     }
 
     if (this.karbonite > 250 && this.fuel > 500) {
         // lmoa build a prophet
+        lategameUnitCount++;
+        var unitBuilder;
+        if (lategameUnitCount % 3 == 0) {
+            //make preacher
+            unitBuilder = SPECS.PREACHER;
+        } else {
+            //make prophet
+            unitBuilder = SPECS.PROPHET;
+        }
         this.log("BUILDING RANGER!!!")
-        var result = this.build(SPECS.PROPHET);
+        var result = this.build(unitBuilder);
         if (result != null) {
             var nextloc = null;
             var bestIndex = null;
@@ -43,7 +58,7 @@ export var Church = function() {
                 this.log(range10[bestIndex]);
                 this.log(signal);
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
-                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+                return this.buildUnit(unitBuilder, result[0], result[1]);
             }
         }
     }

@@ -4,6 +4,10 @@ import {alldirs, preacherdirs, preacherattackdirs} from 'constants.js'
 var target = null;
 var castleLoc = null; 
 var tempTarget = null;
+var offenseFlag =  0;
+var reachedTarget = false;
+var altTargets;
+var targetNum = 0;
 
 export var Preacher = function() {
 
@@ -12,22 +16,25 @@ export var Preacher = function() {
         //first turn, find location of church/castle and obtain initial pos
         for (var i = 0; i < alldirs.length; i++) {
             var nextLoc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
-            var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
-            if (this.validCoords(nextLoc) && tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
-               (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
-                //church/castle i spawned on
-                if (robot.signal != -1) {
-                    this.log("SIGNAL");
-                    this.log(robot.signal);
-                    var relStartPos = this.decodeSignal(robot.signal);
-                    target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
-                    this.log("Received: ");
-                    this.log(relStartPos);
-                } else {
-                    this.log("NO SIGNAL!");
+            if (this.validCoords(nextLoc)) {
+                var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
+                if (tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
+                (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
+                    //church/castle i spawned on
+                    if (robot.signal != -1) {
+                        this.log("SIGNAL");
+                        this.log(robot.signal);
+                        var relStartPos = this.decodeSignal(robot.signal);
+                        target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
+                        this.log("Received: ");
+                        this.log(relStartPos);
+                    } else {
+                        this.log("NO SIGNAL!");
+                        target = nextLoc;
+                    }
+                    castleLoc = nextLoc;
+                    break;
                 }
-                castleLoc = nextLoc;
-                break;
             }
         }
         this.log(castleLoc);
@@ -50,6 +57,33 @@ export var Preacher = function() {
         tempTarget = null;
     }
 
+    var robotsnear = this.getVisibleRobots();
+    var robot = null;
+    for (var i=0; i < robotsnear.length; i++) {
+        robot = robotsnear[i];
+        if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
+            offenseFlag=1;
+            this.log("received signal!");
+            target = null;
+            break;
+        }
+    }
+
+    if (offenseFlag == 1) {
+        if (target == null) {
+            var opposite = this.oppositeCoords([this.me.x, this.me.y]);
+            //todo: use comms to get enemy castle locations
+            altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-8], [this.map.length-8, this.map.length-8], [this.map.length-8, 0], [this.me.x, this.me.y]];
+            for (var i = 0; i < altTargets.length; i++) {
+                if (this.validCoords([altTargets[i][0], altTargets[i][1]]) && !this.map[altTargets[i][1]][altTargets[i][0]]) {
+                    altTargets.splice(i, 1); //remove impassable tile targets
+                }
+            }
+            target = altTargets[targetNum];
+        } else if (this.distance(target, [this.me.x, this.me.y]) <= SPECS.UNITS[this.me.unit].SPEED) {
+            reachedTarget = true;
+        }
+    }
     var best_score = 0;
     var best_score_locs;
     var vismap = this.getVisibleRobotMap();
@@ -96,6 +130,13 @@ export var Preacher = function() {
     if (tempTarget != null) {
         this.log("repositioning ecks dee");
         return this.moveto(tempTarget);
+    }
+
+    if (reachedTarget) {
+        this.log("Switching targets!");
+        reachedTarget = false;
+        targetNum = (targetNum + 1) % altTargets.length;
+        target = altTargets[targetNum];
     }
 
     if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
