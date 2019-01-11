@@ -17,6 +17,80 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    workermoveto(dest) {
+        if (dest[0] == this.me.x && dest[1] == this.me.y) {
+            return; //at target, do nothing
+        }
+        if (!(this.hash(...dest) in dict)) {
+            //this.log("START BFS");
+            //run bfs
+            var queue = [];
+            var visited = [];
+            queue.push(dest);
+            var y = this.map.length;
+            var x = this.map[0].length;
+            var starthash = this.hash(this.me.x, this.me.y);
+            var distancetodest = this.createarr(x, y);
+            distancetodest[dest[0]][dest[1]] = 0;
+            while (queue.length != 0) {
+                var cur = queue.shift();
+                for (var i = 0; i < alldirs.length; i++) {
+                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                            queue.push(nextloc);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                        }
+                    }
+                }
+            }
+
+            dict[this.hash(...dest)] = distancetodest;
+            //this.log("BFS DONE");
+            return this.moveto(dest);
+        } else {
+
+            var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            var distancetodest = dict[this.hash(...dest)];
+            var smallest = distancetodest[this.me.x][this.me.y];
+            var smallestcoord = [this.me.x, this.me.y];
+            var visible = this.getVisibleRobotMap();
+            var robotsnear = this.getVisibleRobots();
+
+            for (var i = this.me.x - Math.sqrt(moveradius); i < this.me.x + Math.sqrt(moveradius); i++) {
+                for (var j = this.me.y - Math.sqrt(moveradius); j < this.me.y + Math.sqrt(moveradius); j++) {
+                    if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && visible[j][i] == 0 && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                        var good = true;
+                        for (var a = 0; a < robotsnear.length; a++) {
+                            if (robotsnear[a].team != this.me.team && robotsnear[a].unit >= 3 && robotsnear[a].ATTACK_RADIUS != null && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= robotsnear[a].ATTACK_RADIUS[1]) {
+                                good = false;
+                                break;
+                            }
+                        }
+                        if (good) {
+                            if (distancetodest[i][j] < smallest) {
+                                smallest = distancetodest[i][j];
+                                smallestcoord = [i, j];
+                            } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
+                                smallest = distancetodest[i][j];
+                                smallestcoord = [i, j];
+                            }
+                        }
+                        
+                    }
+                }
+            }
+
+            //this.log("MOVING");
+            //this.log([this.me.x, this.me.y]);
+            //this.log(smallestcoord);
+            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+                return this._bc_null_action();
+            }
+            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+        }
+    }
+
     generateInitialPosSignalVal(relDest) {
         //protocol specs
         //lsb 3 bits are used for what type of signal
