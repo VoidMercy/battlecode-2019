@@ -151,7 +151,7 @@ export var Pilgrim = function(self) {
         if (this.me.x != karblocation[0] || this.me.y != karblocation[1]) {
             //move to karbonite
             //this.log("HEADING TOWARDS KARBONITE TO MINE FOR CASTLE");
-            return this.moveto(karblocation);
+            return this.workermoveto(karblocation);
         } else {
             //this.log("MINING FOR CASTLE");
             return this.mine();
