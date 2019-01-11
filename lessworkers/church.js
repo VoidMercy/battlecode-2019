@@ -153,7 +153,7 @@ export var Church = function() {
         underattack = true;
     }
 
-    if (closestEnemyWNonattacking != null) {
+    if (!underattack && closestEnemyWNonattacking != null) {
         //produce these even tho not "under attack" technically
         if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
             //spawn preacher for enemy castles/churches
@@ -189,7 +189,7 @@ export var Church = function() {
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER] * 2) {
+        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER] * 4) {
             //spawn crusaders for enemy pilgrims
             var result = this.build(SPECS.CRUSADER);
             if (result != null) {

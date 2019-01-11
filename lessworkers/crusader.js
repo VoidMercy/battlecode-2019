@@ -126,13 +126,15 @@ export var Crusader = function() {
                 return this.greedyMove(enemyLoc);
             }
         }
-        if (reachedTarget) {
+        if (target == null || !this.validCoords(target) || reachedTarget) {
             //this.log("Switching targets!");
             reachedTarget = false;
             targetNum = (targetNum + 1) % altTargets.length;
             target = altTargets[targetNum];
         }
-        return this.moveto(target);
+        if (target != null && this.validCoords(target)) {
+            return this.moveto(target);
+        }
 
 
     } else if (offenseFlag == 0) {
