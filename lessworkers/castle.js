@@ -166,7 +166,7 @@ export var Castle = function() {
     }
     
     if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 ||
-        (pilgrimcount < karbonite_patches / 2 + fuel_patches / 2 &&
+        (pilgrimcount < karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000) &&
          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
           this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3))) {
         //can produce pilgrim
