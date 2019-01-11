@@ -51,7 +51,7 @@ export var Pilgrim = function(self) {
             //find farthest preacher
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
-                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                if (nearbyrobots[i].team == this.me.team && (nearbyrobots[i].unit == SPECS.PREACHER || nearbyrobots[i].unit == SPECS.PROPHET)) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
                     if (distance > biggest) {
                         biggest = distance;
@@ -59,7 +59,7 @@ export var Pilgrim = function(self) {
                 }
             }
             var signal = Comms.Compress12Bits(...enemylocs[this.me.turn - 5]) + 4096;
-            this.signal(signal, biggest);
+            this.signal(signal, biggest + 10);
         }
     }
 
@@ -96,7 +96,7 @@ export var Pilgrim = function(self) {
         if ((!attackmode[0] && !attackmode[1] && !attackmode[2]) && enemies[SPECS.PREACHER] + enemies[SPECS.PROPHET] + enemies[SPECS.CRUSADER] != 0) {
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
-                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                if (nearbyrobots[i].team == this.me.team && (nearbyrobots[i].unit == SPECS.PREACHER || nearbyrobots[i].unit == SPECS.PROPHET)) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
                     if (distance > biggest) {
                         biggest = distance;
@@ -121,7 +121,7 @@ export var Pilgrim = function(self) {
         if (attackmode[0] && enemies[SPECS.PREACHER] == 0) {
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
-                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                if (nearbyrobots[i].team == this.me.team && (nearbyrobots[i].unit == SPECS.PREACHER || nearbyrobots[i].unit == SPECS.PROPHET)) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
                     if (distance > biggest) {
                         biggest = distance;
@@ -134,7 +134,7 @@ export var Pilgrim = function(self) {
         } else if (attackmode[1] && enemies[SPECS.PREACHER] + enemies[SPECS.PROPHET] + enemies[SPECS.CRUSADER] == 0) {
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
-                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                if (nearbyrobots[i].team == this.me.team && (nearbyrobots[i].unit == SPECS.PREACHER || nearbyrobots[i].unit == SPECS.PROPHET)) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
                     if (distance > biggest) {
                         biggest = distance;
@@ -147,7 +147,7 @@ export var Pilgrim = function(self) {
         } else if (attackmode[2] && (enemies[SPECS.PREACHER] == 0 || enemies[SPECS.PROPHET] == 0)) {
             var biggest = -1;
             for (var i = 0; i < nearbyrobots.length; i++) {
-                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                if (nearbyrobots[i].team == this.me.team && (nearbyrobots[i].unit == SPECS.PREACHER || nearbyrobots[i].unit == SPECS.PROPHET)) {
                     var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
                     if (distance > biggest) {
                         biggest = distance;
@@ -161,6 +161,8 @@ export var Pilgrim = function(self) {
 
 
         if ((attackmode[0] || attackmode[1] || attackmode[2]) && closestenemy != null) {
+            this.log("CLOSEST ENEMY");
+            this.log(closestenemy);
             var closestbattle = 999;
             //find closest friendly unit to closest enemy
             for (var i = 0; i < friendlies.length; i++) {
@@ -177,6 +179,7 @@ export var Pilgrim = function(self) {
                 return this.greedyMoveAway([closestenemy.x, closestenemy.y]);
             } else if (distancetoenemy > closestbattle + 16) {
                 this.log("DONT STAY TOO FAR FROM BATTLEFIELD");
+                this.log(closestenemy);
                 var minVal = 999999999;
                 var minDir = null;
                 var visMap = this.getVisibleRobotMap();
@@ -199,11 +202,14 @@ export var Pilgrim = function(self) {
         //keep moving towards target
         if (this.distance([this.me.x, this.me.y], enemylocs[curtarget]) <= 4) {
             //reached target
+            this.log("REACHED TARGET");
             curtarget++;
             if (curtarget >= enemylocs.length) {
+                this.log("DONE EXPLORING");
                 return this._bc_null_action();
             }
         }
+
         var biggest = -1;
         var closestcastle = null;
         var closestdistance = 999;
@@ -226,6 +232,7 @@ export var Pilgrim = function(self) {
                 }
             }
         }
+        this.log("RIGHT");
         if (biggest >= SPECS.UNITS[SPECS.PREACHER].VISION_RADIUS * 2) {
             this.log("SLOW");
             var move = this.moveto(enemylocs[curtarget], true);
@@ -234,12 +241,13 @@ export var Pilgrim = function(self) {
         }
         
         if (move != null) {
-            if (closestcastle == null || this.distance([closestcastle.x, closestcastle.y], [thisme.x + move.x, this.me.y + move.y]) > 2) {
+            if (closestcastle == null || this.distance([closestcastle.x, closestcastle.y], [this.me.x + move[0], this.me.y + move[1]]) > 2) {
                 return this.move(...move);
             }
         }
     }
 
+    this.log("WTF");
 
     return this._bc_null_action();
 }

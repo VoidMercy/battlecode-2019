@@ -185,7 +185,7 @@ export var Preacher = function() {
                     const dist = this.distance(newloc, [closestfriendly.x, closestfriendly.y]);
                     const visMap = this.getVisibleRobotMap();
                     if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] == true && dist > maxVal) {
-                        if (closestenemy == null || (closestenemy != null && this.distance(newloc, [closestenemy.x, closestenemy.y]) > SPECS.UNITS[SPECS.PREACHER].ATTACK_RADIUS[1]) || curdist < dist) {
+                        if (closestenemy == null || (closestenemy != null && this.distance(newloc, [closestenemy.x, closestenemy.y]) > SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1]) || curdist < dist) {
                             maxVal = dist;
                             maxDir = alldirs[i];
                         }
