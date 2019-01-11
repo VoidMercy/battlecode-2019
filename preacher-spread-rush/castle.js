@@ -55,12 +55,7 @@ export var Castle = function() {
             this.signal(Comms.Compress12Bits(...this.oppositeCoords(castle_locs[this.me.turn - 2])), range);
         }
         if (first_castle) {
-            if (this.me.turn != 2) {
-                return this.build(SPECS.PREACHER);
-            } else {
-                return this.build(SPECS.PROPHET);
-            }
-            
+            return this.build(SPECS.PREACHER);
         }
     }
     return this._bc_null_action();
