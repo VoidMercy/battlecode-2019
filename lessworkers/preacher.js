@@ -135,7 +135,7 @@ export var Preacher = function() {
     }
 
     if (reachedTarget || !this.validCoords(target)) {
-        this.log("Switching targets!");
+        //this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
         target = altTargets[targetNum];

@@ -55,6 +55,29 @@ export var Castle = function() {
         }
     }
 
+    var prophetCount = 0;
+    var preacherCount = 0;
+    var crusaderCount = 0;
+    var robotsnear = this.getVisibleRobots();
+    var robot = null;
+    for (var i=0; i < robotsnear.length; i++) {
+        robot = robotsnear[i];
+        if (this.isVisible(robot) && robot.team == this.me.team) {
+            if (robot.unit == SPECS.PROPHET) {
+                prophetCount++;
+            } else if (robot.unit == SPECS.PREACHER) {
+                preacherCount++;
+            } else if (robot.unit == SPECS.CRUSADER) {
+                crusaderCount++;
+            }
+        }
+    }
+    //this.log(prophetCount);
+    if (prophetCount + preacherCount + crusaderCount > 8 && this.fuel > 500) {
+        this.log("signalling to go away ")
+        this.signal(69, 25);
+    }
+
     var robot = null;
     var numenemy = [0, 0, 0, 0, 0, 0]; // crusaders, prophets, preachers
     var friendlies = [0, 0, 0, 0, 0, 0];
@@ -154,7 +177,7 @@ export var Castle = function() {
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
-        }
+        } 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
             //produce prophet to counter attack
@@ -164,6 +187,79 @@ export var Castle = function() {
             }
         }*/
         underattack = true;
+    }
+
+    if (closestEnemy != null) {
+        //produce these even tho not "under attack" technically
+        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
+            //spawn preacher for enemy castles/churches
+            this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
+            var result = this.build(SPECS.PREACHER);
+            if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex = -1;
+                var check = 0;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (!this.validCoords(nextloc)) {
+                        check++;
+                    }
+                }
+                //if all remaining positions are impassable, reset
+                if (check == range10.length - usedDefensePositions) {
+                    usedDefensePositions = [];
+                }
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                usedDefensePositions.push(bestIndex);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+            }
+        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER]*2) {
+            //spawn crusaders for enemy pilgrims
+            this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
+            var result = this.build(SPECS.CRUSADER);
+            if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex = -1;
+                var check = 0;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (!this.validCoords(nextloc)) {
+                        check++;
+                    }
+                }
+                //if all remaining positions are impassable, reset
+                if (check == range10.length - usedDefensePositions) {
+                    usedDefensePositions = [];
+                }
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                usedDefensePositions.push(bestIndex);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
+            }
+        }
     }
 
     //offensive code lategame

@@ -57,7 +57,7 @@ export var Pilgrim = function(self) {
     //filler values for now idk
     if (this.karbonite > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_KARBONITE * 2 && 
         this.fuel > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_FUEL * 2 && karblocation != null && 
-        this.distance(karblocation, castleloc) > 100 && this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
+        this.distance(karblocation, castleloc) > 25 && this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
         //only build if on my karblocation cuz thats easy and ensures at least somewhat good placements
         //now check around to pick highest value from kevins crusty heuristic
         var highestVal = 0;
