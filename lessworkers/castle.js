@@ -46,7 +46,7 @@ export var Castle = function() {
         this.castleTalk(0);
         this.log(["CASTLES", castle_locs]);
         if(first_castle) this.log("is first castle");
-    } else {
+    } else { // turn > 3
         for (var i = 0; i < robotsnear.length; i++) {
             if (robotsnear[i].castle_talk == 1) {
                 pilgrimcount++;
@@ -97,7 +97,7 @@ export var Castle = function() {
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
     } else {
-        if (numenemy[SPECS.CRUSADER] > defense_units[SPECS.PREACHER]) {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER]) {
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = this.build(SPECS.PREACHER);
             if (result != null) {
@@ -130,7 +130,7 @@ export var Castle = function() {
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER]) * 2 > defense_units[SPECS.PROPHET]) {
+        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET]) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.build(SPECS.PROPHET);

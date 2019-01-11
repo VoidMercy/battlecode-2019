@@ -31,6 +31,7 @@ export var Prophet = function() {
                         this.log(relStartPos);
                     } else {
                         this.log("NO SIGNAL!");
+                        target = nextLoc;
                     }
                     castleLoc = nextLoc;
                     break;
@@ -117,7 +118,7 @@ export var Prophet = function() {
         }
 
         for (var i = 0; i < robotsnear.length; i++) {
-            if (robotsnear[i].team != this.me.team) {
+            if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
                 if (this.distance(enemyLoc, [this.me.x, this.me.y]) < SPECS.UNITS[this.me.unit].ATTACK_RADIUS[0]) {
                     this.log("run away");
@@ -127,7 +128,7 @@ export var Prophet = function() {
         }
 
         for (var i = 0; i < robotsnear.length; i++) {
-            if (robotsnear[i].team != this.me.team) {
+            if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
                 //enemy team, chase!!!
                 //picks first enemy in list

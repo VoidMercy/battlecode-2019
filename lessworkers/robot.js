@@ -97,6 +97,7 @@ class MyRobot extends BCAbstractRobot {
             }
         }
         if (minDir == null) {
+            this.log("no good directions for greedymove");
             return;
         }
         return this.move(minDir[0], minDir[1]);
@@ -116,6 +117,7 @@ class MyRobot extends BCAbstractRobot {
             }
         }
         if (maxDir == null) {
+            this.log("no good directions for greedymoveaway");
             return;
         }
         return this.move(maxDir[0], maxDir[1]);
