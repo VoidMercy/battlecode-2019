@@ -84,6 +84,8 @@ export var Preacher = function() {
             reachedTarget = true;
         }
     }
+    //todo: use different micro for defense and offense LOL
+    //aka if defensive, use castle for extra vision
     var best_score = 0;
     var best_score_locs;
     var vismap = this.getVisibleRobotMap();
@@ -132,7 +134,7 @@ export var Preacher = function() {
         return this.moveto(tempTarget);
     }
 
-    if (reachedTarget) {
+    if (reachedTarget || !this.validCoords(target)) {
         this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
@@ -140,7 +142,7 @@ export var Preacher = function() {
     }
 
     if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
-        this.log("preacher moving to defensive position!");
+        //this.log("preacher moving to defensive position!");
         return this.moveto(target);
     }
     

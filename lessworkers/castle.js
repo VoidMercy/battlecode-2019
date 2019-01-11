@@ -12,6 +12,7 @@ var curFlatEnemyVector = null;
 var turnsSinceLastReposition = 0; //prevent spamming if we're surrounded lol
 var first_castle = true;
 var castle_locs = [];
+var lategameUnitCount = 0;
 
 export var Castle = function() {
     var robotsnear = this.getVisibleRobots();
@@ -164,7 +165,42 @@ export var Castle = function() {
         }*/
         underattack = true;
     }
-    
+
+    //offensive code lategame
+    if (this.karbonite > 250 && this.fuel > 500) {
+        // lmoa build a prophet
+        lategameUnitCount++;
+        var unitBuilder;
+        if (lategameUnitCount % 3 == 0) {
+            //make preacher
+            unitBuilder = SPECS.PREACHER;
+        } else {
+            //make prophet
+            unitBuilder = SPECS.PROPHET;
+        }
+        this.log("BUILDING RANGER!!!")
+        var result = this.build(unitBuilder);
+        if (result != null) {
+            var nextloc = null;
+            var bestIndex = null;
+            for (var i = 0; i < range10.length; i++) {
+                nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                    bestIndex = i;
+                    break;
+                }
+            }
+            if (bestIndex != null) {
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(unitBuilder, result[0], result[1]);
+            }
+        }
+    }
+
     if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 ||
         (pilgrimcount < karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000) &&
          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&

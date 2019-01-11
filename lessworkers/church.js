@@ -5,6 +5,10 @@ import {alldirs, range10} from 'constants.js'
 var crusadercount = 0;
 var pilgrimcount = 0;
 var lategameUnitCount = 0;
+var underattack = false;
+var usedDefensePositions = []; //used for assigning where units go
+var curFlatEnemyVector = null;
+var turnsSinceLastReposition = 0;
 
 export var Church = function() {
 
@@ -29,6 +33,119 @@ export var Church = function() {
         this.signal(69, 25);
     }
 
+    //defensive church code
+    var robot = null;
+    var numenemy = [0, 0, 0, 0, 0, 0]; // crusaders, prophets, preachers
+    var friendlies = [0, 0, 0, 0, 0, 0];
+    var defense_units = [0, 0, 0, 0, 0, 0];
+    var defense_robots = [];
+    var minDist = 9999999;
+    var closestEnemy = null;
+    for (var i = 0; i < robotsnear.length; i++) {
+        robot = robotsnear[i];
+        if (robot.team != this.me.team) {
+            numenemy[robot.unit]++;
+            var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
+            if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
+                minDist = dist;
+                closestEnemy = robot;
+            }
+        } else {
+            friendlies[robot.unit]++;
+            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+                defense_units[robot.unit]++;
+                defense_robots.push(robot.unit);
+            }
+        }
+    }
+
+    if (closestEnemy != null && this.fuel >= 10 && turnsSinceLastReposition >= 10) {
+        var enemVector = [closestEnemy.x - this.me.x, closestEnemy.y - this.me.y];
+        for (var i = 0; i < 2; i++) {
+            enemVector[i] = Math.round(enemVector[i] / Math.max(...enemVector));
+        }
+        if (curFlatEnemyVector == null || curFlatEnemyVector[0] != enemVector[0] || curFlatEnemyVector[1] != enemVector[1]) {
+            //enemies are in a different direction, broadcast to erry1
+            curFlatEnemyVector = enemVector;
+            var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y]);
+            this.log("sending reposition signal!");
+            this.signal(signal, 10);
+            turnsSinceLastReposition = 0;
+        }
+    }
+
+    if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
+        underattack = false;
+    } else {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER]) {
+            this.log("CREATE PREACHER FOR DEFENSE");
+            var result = this.build(SPECS.PREACHER);
+            if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex = -1;
+                var check = 0;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (!this.validCoords(nextloc)) {
+                        check++;
+                    }
+                }
+                //if all remaining positions are impassable, reset
+                if (check == range10.length - usedDefensePositions) {
+                    usedDefensePositions = [];
+                }
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                usedDefensePositions.push(bestIndex);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+            }
+        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET]) {
+            //produce preacher to counter crusader
+            this.log("CREATE PROPHET FOR DEFENSE");
+            var result = this.build(SPECS.PROPHET);
+            if (result != null) {
+                minDist = 9999999; //reuse var
+                var bestIndex;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                this.log("sent: ");
+                this.log(range10[bestIndex]);
+                this.log(signal);
+                usedDefensePositions.push(bestIndex);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+            }
+        }
+        /*
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
+            //produce prophet to counter attack
+            var result = this.build(SPECS.PROPHET);
+            if (result != null) {
+                return result;
+            }
+        }*/
+        underattack = true;
+    }
+
+    //offensive code lategame
     if (this.karbonite > 250 && this.fuel > 500) {
         // lmoa build a prophet
         lategameUnitCount++;
