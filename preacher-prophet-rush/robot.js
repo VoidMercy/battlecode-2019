@@ -148,7 +148,7 @@ class MyRobot extends BCAbstractRobot {
 
             //spread out
             if (closestfriendly != null) {
-                if (mindist <= 2 && (closestenemy != null && this.distance([closestfriendly.x, closestfriendly.y], [closestenemy.x, closestenemy.y]) <= SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1])) { //too close
+                if (mindist <= 2) { //too close
                     this.log("PROPHET TOO CLOSE");
                     this.log(mindist);
                     //greedy move away
@@ -160,9 +160,11 @@ class MyRobot extends BCAbstractRobot {
                         const dist = this.distance(newloc, [closestfriendly.x, closestfriendly.y]);
                         const visMap = this.getVisibleRobotMap();
                         if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] == true && dist > maxVal) {
-                            if (closestenemy == null || (closestenemy != null && this.distance(newloc, [closestenemy.x, closestenemy.y]) > SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1]) || curdist < dist) {
-                                maxVal = dist;
-                                maxDir = alldirs[i];
+                            if (closestenemy == null || (closestenemy != null && this.distance(newloc, [closestenemy.x, closestenemy.y]) > SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1])) {
+                                if (enemylocs[curtarget] != null || this.distance([this.me.x, this.me.y], enemylocs[curtarget]) > this.distance(newloc, enemylocs[curtarget])) {
+                                    maxVal = dist;
+                                    maxDir = alldirs[i];
+                                }
                             }
                         }
                     }
@@ -243,7 +245,7 @@ class MyRobot extends BCAbstractRobot {
                     //if im ahead of the pack, then do nothing
                     
                     distancetotarget = dict[enemylochash][this.me.x][this.me.y]
-                    if (pilgrimsice != null && distancetotarget < dict[enemylochash][pilgrimsice.x][pilgrimsice.y] + 3) {
+                    if (pilgrimsice != null && distancetotarget < dict[enemylochash][pilgrimsice.x][pilgrimsice.y] + 4) {
                         this.log("WOAH SLOW DOWN 1");
                         this.log(distancetotarget);
                         this.log(pilgrimsice);
