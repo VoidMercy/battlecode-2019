@@ -204,6 +204,17 @@ export var Pilgrim = function(self) {
         if (this.distance([this.me.x, this.me.y], enemylocs[curtarget]) <= 4) {
             //reached target
             curtarget++;
+            var biggest = -1;
+            for (var i = 0; i < nearbyrobots.length; i++) {
+                if (nearbyrobots[i].team == this.me.team && nearbyrobots[i].unit == SPECS.PREACHER) {
+                    var distance = this.distance([this.me.x, this.me.y], [nearbyrobots[i].x, nearbyrobots[i].y]);
+                    if (distance > biggest) {
+                        biggest = distance;
+                    }
+                }
+            }
+            this.log("SEND ATTACKMODE SIGNAL OFF 8194");
+            this.signal(8195, biggest + 20);
             if (curtarget >= enemylocs.length) {
                 return this._bc_null_action();
             }

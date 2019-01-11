@@ -55,6 +55,10 @@ export var Preacher = function() {
                     }
                 }
                 
+            } else if (sicesignal == 8195) {
+                if (!("team" in nearbyrobots[i]) || nearbyrobots[i].team == this.me.team) {
+                    curtarget++;
+                }
             } else if (sicesignal >= 4096 && this.me.turn < 20) {
                 //receive enemy castle location information
                 enemylocs.push(Comms.Decompress12Bits(sicesignal - 4096));
@@ -133,13 +137,6 @@ export var Preacher = function() {
     } else {
         //move towards target
         if (curtarget < enemylocs.length) {
-            if (this.distance([this.me.x, this.me.y], enemylocs[curtarget]) <= 4) {
-                //reached target
-                curtarget++;
-                if (curtarget >= enemylocs.length) {
-                    return this._bc_null_action();
-                }
-            }
             var move = this.moveto(enemylocs[curtarget], false);
             if (move != null && (pilgrimsice != null && this.distance([this.me.x + move[0], this.me.y + move[1]], [pilgrimsice.x, pilgrimsice.y]) < this.distance([this.me.x, this.me.y], [pilgrimsice.x, pilgrimsice.y]))) {
                 return this.move(...move);
