@@ -162,22 +162,20 @@ export var Pilgrim = function(self) {
 
         if ((attackmode[0] || attackmode[1] || attackmode[2]) && closestenemy != null) {
             var closestbattle = 999;
-            var closestfriendly = null;
             //find closest friendly unit to closest enemy
             for (var i = 0; i < friendlies.length; i++) {
                 var temp = this.distance([closestenemy.x, closestenemy.y], [friendlies[i].x, friendlies[i].y]);
                 if (temp < closestbattle && friendlies[i].id != this.me.id) {
                     closestbattle = temp;
-                    closestfriendly = friendlies[i];
                 }
             }
 
             //run away from the battlefield
             var distancetoenemy = this.distance([this.me.x, this.me.y], [closestenemy.x, closestenemy.y]);
-            if (distancetoenemy < closestbattle || (distancetoenemy <= closestbattle + 10 && distancetoenemy < SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 16)) {
+            if (distancetoenemy < closestbattle || (distancetoenemy <= closestbattle + 16)) {
                 this.log("RUN AWAY FROM BATTLEFIELD");
                 return this.greedyMoveAway([closestenemy.x, closestenemy.y]);
-            } else if (distancetoenemy > closestbattle + 13 && distancetoenemy >= SPECS.UNITS[closestenemy.unit].ATTACK_RADIUS[1] + 16) {
+            } else if (distancetoenemy > closestbattle + 16) {
                 this.log("DONT STAY TOO FAR FROM BATTLEFIELD");
                 var minVal = 999999999;
                 var minDir = null;
@@ -193,9 +191,7 @@ export var Pilgrim = function(self) {
                 if (minDir == null) {
                     return this._bc_null_action();
                 }
-                if (this.distance([this.me.x + minDir[0], this.me.y + minDir[1]], [closestfriendly.x, closestfriendly.y]) > 2) {
-                    return this.move(minDir[0], minDir[1]);
-                }
+                return this.move(minDir[0], minDir[1]);
             }
             return this._bc_null_action();
         }
@@ -230,16 +226,15 @@ export var Pilgrim = function(self) {
                 }
             }
         }
-        /*
         if (biggest >= SPECS.UNITS[SPECS.PREACHER].VISION_RADIUS * 2) {
             this.log("SLOW");
             var move = this.moveto(enemylocs[curtarget], true);
-        } else {*/
-        var move = this.moveto(enemylocs[curtarget], false);
-        // }
+        } else {
+            var move = this.moveto(enemylocs[curtarget], false);
+        }
         
         if (move != null) {
-            if (closestcastle == null || this.distance([closestcastle.x, closestcastle.y], [this.me.x + move[0], this.me.y + move[1]]) > 2) {
+            if (closestcastle == null || this.distance([closestcastle.x, closestcastle.y], [thisme.x + move.x, this.me.y + move.y]) > 2) {
                 return this.move(...move);
             }
         }
