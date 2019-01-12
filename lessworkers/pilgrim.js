@@ -181,7 +181,7 @@ export var Pilgrim = function(self) {
             //i gots the drugs, now move to castle and give drugs
             //this.log("GIVING TO CASTLE");
             var castle_there = this.getVisibleRobotMap()[castleloc[1]][castleloc[0]];
-            if (castle_there <= 0 || this.getRobot(castle_there).unit != SPECS.CASTLE) {
+            if (castle_there <= 0 || (this.getRobot(castle_there).unit != SPECS.CASTLE && this.getRobot(castle_there).unit != SPECS.CHURCH)) {
                 //shit we lost a castle, rebuild a church here instead :^). at least the other workers wont get fucked
                 // in the future move the church to a better location and add a different check in workers to re-base.
                 if (this.validCoords(castleloc) && castle_there == 0) {
