@@ -184,7 +184,9 @@ export var Pilgrim = function(self) {
             if (castle_there <= 0 || (this.getRobot(castle_there).unit != SPECS.CASTLE && this.getRobot(castle_there).unit != SPECS.CHURCH)) {
                 //shit we lost a castle, rebuild a church here instead :^). at least the other workers wont get fucked
                 // in the future move the church to a better location and add a different check in workers to re-base.
-                if (this.validCoords(castleloc) && castle_there == 0) {
+                this.log("fuck castle is gone???--------------------------");
+                if (this.validCoords(castleloc) && castle_there == 0 && this.karbonite > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_KARBONITE * 2 && 
+                    this.fuel > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_FUEL * 2) {
                     return this.buildUnit(SPECS.CHURCH, castleloc[0] - this.me.x, castleloc[1] - this.me.y);
                 }
 

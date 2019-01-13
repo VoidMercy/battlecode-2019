@@ -92,7 +92,7 @@ export var Preacher = function() {
     for(var i = 0; i < preacherdirs.length; i++) {
         var attack_x = this.me.x + preacherdirs[i][0], attack_y = this.me.y + preacherdirs[i][1];
         if(!this.validCoords([attack_x, attack_y])) continue;
-        if(vismap[attack_y][attack_x] <= 0) continue;
+        if(vismap[attack_y][attack_x] < 0) continue; // <= if cant attack empty squares
         var curr_score = 0;
         var attack_count = 0;
         for(var j = 0; j < preacherattackdirs.length; j++) {
@@ -127,6 +127,8 @@ export var Preacher = function() {
     if(best_score_locs != undefined) {
         this.log("PREACHER ATTACK");
         return this.attack(...best_score_locs);
+    } else {
+        // hehe no enemies do some autismo repositioning 
     }
 
     if (tempTarget != null) {

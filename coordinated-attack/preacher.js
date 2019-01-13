@@ -109,7 +109,7 @@ export var Preacher = function() {
     for(var i = 0; i < preacherdirs.length; i++) {
         var attack_x = this.me.x + preacherdirs[i][0], attack_y = this.me.y + preacherdirs[i][1];
         if(!this.validCoords([attack_x, attack_y])) continue;
-        if(vismap[attack_y][attack_x] <= 0) continue;
+        if(vismap[attack_y][attack_x] < 0) continue; // <= if cant attack empty squares
         var curr_score = 0;
         var attack_count = 0;
         for(var j = 0; j < preacherattackdirs.length; j++) {
