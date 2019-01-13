@@ -9,6 +9,9 @@ var reachedTarget = false;
 var altTargets;
 var targetNum = 0;
 
+var about_to_attack = 0;
+var countdown = 5;
+
 export var Preacher = function() {
 
     var tempmap = this.getVisibleRobotMap();
