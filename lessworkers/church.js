@@ -99,7 +99,7 @@ export var Church = function() {
                     }
                 }
                 //if all remaining positions are impassable, reset
-                if (check == range10.length - usedDefensePositions) {
+                if (check == range10.length - usedDefensePositions.length) {
                     usedDefensePositions = [];
                 }
                 for (var i = 0; i < range10.length; i++) {
@@ -110,12 +110,14 @@ export var Church = function() {
                     }
                 }
                 //send signal for starting pos
-                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
-                this.log("sent: ");
-                this.log(range10[bestIndex]);
-                this.log(signal);
-                usedDefensePositions.push(bestIndex);
-                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                if (bestIndex != -1) {
+                    var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                    this.log("sent: ");
+                    this.log(range10[bestIndex]);
+                    this.log(signal);
+                    usedDefensePositions.push(bestIndex);
+                    this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET]) {
@@ -133,12 +135,14 @@ export var Church = function() {
                     }
                 }
                 //send signal for starting pos
-                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
-                this.log("sent: ");
-                this.log(range10[bestIndex]);
-                this.log(signal);
-                usedDefensePositions.push(bestIndex);
-                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                if (bestIndex != -1) {
+                    var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                    this.log("sent: ");
+                    this.log(range10[bestIndex]);
+                    this.log(signal);
+                    usedDefensePositions.push(bestIndex);
+                    this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                }
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
         }

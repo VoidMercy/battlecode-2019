@@ -81,7 +81,7 @@ export var Prophet = function() {
             //todo: use comms to get enemy castle locations
             altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-8], [this.map.length-8, this.map.length-8], [this.map.length-8, 0], [this.me.x, this.me.y]];
             for (var i = 0; i < altTargets.length; i++) {
-                if (this.validCoords([altTargets[i][0], altTargets[i][1]]) && !this.map[altTargets[i][1]][altTargets[i][0]]) {
+                if (!this.validCoords([altTargets[i][0], altTargets[i][1]]) || !this.map[altTargets[i][1]][altTargets[i][0]]) {
                     altTargets.splice(i, 1); //remove impassable tile targets
                 }
             }
@@ -199,7 +199,7 @@ export var Prophet = function() {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
 
                 const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                if (dist <= 64 && dist >= 16) {
+                if (dist <= 64 && dist > 16) {
                     //adjacent, a t t a c c
                     // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
                     // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
@@ -221,7 +221,7 @@ export var Prophet = function() {
         for (var i = 0; i < robotsnear.length; i++) {
             if (robotsnear[i].team != this.me.team) {
                 var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
-                if (this.distance(enemyLoc, [this.me.x, this.me.y]) < 16) {
+                if (this.distance(enemyLoc, [this.me.x, this.me.y]) <= 16) {
                     this.log("run away");
                     return this.greedyMoveAway(enemyLoc);
                 }
