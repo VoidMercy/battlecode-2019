@@ -153,14 +153,23 @@ export var Prophet = function() {
         var robotsnear = this.getVisibleRobots();
         var minDist = 99999999;
         var toTarget = null;
+        var enemyPreachers = [];
+        var friendlyUnits = [];
         for (var i = 0; i < robotsnear.length; i++) {
-            if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
-                var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+            if (this.isVisible(robotsnear[i])) {
+                if (robotsnear[i].team != this.me.team) {
+                    var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
 
-                const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                if (dist < minDist) {
-                    toTarget = enemyLoc;
-                    minDist = dist;
+                    const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
+                    if (dist < minDist) {
+                        toTarget = enemyLoc;
+                        minDist = dist;
+                    }
+                    if (robotsnear[i].unit == SPECS.PREACHER) {
+                        enemyPreachers.push(robotsnear[i]);
+                    }
+                } else {
+                    friendlyUnits.push(robotsnear[i]);
                 }
             }
 
@@ -194,44 +203,61 @@ export var Prophet = function() {
         var robotsnear = this.getVisibleRobots();
         var bestTarget = null;
         var bestScore = -1;
+        var enemyPreachers = [];
+        var friendlyUnits = [];
         for (var i = 0; i < robotsnear.length; i++) {
-            if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
-                var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
 
-                const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                if (dist <= 64 && dist > 16) {
-                    //adjacent, a t t a c c
-                    // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
-                    // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
-                    var priority = 0;
-                    switch (robotsnear[i].unit) {
-                        case SPECS.PROPHET:
-                            priority = 5;
-                            break;
-                        case SPECS.PREACHER:
-                            priority = 4;
-                            break;
-                        case SPECS.CRUSADER:
-                            priority = 3;
-                            break;
-                        case SPECS.PILGRIM:
-                            priority = 2;
-                            break;
-                        case SPECS.CASTLE:
-                            priority = 1;
-                            break;
-                        default:
-                            priority = 0;
+            if (this.isVisible(robotsnear[i])) {
+                if (robotsnear[i].team != this.me.team) {
+                    var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+    
+                    const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
+                    if (dist <= 64 && dist > 16) {
+                        //adjacent, a t t a c c
+                        // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
+                        // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
+                        var priority = 0;
+                        switch (robotsnear[i].unit) {
+                            case SPECS.PROPHET:
+                                priority = 5;
+                                break;
+                            case SPECS.PREACHER:
+                                priority = 4;
+                                break;
+                            case SPECS.CRUSADER:
+                                priority = 3;
+                                break;
+                            case SPECS.PILGRIM:
+                                priority = 2;
+                                break;
+                            case SPECS.CASTLE:
+                                priority = 1;
+                                break;
+                            default:
+                                priority = 0;
+                        }
+                        var score = (100 + priority * 100 - dist);
+                        if (score > bestScore) {
+                            bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                            bestScore = score;
+                        }
                     }
-                    var score = (100 + priority * 100 - dist);
-                    if (score > bestScore) {
-                        bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
-                        bestScore = score;
+                    if (robotsnear[i].unit == SPECS.PREACHER) {
+                        enemyPreachers.push(robotsnear[i]);
                     }
                 }
 
             }
         }
+
+        var spreadout = this.prophetSpread(enemyPreachers);
+        if (spreadout != null) {
+            this.log("spread out!");
+            this.log(spreadout);
+            this.log([this.me.x, this.me.y]);
+            return this.move(spreadout[0], spreadout[1]);
+        }
+
         if (bestTarget != null) {
 
             this.log("attacc");

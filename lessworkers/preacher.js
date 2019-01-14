@@ -59,6 +59,7 @@ export var Preacher = function() {
 
     var robotsnear = this.getVisibleRobots();
     var robot = null;
+    var enemyPreachers = [];
     for (var i=0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
@@ -66,6 +67,9 @@ export var Preacher = function() {
             this.log("received signal!");
             target = null;
             break;
+        }
+        if (this.isVisible(robot) && robotsnear[i].team != this.me.team && robotsnear[i].unit == SPECS.PREACHER) {
+            enemyPreachers.push(robot);
         }
     }
 
@@ -131,6 +135,7 @@ export var Preacher = function() {
             best_score_locs = preacherdirs[i];
         }
     }
+
     if(best_score_locs != undefined) {
         this.log("PREACHER ATTACK");
         return this.attack(...best_score_locs);
