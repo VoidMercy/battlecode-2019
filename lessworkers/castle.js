@@ -89,14 +89,16 @@ export var Castle = function() {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
             numenemy[robot.unit]++;
-            var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
-            if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
-                minDist = dist;
-                closestEnemy = robot;
+            if(this.isVisible(robot)) {
+                var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
+                if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
+                    minDist = dist;
+                    closestEnemy = robot;
+                }
             }
         } else {
             friendlies[robot.unit]++;
-            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+            if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
             }
