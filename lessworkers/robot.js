@@ -127,6 +127,39 @@ class MyRobot extends BCAbstractRobot {
         return ret;
     }
 
+
+    generateRepositionSignal2(relDest, enemyType) {
+        //same as initial pos but msbs denote relative loc of enemy
+        //lsb are "6"
+        //also sends type of enemy seen. 0->worker 1->preacher 2->prophet 3->crusader
+        var ret = 0;
+        var enemyVal = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 5;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 16; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        switch(enemyType) {
+            case SPECS.CRUSADER:
+                enemyVal = 3;
+                break;
+            case SPECS.PROPHET:
+                enemyVal = 2;
+                break;
+            case SPECS.PREACHER:
+                enemyVal = 1;
+                break;
+            // code block
+        }
+
+        ret = ((ret << 2)+enemyVal) << 4; //shift to align bits
+        ret += 4; //lsb 3 bits
+        return ret;
+    }
+
     decodeSignal(signal) {
         if (signal % 8 == 7 || signal % 8 == 6) { //decoding is the same
             //initial pos signal or reposition signal
@@ -136,6 +169,31 @@ class MyRobot extends BCAbstractRobot {
                     ret[i] -= 32;
                     ret[i] = ret[i] * -1;
                 }
+            }
+            return ret;
+        }
+
+        if (signal % 8 == 4) {
+            var ret = [signal >> 11,(signal >> 6) % 32, (signal >> 4) % 4];
+            for (var i = 0; i < 2; i++) {
+                if (ret[i] >= 16) {
+                    ret[i] -= 16;
+                    ret[i] = ret[i] * -1;
+                }
+            }
+            switch(ret[2]) {
+                case 3:
+                    ret[2] = SPECS.CRUSADER;
+                    break;
+                case 2:
+                    ret[2] = SPECS.PROPHET;
+                    break;
+                case 1:
+                    ret[2] = SPECS.PREACHER;
+                    break;
+                default:
+                    ret[2] = SPECS.PILGRIM;
+                // code block
             }
             return ret;
         }
