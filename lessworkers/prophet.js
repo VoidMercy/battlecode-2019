@@ -203,7 +203,27 @@ export var Prophet = function() {
                     //adjacent, a t t a c c
                     // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
                     // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
-                    var score = (100 + robotsnear[i].unit * 100 - dist);
+                    var priority = 0;
+                    switch (robotsnear[i].unit) {
+                        case SPECS.PROPHET:
+                            priority = 5;
+                            break;
+                        case SPECS.PREACHER:
+                            priority = 4;
+                            break;
+                        case SPECS.CRUSADER:
+                            priority = 3;
+                            break;
+                        case SPECS.PILGRIM:
+                            priority = 2;
+                            break;
+                        case SPECS.CASTLE:
+                            priority = 1;
+                            break;
+                        default:
+                            priority = 0;
+                    }
+                    var score = (100 + priority * 100 - dist);
                     if (score > bestScore) {
                         bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
                         bestScore = score;

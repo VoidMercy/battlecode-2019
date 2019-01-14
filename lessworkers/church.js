@@ -75,7 +75,8 @@ export var Church = function() {
         if (curFlatEnemyVector == null || curFlatEnemyVector[0] != enemVector[0] || curFlatEnemyVector[1] != enemVector[1]) {
             //enemies are in a different direction, broadcast to erry1
             curFlatEnemyVector = enemVector;
-            var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y]);
+            //var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y]);
+            var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y], closestEnemy.unit);
             this.log("sending reposition signal!");
             this.signal(signal, 10);
             turnsSinceLastReposition = 0;
