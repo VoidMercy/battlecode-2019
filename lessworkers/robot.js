@@ -17,6 +17,62 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    prophetSpread(enemyPreachers) {
+        //used to defend against preachers
+        var robotMap = this.getVisibleRobotMap();
+        var adjacents = [];
+        if (enemyPreachers.length > 0) {
+            var check = false;
+            for (var i = 0; i < enemyPreachers.length; i++) {
+                check = check || this.distance([this.me.x, this.me.y], [enemyPreachers[i].x, enemyPreachers[i].y]) < 29;
+                //29 means out of any possible AOE
+            }
+            if (!check) { return null; }
+            var check2 = false;
+            for (var i = 0; check && i < alldirs.length; i++) {
+                var loc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(loc) && this.map[loc[1]][loc[0]] && robotMap[loc[1]][loc[0]] > 0) {
+                    var robot = this.getRobot(robotMap[loc[1]][loc[0]]);
+                    if (robot.team == this.me.team) {
+                        for (var j = 0; j < enemyPreachers.length; j++) {
+                            check2 = check2 || this.distance([robot.x, robot.y], [enemyPreachers[j].x, enemyPreachers[j].y]) <= 16;
+                            //if adjacent to someone in attack radius
+                            adjacents.push(alldirs[i]);
+                        }
+                    }
+                }
+            }
+            if (!check2) { return null; }
+            for (var i = 0; i < otherdirs.length; i++) {
+                var loc = [this.me.x + otherdirs[i][0], this.me.y + otherdirs[i][1]];
+                if (this.validCoords(loc) && this.map[loc[1]][loc[0]] && robotMap[loc[1]][loc[0]] == 0) {
+                    var isSafe = true;
+                    for (var j = 0; j < enemyPreachers.length; j++) {
+                        isSafe = isSafe && this.distance(loc, [enemyPreachers[j].x, enemyPreachers[j].y]) > 16;
+                        //unsafe if its <= 16, as we're walking into their attach range
+                    }
+                    for (var j = 0; isSafe && j < alldirs.length; j++) {
+                        var adjloc = [loc[0] + alldirs[j][0], loc[1] + alldirs[j][1]];
+                        if (this.validCoords(adjloc) && this.map[adjloc[1]][adjloc[0]] && robotMap[adjloc[1]][adjloc[0]] > 0) {
+                            var robot = this.getRobot(robotMap[adjloc[1]][adjloc[0]]);
+                            if (robot.team == this.me.team) {
+                                for (var k = 0; k < enemyPreachers.length; k++) {
+                                    isSafe = isSafe && this.distance(adjloc, [enemyPreachers[k].x, enemyPreachers[k].y]) > 16;
+                                    //unsafe if adjacent if next to unit in range
+                                }
+                            }
+                        }
+                    }
+                    if (isSafe) {
+                        //wow! good location!
+                        return otherdirs[i];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     workermoveto(dest) {
         if (dest[0] == this.me.x && dest[1] == this.me.y) {
             return; //at target, do nothing
