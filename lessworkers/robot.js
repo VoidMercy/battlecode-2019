@@ -155,6 +155,44 @@ class MyRobot extends BCAbstractRobot {
         return null;
     }
 
+    buildAway(unittype, loc) {
+        var dist = -1;
+        var best = null;
+        if (this.canBuild(unittype)) {
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    //this.log("Create unit!");
+                    if(this.distance(loc, nextloc) > dist) {
+                        dist = this.distance(loc, nextloc);
+                        best = alldirs[i];
+                    }
+                }
+            }
+        }
+        return best;
+    }
+
+    buildNear(unittype, loc) {
+        var dist = 999999;
+        var best = null;
+        if (this.canBuild(unittype)) {
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    //this.log("Create unit!");
+                    if(this.distance(loc, nextloc) < dist) {
+                        dist = this.distance(loc, nextloc);
+                        best = alldirs[i];
+                    }
+                }
+            }
+        }
+        return best;
+    }
+
     greedyMove(dest) {
         //TODO: make it possible to move multiple tiles at once xd
         //note: this moves backwards if it cant move closer lol
@@ -201,7 +239,7 @@ class MyRobot extends BCAbstractRobot {
         //TODO: only switch one of the coords based on determined symmetry
         var size = this.map.length;
         var ret = [loc[0], loc[1]];
-        ret[1 - symmetry] = (size - ret[1 - symmetry]) % size;
+        ret[1 - symmetry] = (size - ret[1 - symmetry] - 1);
         return ret;
     }
 
@@ -233,6 +271,10 @@ class MyRobot extends BCAbstractRobot {
         var xsize = this.map[0].length; //should be square but justin case
         var ysize = this.map.length;
         return loc[0] >= 0 && loc[0] < xsize && loc[1] >= 0 && loc[1] < ysize;
+    }
+
+    canAttack(loc) {
+        return (this.validCoords(loc) && (this.getVisibleRobotMap()[loc[1]][loc[0]] >= 0) && this.map[loc[1]][loc[0]]);
     }
 
     canBuild(unit) {

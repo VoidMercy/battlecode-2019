@@ -40,7 +40,7 @@ export var Preacher = function() {
         this.log(castleLoc);
     }
 
-    if (tempmap[castleLoc[1]][castleLoc[0]] > 0) { //listen for reposition signal
+    if (castleLoc != null && tempmap[castleLoc[1]][castleLoc[0]] > 0) { //listen for reposition signal
         var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
         if (castle.signal != -1 && castle.signal % 8 == 6) {
             this.log("REPOSITIONAL SIGNAL");
@@ -91,8 +91,7 @@ export var Preacher = function() {
     var vismap = this.getVisibleRobotMap();
     for(var i = 0; i < preacherdirs.length; i++) {
         var attack_x = this.me.x + preacherdirs[i][0], attack_y = this.me.y + preacherdirs[i][1];
-        if(!this.validCoords([attack_x, attack_y])) continue;
-        if(vismap[attack_y][attack_x] < 0) continue; // <= if cant attack empty squares
+        if(!this.canAttack([attack_x, attack_y])) continue;
         var curr_score = 0;
         var attack_count = 0;
         for(var j = 0; j < preacherattackdirs.length; j++) {
@@ -111,15 +110,23 @@ export var Preacher = function() {
                 else if(target_robot.unit == SPECS.PILGRIM){
                   curr_score -= 5;
                 } else {
-                    curr_score -= 20;
+                  curr_score -= 20;
                 }
             }
             else {
                 attack_count++;
-                curr_score += 20;
+                if(target_robot.unit == SPECS.CASTLE) {
+                  curr_score += 60;
+                }
+                else if(target_robot.unit == SPECS.CHURCH) {
+                  curr_score += 40;
+                }
+                else {
+                  curr_score += 20;
+                }
             }
         }
-        if(attack_count >= 0 && curr_score >= best_score) {
+        if(attack_count > 0 && curr_score >= best_score) {
             best_score = curr_score;
             best_score_locs = preacherdirs[i];
         }
@@ -136,14 +143,14 @@ export var Preacher = function() {
         return this.moveto(tempTarget);
     }
 
-    if (reachedTarget || !this.validCoords(target)) {
+    if (reachedTarget || (target != null && !this.validCoords(target))) {
         //this.log("Switching targets!");
         reachedTarget = false;
         targetNum = (targetNum + 1) % altTargets.length;
         target = altTargets[targetNum];
     }
 
-    if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
+    if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("preacher moving to defensive position!");
         return this.moveto(target);
     }

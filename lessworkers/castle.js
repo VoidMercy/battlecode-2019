@@ -12,7 +12,9 @@ var curFlatEnemyVector = null;
 var turnsSinceLastReposition = 0; //prevent spamming if we're surrounded lol
 var first_castle = true;
 var castle_locs = [];
+var enemy_castle_locs = [];
 var lategameUnitCount = 0;
+var nearest_enemy_castle = null;
 
 export var Castle = function() {
     var robotsnear = this.getVisibleRobots();
@@ -42,10 +44,20 @@ export var Castle = function() {
                 castle_locs.push(Comms.Decompress8Bits(robotsnear[i].castle_talk));
             }
         }
+        var best_dist = 99999;
+        for(var i = 0; i < castle_locs.length; i++) {
+            enemy_castle_locs.push(this.oppositeCoords(castle_locs[i]));
+            if(this.distance([this.me.x, this.me.y], enemy_castle_locs[i]) < best_dist) {
+                best_dist = this.distance([this.me.x, this.me.y], enemy_castle_locs[i]);
+                nearest_enemy_castle = enemy_castle_locs[i];
+            }
+        }
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
     } else if(this.me.turn == 3) {
         this.castleTalk(0);
         this.log(["CASTLES", castle_locs]);
+        this.log(["ENEMY CASTLES", enemy_castle_locs]);
+        this.log(["NEAREST ENEMY CASTLE", nearest_enemy_castle]);
         if(first_castle) this.log("is first castle");
     } else { // turn > 3
         for (var i = 0; i < robotsnear.length; i++) {
