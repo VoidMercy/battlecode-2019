@@ -1,1 +1,0 @@
-# battlecode-2019
