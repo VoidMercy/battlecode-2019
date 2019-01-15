@@ -7,7 +7,7 @@ var altTargets;
 var targetNum = 0;
 var castleLoc = null;
 var tempTarget = null;
-var offenseFlag = 2;
+var offenseFlag = 0;
 var relStartPos = null;
 
 export var Prophet = function() {
@@ -42,22 +42,23 @@ export var Prophet = function() {
         this.log(castleLoc);
     }
     
-    if (tempmap[castleLoc[1]][castleLoc[0]] > 0) {
+    if (castleLoc != null && tempmap[castleLoc[1]][castleLoc[0]] > 0) {
         var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
         if (castle.signal != -1 && castle.signal % 8 == 6) {
             this.log("REPOSITIONAL SIGNAL");
             this.log(castle.signal);
             var relStartPos = this.decodeSignal(castle.signal);
-            tempTarget = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
+            target = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
             this.log("Received: ");
             this.log(relStartPos);
         }
     }
 
+    /*
     if (tempTarget != null && this.distance(tempTarget, [this.me.x, this.me.y]) <= 4) {
         //close enough to temp target, we are probably aggrod onto enemy and/or enemy is dead now
         tempTarget = null;
-    }
+    }*/
 
 
     var robotsnear = this.getVisibleRobots();
@@ -151,54 +152,6 @@ export var Prophet = function() {
     } else if (offenseFlag == 0) {
         // play defensively
         //attack if adjacent
-        var robotsnear = this.getVisibleRobots();
-        var minDist = 99999999;
-        var toTarget = null;
-        var enemyPreachers = [];
-        var friendlyUnits = [];
-        for (var i = 0; i < robotsnear.length; i++) {
-            if (this.isVisible(robotsnear[i])) {
-                if (robotsnear[i].team != this.me.team) {
-                    var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
-
-                    const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                    if (dist < minDist) {
-                        toTarget = enemyLoc;
-                        minDist = dist;
-                    }
-                    if (robotsnear[i].unit == SPECS.PREACHER) {
-                        enemyPreachers.push(robotsnear[i]);
-                    }
-                } else {
-                    friendlyUnits.push(robotsnear[i]);
-                }
-            }
-
-        }
-
-        if (minDist <= 16) {
-            // too close get away
-            return this.greedyMoveAway(toTarget);
-        }
-
-        if (minDist <= 64 && minDist > 16) {
-            //adjacent, a t t a c c
-            this.log("prophet attacc");
-            return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
-        }
-
-        if (tempTarget != null) {
-            this.log("repositioning ecks dee");
-            return this.moveto(tempTarget);
-        }    
-
-        if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
-            //this.log("prophet moving to defensive position!");
-            return this.moveto(target);
-        }
-        return;
-
-    } else {
         // play defensively, version 2
         //attack if adjacent
         var robotsnear = this.getVisibleRobots();
@@ -251,18 +204,17 @@ export var Prophet = function() {
             }
         }
 
+        if (bestTarget != null) {
+            // this.log("attacc");
+            return this.attack(...bestTarget);
+        }
+
         var spreadout = this.prophetSpread(enemyPreachers);
         if (spreadout != null) {
             this.log("spread out!");
             this.log(spreadout);
             this.log([this.me.x, this.me.y]);
             return this.move(spreadout[0], spreadout[1]);
-        }
-
-        if (bestTarget != null) {
-
-            this.log("attacc");
-            return this.attack(...bestTarget);
         }
 
         for (var i = 0; i < robotsnear.length; i++) {
@@ -274,11 +226,11 @@ export var Prophet = function() {
                 }
             }
         }
-
+        /*
         if (tempTarget != null) {
             this.log("repositioning ecks dee");
             return this.moveto(tempTarget);
-        }    
+        } */   
 
         if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
             //this.log("prophet moving to defensive position!");

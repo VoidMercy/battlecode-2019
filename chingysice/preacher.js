@@ -11,6 +11,7 @@ var relStartPos = null;
 var targetNum = 0;
 var underattack = false;
 var therearepreachers = false;
+var stuckcount = 0;
 
 export var Preacher = function() {
 
@@ -148,6 +149,12 @@ export var Preacher = function() {
         }
     }
 
+    if(best_score_locs != undefined) {
+        this.log("PREACHER ATTACK");
+        return this.attack(...best_score_locs);
+    }
+
+    /*
     //if signal says preacher exists, spread out :O
     //this.log(typeof relStartPos);
     if (underattack && therearepreachers && offenseFlag == 0) {
@@ -189,19 +196,21 @@ export var Preacher = function() {
             this.log("SPREAD THAT PUSSY");
             this.move(bestpos[0] - this.me.x, bestpos[1] - this.me.y);
         }
-    }
+    }*/
 
-    if(best_score_locs != undefined) {
-        this.log("PREACHER ATTACK");
-        return this.attack(...best_score_locs);
-    } else {
-        // hehe no enemies do some autismo repositioning 
-    }
-
+    /*
     if (tempTarget != null) {
         this.log("repositioning ecks dee");
-        return this.moveto(tempTarget);
-    }
+        var move = this.nopreachermoveto(tempTarget);
+        if (move != null) {
+            this.move(...move);
+        } else {
+            stuckcount++;
+            if (stuckcount >= 4) {
+                target = [this.me.x, this.me.y];
+            }
+        }
+    }*/
 
     if (reachedTarget || (target != null && !this.validCoords(target))) {
         //this.log("Switching targets!");
@@ -212,7 +221,16 @@ export var Preacher = function() {
 
     if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("preacher moving to defensive position!");
-        return this.moveto(target);
+        var move = this.nopreachermoveto(target);
+        if (move != null) {
+            stuckcount = 0;
+            return this.move(...move);
+        } else {
+            stuckcount++;
+            if (stuckcount >= 6) {
+                target = [this.me.x, this.me.y];
+            }
+        }
     }
     
     return this._bc_null_action();

@@ -15,6 +15,7 @@ var castle_locs = [];
 var enemy_castle_locs = [];
 var lategameUnitCount = 0;
 var nearest_enemy_castle = null;
+var lastenemyseen = [];
 
 export var Castle = function() {
     var robotsnear = this.getVisibleRobots();
@@ -109,6 +110,7 @@ export var Castle = function() {
                 if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
                     minDist = dist;
                     closestEnemy = robot;
+                    lastenemyseen = closestEnemy;
                 }
             }
         } else {
@@ -116,7 +118,9 @@ export var Castle = function() {
             if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
-                defensive_health += robot.health;
+                if (robot.unit >= 3) {
+                    defensive_health += robot.health;
+                }
             }
         }
     }
@@ -157,16 +161,22 @@ export var Castle = function() {
         this.log("broadcast we are se-fu");
         this.signal(6969, 10);
     } else {
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health <= enemy_health) {
-
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health < enemy_health) {
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
-            if (underattack && closestEnemy.unit == SPECS.PREACHER) {
-                this.log("ohno");
-                result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+            if (closestEnemy == null) {
+                this.log("THIS SHOULD RARELY HAPPEN");
+                result = this.buildNear(SPECS.PREACHER, [lastenemyseen.x, lastenemyseen.y]);
             } else {
-                result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                if (underattack && closestEnemy.unit == SPECS.PREACHER) {
+                    this.log("ohno");
+                    result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                } else {
+                    result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                }
             }
+
+            
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;

@@ -81,8 +81,7 @@ export var Preacher = function() {
     var vismap = this.getVisibleRobotMap();
     for(var i = 0; i < preacherdirs.length; i++) {
         var attack_x = this.me.x + preacherdirs[i][0], attack_y = this.me.y + preacherdirs[i][1];
-        if(!this.validCoords([attack_x, attack_y])) continue;
-        if(vismap[attack_y][attack_x] < 0) continue; // <= if cant attack empty squares
+        if(!this.canAttack([attack_x, attack_y])) continue;
         var curr_score = 0;
         var attack_count = 0;
         for(var j = 0; j < preacherattackdirs.length; j++) {
@@ -101,15 +100,23 @@ export var Preacher = function() {
                 else if(target_robot.unit == SPECS.PILGRIM){
                   curr_score -= 5;
                 } else {
-                    curr_score -= 20;
+                  curr_score -= 20;
                 }
             }
             else {
                 attack_count++;
-                curr_score += 20;
+                if(target_robot.unit == SPECS.CASTLE) {
+                  curr_score += 60;
+                }
+                else if(target_robot.unit == SPECS.CHURCH) {
+                  curr_score += 40;
+                }
+                else {
+                  curr_score += 20;
+                }
             }
         }
-        if(attack_count >= 0 && curr_score >= best_score) {
+        if(attack_count > 0 && curr_score >= best_score) {
             best_score = curr_score;
             best_score_locs = preacherdirs[i];
         }

@@ -9,6 +9,7 @@ var underattack = false;
 var usedDefensePositions = []; //used for assigning where units go
 var curFlatEnemyVector = null;
 var turnsSinceLastReposition = 0;
+var lastenemyseen = [];
 
 export var Church = function() {
 
@@ -41,33 +42,37 @@ export var Church = function() {
     var friendlies = [0, 0, 0, 0, 0, 0];
     var defense_units = [0, 0, 0, 0, 0, 0];
     var defense_robots = [];
+    var defensive_health = 0;
+    var enemy_health = 0;
     var minDist = 9999999;
     var closestEnemy = null;
-    var closestEnemyWNonattacking = null;
-    var nonattackingMinDist = 9999999
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
             numenemy[robot.unit]++;
-            var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
-            if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
-                minDist = dist;
-                closestEnemy = robot;
-            }
-            if (dist < nonattackingMinDist) {
-                nonattackingMinDist = dist;
-                closestEnemyWNonattacking = robot;
+            enemy_health += robot.health;
+            if(this.isVisible(robot)) {
+                var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
+                if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
+                    minDist = dist;
+                    closestEnemy = robot;
+                    lastenemyseen = closestEnemy;
+                }
             }
         } else {
             friendlies[robot.unit]++;
-            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+            if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
+                if (robot.unit >= 3) {
+                    defensive_health += robot.health;
+                }
             }
         }
     }
 
     if (closestEnemy != null && this.fuel >= 10 && turnsSinceLastReposition >= 10) {
+        underattack = true;
         var enemVector = [closestEnemy.x - this.me.x, closestEnemy.y - this.me.y];
         for (var i = 0; i < 2; i++) {
             enemVector[i] = Math.round(enemVector[i] / Math.max(...enemVector));
@@ -75,20 +80,49 @@ export var Church = function() {
         if (curFlatEnemyVector == null || curFlatEnemyVector[0] != enemVector[0] || curFlatEnemyVector[1] != enemVector[1]) {
             //enemies are in a different direction, broadcast to erry1
             curFlatEnemyVector = enemVector;
-            //var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y]);
-            var signal = this.generateRepositionSignal([closestEnemy.x - this.me.x, closestEnemy.y - this.me.y], closestEnemy.unit);
-            this.log("sending reposition signal!");
-            this.signal(signal, 10);
-            turnsSinceLastReposition = 0;
+            sicecoords = [];
+            var minDist = 9999;
+            var bestIndex = null;
+            for (var i = 0; i < range10.length; i++) {
+                var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                    minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
+                    bestIndex = i;
+                }
+            }
+            if (bestIndex != null) {
+                var signal = this.generateRepositionSignal(range10[bestIndex]);
+                this.log("sending reposition signal!");
+                this.signal(signal, 10);
+                turnsSinceLastReposition = 0;
+            } else {
+                this.log("SOMETHING BORKED");
+            }
+            
         }
     }
 
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
         underattack = false;
+        this.log("broadcast we are se-fu");
+        this.signal(6969, 10);
     } else {
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER]) {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health < enemy_health) {
             this.log("CREATE PREACHER FOR DEFENSE");
-            var result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+            var result = null;
+            if (closestEnemy == null) {
+                this.log("THIS SHOULD RARELY HAPPEN");
+                result = this.buildNear(SPECS.PREACHER, [lastenemyseen.x, lastenemyseen.y]);
+            } else {
+                if (underattack && closestEnemy.unit == SPECS.PREACHER) {
+                    this.log("ohno");
+                    result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                } else {
+                    result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                }
+            }
+
+            
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;
@@ -121,7 +155,7 @@ export var Church = function() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET]) {
+        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
@@ -136,6 +170,7 @@ export var Church = function() {
                     }
                 }
                 //send signal for starting pos
+                //send signal for starting pos
                 if (bestIndex != -1) {
                     var signal = this.generateDefenseInitialSignal(range10[bestIndex], closestEnemy.unit);
                     this.log("sent: ");
@@ -146,7 +181,7 @@ export var Church = function() {
                 }
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
-        }
+        } 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
             //produce prophet to counter attack
@@ -155,16 +190,15 @@ export var Church = function() {
                 return result;
             }
         }*/
-        underattack = true;
     }
 
-    if (!underattack && closestEnemyWNonattacking != null) {
+    if (!underattack && closestEnemy != null) {
         //produce these even tho not "under attack" technically
         if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
             //spawn preacher for enemy castles/churches
+            this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
             var result = this.build(SPECS.PREACHER);
             if (result != null) {
-                this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;
                 var check = 0;
@@ -180,8 +214,8 @@ export var Church = function() {
                 }
                 for (var i = 0; i < range10.length; i++) {
                     var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemyWNonattacking.x, closestEnemyWNonattacking.y]) < minDist) {
-                        minDist = this.distance(nextloc, [closestEnemyWNonattacking.x, closestEnemyWNonattacking.y]);
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
                         bestIndex = i;
                     }
                 }
@@ -194,11 +228,11 @@ export var Church = function() {
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER] * 4) {
+        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER]*4) {
             //spawn crusaders for enemy pilgrims
+            this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
             var result = this.build(SPECS.CRUSADER);
             if (result != null) {
-                this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;
                 var check = 0;
@@ -214,8 +248,8 @@ export var Church = function() {
                 }
                 for (var i = 0; i < range10.length; i++) {
                     var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemyWNonattacking.x, closestEnemyWNonattacking.y]) < minDist) {
-                        minDist = this.distance(nextloc, [closestEnemyWNonattacking.x, closestEnemyWNonattacking.y]);
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
+                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
                         bestIndex = i;
                     }
                 }

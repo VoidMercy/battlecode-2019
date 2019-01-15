@@ -64,7 +64,7 @@ export var Pilgrim = function(self) {
     }
 
     //move towards target
-    if (this.me.turn >= 7 && curtarget < enemylocs.length) {
+    if (this.me.turn >= 6 && curtarget < enemylocs.length) {
 
         // look for preacher engagements
         var enemies = [0, 0, 0, 0, 0, 0];

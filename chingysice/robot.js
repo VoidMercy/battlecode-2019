@@ -73,9 +73,9 @@ class MyRobot extends BCAbstractRobot {
         return null;
     }
 
-    engagementmoveto(dest) {
+    nopreachermoveto(dest) {
         if (dest[0] == this.me.x && dest[1] == this.me.y) {
-            return; //at target, do nothing
+            return null; //at target, do nothing
         }
         if (!(this.hash(...dest) in dict)) {
             //this.log("START BFS");
@@ -103,7 +103,7 @@ class MyRobot extends BCAbstractRobot {
 
             dict[this.hash(...dest)] = distancetodest;
             //this.log("BFS DONE");
-            return this.moveto(dest);
+            return this.nopreachermoveto(dest);
         } else {
 
             var moveradius = SPECS.UNITS[this.me.unit].SPEED;
@@ -118,7 +118,7 @@ class MyRobot extends BCAbstractRobot {
                     if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && visible[j][i] == 0 && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
                         var good = true;
                         for (var a = 0; a < robotsnear.length; a++) {
-                            if (robotsnear[a].team == this.me.team && robotsnear[a].unit >= 3 && this.distance([this.me.x, this.me.y], [robotsnear[a].x, robotsnear[a].y]) <= 2) {
+                            if (robotsnear[a].team == this.me.team && robotsnear[a].unit == SPECS.PREACHER && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= 2) {
                                 good = false;
                                 break;
                             }
@@ -141,9 +141,9 @@ class MyRobot extends BCAbstractRobot {
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
-                return this._bc_null_action();
+                return null;
             }
-            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            return [smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y];
         }
     }
 
