@@ -192,7 +192,7 @@ export var Church = function() {
         }*/
     }
 
-    if (!underattack && closestEnemy != null) {
+    if (!underattack && closestEnemy == null) {
         //produce these even tho not "under attack" technically
         if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
             //spawn preacher for enemy castles/churches
