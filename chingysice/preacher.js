@@ -221,6 +221,7 @@ export var Preacher = function() {
 
     if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("preacher moving to defensive position!");
+        this.log("TRY TO MOVE");
         var move = this.nopreachermoveto(target);
         if (move != null) {
             stuckcount = 0;
