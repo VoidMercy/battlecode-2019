@@ -245,78 +245,25 @@ export var Castle = function() {
         }*/
     }
 
-    if (!underattack && closestEnemy != null) {
+    if (!underattack && closestEnemy == null) {
         //produce these even tho not "under attack" technically
         if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
             //spawn preacher for enemy castles/churches
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
             var result = this.build(SPECS.PREACHER);
             if (result != null) {
-                minDist = 9999999; //reuse var
-                var bestIndex = -1;
-                var check = 0;
-                for (var i = 0; i < range10.length; i++) {
-                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (!this.validCoords(nextloc)) {
-                        check++;
-                    }
-                }
-                //if all remaining positions are impassable, reset
-                if (check == range10.length - usedDefensePositions) {
-                    usedDefensePositions = [];
-                }
-                for (var i = 0; i < range10.length; i++) {
-                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
-                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
-                        bestIndex = i;
-                    }
-                }
-                //send signal for starting pos
-                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
-                this.log("sent: ");
-                this.log(range10[bestIndex]);
-                this.log(signal);
-                usedDefensePositions.push(bestIndex);
-                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
-                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+                return this.buildUnit(SPECS.PREACHER, ...result);
             }
         } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER]*4) {
             //spawn crusaders for enemy pilgrims
             this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
             var result = this.build(SPECS.CRUSADER);
             if (result != null) {
-                minDist = 9999999; //reuse var
-                var bestIndex = -1;
-                var check = 0;
-                for (var i = 0; i < range10.length; i++) {
-                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (!this.validCoords(nextloc)) {
-                        check++;
-                    }
-                }
-                //if all remaining positions are impassable, reset
-                if (check == range10.length - usedDefensePositions) {
-                    usedDefensePositions = [];
-                }
-                for (var i = 0; i < range10.length; i++) {
-                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
-                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [closestEnemy.x, closestEnemy.y]) < minDist) {
-                        minDist = this.distance(nextloc, [closestEnemy.x, closestEnemy.y]);
-                        bestIndex = i;
-                    }
-                }
-                //send signal for starting pos
-                var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
-                this.log("sent: ");
-                this.log(range10[bestIndex]);
-                this.log(signal);
-                usedDefensePositions.push(bestIndex);
-                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
-                return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
+                return this.buildUnit(SPECS.CRUSADER, ...result);
             }
         }
     }
+
 
     //offensive code lategame
     if (this.karbonite > 250 && this.fuel > 500) {
