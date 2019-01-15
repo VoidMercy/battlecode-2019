@@ -166,6 +166,24 @@ class MyRobot extends BCAbstractRobot {
         return ret;
     }
 
+    generateDefenseInitialSignal(relDest, enemyType) {
+        //used when building specifically for defense
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 5;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 16; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        ret = ret << 3;
+        ret += enemyType;
+        ret = ret << 3;
+        ret += 3;
+        return ret;
+    }
+
     generateRepositionSignal(relDest) {
         //same as initial pos but msbs denote relative loc of enemy
         //lsb are "6"
@@ -189,7 +207,6 @@ class MyRobot extends BCAbstractRobot {
         //lsb are "6"
         //also sends type of enemy seen. 0->worker 1->preacher 2->prophet 3->crusader
         var ret = 0;
-        var enemyVal = 0;
         for (var i = 0; i < 2; i++) {
             ret = ret << 5;
             if (relDest[i] < 0) {
@@ -198,20 +215,9 @@ class MyRobot extends BCAbstractRobot {
             }
             ret += Math.abs(relDest[i]);
         }
-        switch(enemyType) {
-            case SPECS.CRUSADER:
-                enemyVal = 3;
-                break;
-            case SPECS.PROPHET:
-                enemyVal = 2;
-                break;
-            case SPECS.PREACHER:
-                enemyVal = 1;
-                break;
-            // code block
-        }
-
-        ret = ((ret << 2)+enemyVal) << 4; //shift to align bits
+        ret = ret << 3;
+        ret += enemyType;
+        ret = ret << 3; //shift to align bits
         ret += 4; //lsb 3 bits
         return ret;
     }
@@ -229,27 +235,13 @@ class MyRobot extends BCAbstractRobot {
             return ret;
         }
 
-        if (signal % 8 == 4) {
-            var ret = [signal >> 11,(signal >> 6) % 32, (signal >> 4) % 4];
+        if (signal % 8 == 4 || signal % 8 == 3) {
+            var ret = [signal >> 11,(signal >> 6) % 32, (signal >> 3) % 8];
             for (var i = 0; i < 2; i++) {
                 if (ret[i] >= 16) {
                     ret[i] -= 16;
                     ret[i] = ret[i] * -1;
                 }
-            }
-            switch(ret[2]) {
-                case 3:
-                    ret[2] = SPECS.CRUSADER;
-                    break;
-                case 2:
-                    ret[2] = SPECS.PROPHET;
-                    break;
-                case 1:
-                    ret[2] = SPECS.PREACHER;
-                    break;
-                default:
-                    ret[2] = SPECS.PILGRIM;
-                // code block
             }
             return ret;
         }

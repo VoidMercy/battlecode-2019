@@ -88,7 +88,7 @@ export var Church = function() {
     } else {
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER]) {
             this.log("CREATE PREACHER FOR DEFENSE");
-            var result = this.build(SPECS.PREACHER);
+            var result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var bestIndex = -1;
@@ -112,7 +112,7 @@ export var Church = function() {
                 }
                 //send signal for starting pos
                 if (bestIndex != -1) {
-                    var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                    var signal = this.generateDefenseInitialSignal(range10[bestIndex], closestEnemy.unit);
                     this.log("sent: ");
                     this.log(range10[bestIndex]);
                     this.log(signal);
@@ -124,7 +124,7 @@ export var Church = function() {
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET]) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
-            var result = this.build(SPECS.PROPHET);
+            var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var bestIndex;
@@ -137,7 +137,7 @@ export var Church = function() {
                 }
                 //send signal for starting pos
                 if (bestIndex != -1) {
-                    var signal = this.generateInitialPosSignalVal(range10[bestIndex]);
+                    var signal = this.generateDefenseInitialSignal(range10[bestIndex], closestEnemy.unit);
                     this.log("sent: ");
                     this.log(range10[bestIndex]);
                     this.log(signal);

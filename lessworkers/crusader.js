@@ -8,6 +8,7 @@ var targetNum = 0;
 var castleLoc = null;
 var tempTarget = null;
 var offenseFlag = 2;
+var relStartPos = null;
 
 export var Crusader = function() {
 	// knight
@@ -25,7 +26,7 @@ export var Crusader = function() {
                     if (robot.signal != -1) {
                         this.log("SIGNAL");
                         this.log(robot.signal);
-                        var relStartPos = this.decodeSignal(robot.signal);
+                        relStartPos = this.decodeSignal(robot.signal);
                         target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
                         this.log("Received: ");
                         this.log(relStartPos);

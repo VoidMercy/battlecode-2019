@@ -1,5 +1,5 @@
 import {SPECS} from 'battlecode';
-import {alldirs, preacherdirs, preacherattackdirs} from 'constants.js'
+import {alldirs, preacherdirs, preacherattackdirs, otherdirs} from 'constants.js'
 
 var target = null;
 var castleLoc = null; 
@@ -7,6 +7,7 @@ var tempTarget = null;
 var offenseFlag =  0;
 var reachedTarget = false;
 var altTargets;
+var relStartPos = null;
 var targetNum = 0;
 
 export var Preacher = function() {
@@ -24,7 +25,7 @@ export var Preacher = function() {
                     if (robot.signal != -1) {
                         this.log("SIGNAL");
                         this.log(robot.signal);
-                        var relStartPos = this.decodeSignal(robot.signal);
+                        relStartPos = this.decodeSignal(robot.signal);
                         target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
                         this.log("Received: ");
                         this.log(relStartPos);
@@ -88,6 +89,84 @@ export var Preacher = function() {
             reachedTarget = true;
         }
     }
+
+    //if signal says preacher exists, spread out :O
+    //this.log(typeof relStartPos);
+    if (relStartPos != null && relStartPos[2] == SPECS.PREACHER && offenseFlag == 0) {
+        //only do this in defensive mode
+        var needSpread = false;
+        for (var i = 0; i < alldirs.length; i++) {
+            //first check if adjacent to units to avoid never attacking lol
+            var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+            if (this.validCoords(nextloc) && tempmap[nextloc[1]][nextloc[0]] > 0) {
+                needSpread = needSpread || this.getRobot(tempmap[nextloc[1]][nextloc[0]]).team == this.me.team;
+            }
+        }
+        this.log(needSpread);
+        if (needSpread) {
+            //we're adjacent and enemy preachers are here - spread out!
+            var bestloc = null;
+            var nextbest = null; //move away from castle to avoid poke if i cant be isolated fully
+            var nextnext = null; //if i can be invuln but lose vision, move anyways
+            var nextnextcost = 9999999;
+            var nextcost = 99999999;
+            var cost = 9999999;
+            for (var i = 0; i < otherdirs.length; i++) {
+                var nextloc = [this.me.x + otherdirs[i][0], this.me.y + otherdirs[i][1]];
+                
+                //find tile such that movement is minimized while not being adjacent
+                //also stay in attack range of at least one preacher
+                if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && tempmap[nextloc[1]][nextloc[0]] == 0) {
+                    var good = true;
+                    var nextgood = true;
+                    for (var j = 0; j < alldirs.length; j++) {
+                        var adjloc = [nextloc[0] + alldirs[j][0], nextloc[1] + alldirs[j][1]];
+                        if (this.validCoords(adjloc)) {
+                            good = good && tempmap[adjloc[1]][adjloc[0]] == 0;
+                            if (tempmap[adjloc[1]][adjloc[0]] != 0) {
+                                nextgood = nextgood && this.getRobot(tempmap[adjloc[1]][adjloc[0]]).unit != SPECS.CASTLE;
+                            }
+                        }
+                    }
+                    var check1 = enemyPreachers.length == 0;
+                    for (var j = 0; j < enemyPreachers.length; j++) {
+                        //stay in range of at least one enemy preacher so i can attacc
+                        check1 = check1 || this.distance(nextloc, [enemyPreachers[j][0], enemyPreachers[j][1]]) <= 16;
+                    }
+                    var nextnextgood = good;
+                    good = good && check1;
+                    if (good && this.distance(nextloc, [this.me.x, this.me.y]) < cost) {
+                        cost = this.distance(nextloc, [this.me.x, this.me.y]);
+                        bestloc = otherdirs[i];
+                    }
+                    if (nextgood && this.distance(nextloc, [this.me.x, this.me.y]) < nextcost) {
+                        nextcost = this.distance(nextloc, [this.me.x, this.me.y]);
+                        nextbest = otherdirs[i];
+                    }
+                    if (nextnextgood && this.distance(nextloc, [this.me.x, this.me.y]) < nextnextcost) {
+                        nextnextcost = this.distance(nextloc, [this.me.x, this.me.y]);
+                        nextnext = otherdirs[i];
+                    }
+                }
+            }
+            if (bestloc != null) {
+                this.log("spreading out preacher");
+                this.log(bestloc);
+                return this.move(...bestloc);
+            } else if (nextnext != null) {
+                this.log("moving away from castle preacher");
+                this.log(nextnext);
+                return this.move(...nextnext);
+            } else if (nextbest != null) {
+                this.log("moving away from castle preacher");
+                this.log(nextbest);
+                return this.move(...nextbest);
+            } else {
+                this.log("F no locations :(");
+            }
+        }
+    }
+
     //todo: use different micro for defense and offense LOL
     //aka if defensive, use castle for extra vision
     var best_score = 0;
