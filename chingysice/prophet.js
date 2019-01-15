@@ -67,6 +67,7 @@ export var Prophet = function() {
         robot = robotsnear[i];
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
             offenseFlag=1;
+            reachedTarget = false;
             this.log("received signal!");
             target = null;
             break;

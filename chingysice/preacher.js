@@ -76,6 +76,7 @@ export var Preacher = function() {
         robot = robotsnear[i];
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
             offenseFlag=1;
+            reachedTarget = false;
             this.log("received signal!");
             target = null;
             break;
@@ -222,6 +223,9 @@ export var Preacher = function() {
     if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("preacher moving to defensive position!");
         this.log("TRY TO MOVE");
+        if (offenseFlag) {
+            return this.moveto(target);
+        }
         var move = this.nopreachermoveto(target);
         if (move != null) {
             stuckcount = 0;

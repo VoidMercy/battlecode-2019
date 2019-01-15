@@ -31,7 +31,7 @@ export var Church = function() {
         }
     }
     //this.log(prophetCount);
-    if (prophetCount + preacherCount + crusaderCount > 8 && this.fuel > 500) {
+    if ((prophetCount + preacherCount + crusaderCount > 8 && this.fuel > 400) || (this.karbonite > 300)) {
         this.log("signalling to go away ")
         this.signal(69, 25);
     }
