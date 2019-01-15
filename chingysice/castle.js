@@ -134,7 +134,6 @@ export var Castle = function() {
         if (curFlatEnemyVector == null || curFlatEnemyVector[0] != enemVector[0] || curFlatEnemyVector[1] != enemVector[1]) {
             //enemies are in a different direction, broadcast to erry1
             curFlatEnemyVector = enemVector;
-            sicecoords = [];
             var minDist = 9999;
             var bestIndex = null;
             for (var i = 0; i < range10.length; i++) {
