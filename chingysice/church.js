@@ -199,14 +199,74 @@ export var Church = function() {
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
             var result = this.build(SPECS.PREACHER);
             if (result != null) {
-                return this.buildUnit(SPECS.PREACHER, ...result);
+                var maxDist = -1; //reuse var
+                var bestIndex = -1;
+                var check = 0;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (!this.validCoords(nextloc)) {
+                        check++;
+                    }
+                }
+                //if all remaining positions are impassable, reset
+                if (check == range10.length - usedDefensePositions.length) {
+                    usedDefensePositions = [];
+                }
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [this.me.x, this.me.y]) > maxDist) {
+                        maxDist = this.distance(nextloc, [this.me.x, this.me.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                if (bestIndex != -1) {
+                    var signal = this.generateDefenseInitialSignal(range10[bestIndex], SPECS.PILGRIM);
+                    this.log("sent: ");
+                    this.log(range10[bestIndex]);
+                    this.log(signal);
+                    usedDefensePositions.push(bestIndex);
+                    this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                }
+                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if (numenemy[SPECS.PILGRIM] > defense_units[SPECS.CRUSADER]*4) {
+        } else if (numenemy[SPECS.PILGRIM] > friendlies[SPECS.CRUSADER]*5) {
             //spawn crusaders for enemy pilgrims
             this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
             var result = this.build(SPECS.CRUSADER);
             if (result != null) {
-                return this.buildUnit(SPECS.CRUSADER, ...result);
+                var maxDist = -1; //reuse var
+                var bestIndex = -1;
+                var check = 0;
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (!this.validCoords(nextloc)) {
+                        check++;
+                    }
+                }
+                //if all remaining positions are impassable, reset
+                if (check == range10.length - usedDefensePositions.length) {
+                    usedDefensePositions = [];
+                }
+                for (var i = 0; i < range10.length; i++) {
+                    var nextloc = [this.me.x + range10[i][0], this.me.y + range10[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]] && !usedDefensePositions.includes(i) && this.distance(nextloc, [this.me.x, this.me.y]) > maxDist) {
+                        maxDist = this.distance(nextloc, [this.me.x, this.me.y]);
+                        bestIndex = i;
+                    }
+                }
+                //send signal for starting pos
+                if (bestIndex != -1) {
+                    var signal = this.generateDefenseInitialSignal(range10[bestIndex], SPECS.PILGRIM);
+                    this.log("sent: ");
+                    this.log(range10[bestIndex]);
+                    this.log(signal);
+                    usedDefensePositions.push(bestIndex);
+                    this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                } else {
+                    this.log("UNFORTUNATE");
+                }
+                return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
             }
         }
     }

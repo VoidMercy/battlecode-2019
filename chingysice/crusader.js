@@ -28,7 +28,7 @@ export var Crusader = function() {
                         this.log(robot.signal);
                         relStartPos = this.decodeSignal(robot.signal);
                         target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
-                        this.log("Received: ");
+                        this.log("Crusader Received: ");
                         this.log(relStartPos);
                     } else {
                         this.log("NO SIGNAL!");
@@ -48,16 +48,16 @@ export var Crusader = function() {
             this.log("REPOSITIONAL SIGNAL");
             this.log(castle.signal);
             var relStartPos = this.decodeSignal(castle.signal);
-            tempTarget = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
+            target = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
             this.log("Received: ");
-            this.log(relStartPos);
+            // this.log(relStartPos);
         }
     }
-
+    /*
     if (tempTarget != null && this.distance(tempTarget, [this.me.x, this.me.y]) <= 4) {
         //close enough to temp target, we are probably aggrod onto enemy and/or enemy is dead now
         tempTarget = null;
-    }
+    }*/
 
 
     var robotsnear = this.getVisibleRobots();
@@ -66,6 +66,7 @@ export var Crusader = function() {
         robot = robotsnear[i];
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
             offenseFlag=1;
+            reachedTarget = false;
             this.log("received signal!");
             target = null;
             break;
@@ -162,11 +163,11 @@ export var Crusader = function() {
             this.log("crusader attacc");
             return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
         }
-
+        /*
         if (tempTarget != null) {
             this.log("repositioning ecks dee");
             return this.moveto(tempTarget);
-        }    
+        } */   
 
         if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
             //this.log("prophet moving to defensive position!");
@@ -203,11 +204,11 @@ export var Crusader = function() {
             this.log("crusader attacc");
             return this.attack(...bestTarget);
         }
-
+        /*
         if (tempTarget != null) {
             this.log("repositioning ecks dee");
             return this.moveto(tempTarget);
-        }    
+        } */   
 
         if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
             //this.log("prophet moving to defensive position!");

@@ -222,7 +222,7 @@ export var Preacher = function() {
 
     if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("preacher moving to defensive position!");
-        this.log("TRY TO MOVE");
+        // this.log("TRY TO MOVE");
         if (offenseFlag) {
             return this.moveto(target);
         }
