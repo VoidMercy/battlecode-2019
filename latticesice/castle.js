@@ -99,7 +99,7 @@ export var Castle = function() {
         }
     }
     //this.log(prophetCount);
-    if ((prophetCount + preacherCount + crusaderCount > 20 && this.fuel > 400) || (this.karbonite > 300)) {
+    if ((prophetCount + preacherCount + crusaderCount > 20 && this.fuel > 400)) {
         this.log("signalling to go away ")
         this.signal(69, 25);
     }
