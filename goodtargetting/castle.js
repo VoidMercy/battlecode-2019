@@ -86,7 +86,7 @@ export var Castle = function() {
         }
     } else { // turn > 3
         for (var i = 0; i < robotsnear.length; i++) {
-            if (robotsnear[i].castle_talk != 0 && robotsnear[i].castle_talk % 8 <= 6 && (robotsnear[i].castle_talk >> 3) < enemy_castle_locs.length) {
+            if (robotsnear[i].castle_talk != 0 && robotsnear[i].castle_talk % 8 <= 6 && (robotsnear[i].castle_talk >> 3) < enemy_castle_locs.length && (robotsnear[i].castle_talk >> 5) == 0) {
                 //counts units that have not yet received all castle locations
                 unitcounts[robotsnear[i].castle_talk-1]++;
             }

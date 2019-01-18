@@ -16,9 +16,6 @@ var enemy_castle_locs = [];
 
 export var Pilgrim = function(self) {
 
-    if (this.me.turn > 3) { //to avoid conflicting with castle locations 
-        this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a pilgrim and im alive"
-    }
     var tempmap = this.getVisibleRobotMap();
     if (castleloc == null) {
         //find the castle i was spawned from
