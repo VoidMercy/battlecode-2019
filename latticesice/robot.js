@@ -144,7 +144,11 @@ class MyRobot extends BCAbstractRobot {
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
                 return this.greedyMoveLoc(dest);
             }
-            return [smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y];
+            if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+                return [smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y];
+            } else {
+                return null;
+            }
         }
     }
 
@@ -218,7 +222,11 @@ class MyRobot extends BCAbstractRobot {
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
                 return this._bc_null_action();
             }
-            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+                return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            } else {
+                return null;
+            }
         }
     }
 
@@ -423,7 +431,11 @@ class MyRobot extends BCAbstractRobot {
             this.log("no good directions for greedymove");
             return;
         }
-        return this.move(minDir[0], minDir[1]);
+        if (this.fuel >= this.distance(minDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+            return this.move(minDir[0], minDir[1]);
+        } else {
+            return null
+        }
     }
 
     greedyMoveLoc(dest) {
@@ -465,7 +477,11 @@ class MyRobot extends BCAbstractRobot {
             this.log("no good directions for greedymoveaway");
             return;
         }
-        return this.move(maxDir[0], maxDir[1]);
+        if (this.fuel >= this.distance(maxDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+            return this.move(maxDir[0], maxDir[1]);
+        } else {
+            return null
+        }
     }
 
     oppositeCoords(loc) {
@@ -602,7 +618,11 @@ class MyRobot extends BCAbstractRobot {
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
                 return this.greedyMove(dest);
             }
-            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+                return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            } else {
+                return null;
+            }
         }
     }
 

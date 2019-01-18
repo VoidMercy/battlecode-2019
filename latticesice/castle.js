@@ -100,7 +100,7 @@ export var Castle = function() {
     }
     //this.log(prophetCount);
     if ((prophetCount + preacherCount + crusaderCount > 20 && this.fuel > 400)) {
-        this.log("signalling to go away ")
+        //this.log("signalling to go away ")
         this.signal(69, 25);
     }
 
@@ -207,9 +207,9 @@ export var Castle = function() {
                 //send signal for starting pos
                 if (index != -1) {
                     var signal = this.generateDefenseInitialSignal(lattices[index], closestEnemy.unit);
-                    this.log("sent: ");
-                    this.log(lattices[index]);
-                    this.log(signal);
+                    //this.log("sent: ");
+                    //this.log(lattices[index]);
+                    //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
@@ -237,9 +237,9 @@ export var Castle = function() {
                 //send signal for starting pos
                 if (index != -1) {
                     var signal = this.generateDefenseInitialSignal(lattices[index], closestEnemy.unit);
-                    this.log("sent: ");
-                    this.log(lattices[index]);
-                    this.log(signal);
+                    //this.log("sent: ");
+                    //this.log(lattices[index]);
+                    //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
@@ -279,9 +279,9 @@ export var Castle = function() {
                 //send signal for starting pos
                 if (index != -1) {
                     var signal = this.generateDefenseInitialSignal(lattices[index], SPECS.CHURCH);
-                    this.log("sent: ");
-                    this.log(lattices[index]);
-                    this.log(signal);
+                    //this.log("sent: ");
+                    //this.log(lattices[index]);
+                    //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
@@ -308,9 +308,9 @@ export var Castle = function() {
                 //send signal for starting pos
                 if (index != -1) {
                     var signal = this.generateDefenseInitialSignal(lattices[index], SPECS.PILGRIM);
-                    this.log("sent: ");
-                    this.log(lattices[index]);
-                    this.log(signal);
+                    //this.log("sent: ");
+                    //this.log(lattices[index]);
+                    //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
                 return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
@@ -352,9 +352,9 @@ export var Castle = function() {
             //send signal for starting pos
             if (index != -1) {
                 var signal = this.generateInitialPosSignalVal(lattices[index]);
-                this.log("sent: ");
-                this.log(lattices[index]);
-                this.log(signal);
+                //this.log("sent: ");
+                //this.log(lattices[index]);
+                //this.log(signal);
                 this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 return this.buildUnit(unitBuilder, result[0], result[1]);
             }

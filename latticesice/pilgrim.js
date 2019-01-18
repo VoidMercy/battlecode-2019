@@ -173,7 +173,7 @@ export var Pilgrim = function(self) {
             
             //this.log(enemies);
             //this.log(this.me);
-            this.log("running awaay after giving resources!");
+            //this.log("running awaay after giving resources!");
             //this.log(typeof closest);
             //this.log(closest);
             return this.greedyMoveAway([closest.x, closest.y]);

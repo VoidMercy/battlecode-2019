@@ -24,14 +24,14 @@ export var Prophet = function() {
                 (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
                     //church/castle i spawned on
                     if (robot.signal != -1) {
-                        this.log("SIGNAL");
-                        this.log(robot.signal);
+                        //this.log("SIGNAL");
+                        //this.log(robot.signal);
                         relStartPos = this.decodeSignal(robot.signal);
                         target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
-                        this.log("Received: ");
-                        this.log(relStartPos);
+                        //this.log("Received: ");
+                        //this.log(relStartPos);
                     } else {
-                        this.log("NO SIGNAL!");
+                        //this.log("NO SIGNAL!");
                         target = nextLoc;
                     }
                     castleLoc = nextLoc;
@@ -69,7 +69,7 @@ export var Prophet = function() {
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
             offenseFlag=1;
             reachedTarget = false;
-            this.log("received signal!");
+            //this.log("received signal!");
             target = null;
             break;
         }
@@ -117,7 +117,7 @@ export var Prophet = function() {
         }
         if (bestTarget != null) {
 
-            this.log("attacc");
+            //this.log("attacc");
             return this.attack(...bestTarget);
         }
 

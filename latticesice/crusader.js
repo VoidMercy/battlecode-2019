@@ -24,14 +24,14 @@ export var Crusader = function() {
                 (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
                     //church/castle i spawned on
                     if (robot.signal != -1) {
-                        this.log("SIGNAL");
-                        this.log(robot.signal);
+                        //this.log("SIGNAL");
+                        //this.log(robot.signal);
                         relStartPos = this.decodeSignal(robot.signal);
                         target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
-                        this.log("Crusader Received: ");
-                        this.log(relStartPos);
+                        //this.log("Crusader Received: ");
+                        //this.log(relStartPos);
                     } else {
-                        this.log("NO SIGNAL!");
+                        //this.log("NO SIGNAL!");
                         target = nextLoc;
                     }
                     castleLoc = nextLoc;
@@ -67,7 +67,7 @@ export var Crusader = function() {
         if (this.isRadioing(robot) && robot.signal == 69 && offenseFlag != 1) {
             offenseFlag=1;
             reachedTarget = false;
-            this.log("received signal!");
+            //this.log("received signal!");
             target = null;
             break;
         }
@@ -115,7 +115,7 @@ export var Crusader = function() {
         }
         if (bestTarget != null) {
 
-            this.log("attacc");
+            //this.log("attacc");
             return this.attack(...bestTarget);
         }
 
@@ -160,7 +160,7 @@ export var Crusader = function() {
 
         if (minDist < 16) {
             //adjacent, a t t a c c
-            this.log("crusader attacc");
+            //this.log("crusader attacc");
             return this.attack(toTarget[0] - this.me.x, toTarget[1]- this.me.y);
         }
         /*
@@ -201,7 +201,7 @@ export var Crusader = function() {
         }
         if (bestTarget != null) {
 
-            this.log("crusader attacc");
+            //this.log("crusader attacc");
             return this.attack(...bestTarget);
         }
         /*
