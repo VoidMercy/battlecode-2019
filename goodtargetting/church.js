@@ -313,6 +313,7 @@ export var Church = function() {
                     break; //found tile :O
                 }
             }
+
             //send signal for starting pos
             if (index != -1 && index != lattices.length) {
                 var signal = this.generateInitialPosSignalVal(lattices[index]);
