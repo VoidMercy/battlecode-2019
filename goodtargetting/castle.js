@@ -273,7 +273,22 @@ export var Castle = function() {
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
-            //produce preacher to counter crusader
+            //produce prophet to counter prophet or attack
+            var minDist = 999999;
+            var toAttack = null;
+            for (var i = 0; i < robotsnear.length; i++) {
+                var robot = robotsnear[i];
+                if (this.isVisible(robot) && robot.team != this.me.team && robot.unit == SPECS.PROPHET && 
+                    this.distance([this.me.x, this.me.y], [robot.x, robot.y]) <= minDist) {
+                    minDist = this.distance([this.me.x, this.me.y], [robot.x, robot.y]);
+                    toAttack = [robot.x - this.me.x, robot.y - this.me.y];
+                }
+            }
+            if (minDist <= 64) { //attack if i can
+                this.log("CASTLE ATTACK PROPHETS");
+                return this.attack(...toAttack);
+            }
+            //otherwise, make a prophet
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
@@ -302,7 +317,58 @@ export var Castle = function() {
                 }
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
-        } 
+        }
+        //im under attack and not enough karbt o build a unit (havent returned)
+        //attack pls
+        var bestTarget = null;
+        var bestScore = -1;
+        for (var i = 0; i < robotsnear.length; i++) {
+
+            if (this.isVisible(robotsnear[i])) {
+                if (robotsnear[i].team != this.me.team) {
+                    var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+    
+                    const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
+                    if (dist <= 64) {
+                        //adjacent, a t t a c c
+                        // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
+                        // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
+                        var priority = 0;
+                        switch (robotsnear[i].unit) {
+                            case SPECS.PROPHET:
+                                priority = 5;
+                                break;
+                            case SPECS.PREACHER:
+                                priority = 4;
+                                break;
+                            case SPECS.CRUSADER:
+                                priority = 3;
+                                break;
+                            case SPECS.PILGRIM:
+                                priority = 2;
+                                break;
+                            case SPECS.CASTLE:
+                                priority = 1;
+                                break;
+                            default:
+                                priority = 0;
+                        }
+                        var score = (100 + priority * 100 - dist);
+                        if (score > bestScore) {
+                            bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                            bestScore = score;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        if (bestTarget != null) {
+            // this.log("attacc");
+            return this.attack(...bestTarget);
+        }
+
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
             //produce prophet to counter attack
@@ -378,7 +444,8 @@ export var Castle = function() {
 
 
     //offensive code lategame
-    if (this.karbonite > 250 && this.fuel > 500) {
+    var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
+    if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) {
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;

@@ -285,7 +285,8 @@ export var Church = function() {
     }
 
     //offensive code lategame
-    if (this.karbonite > 250 && this.fuel > 500) {
+    var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
+    if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) {
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;

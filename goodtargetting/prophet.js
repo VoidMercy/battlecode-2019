@@ -77,12 +77,12 @@ export var Prophet = function() {
             var loc = [decoded[0], decoded[1]];
             if (this.validCoords(loc) && decoded[2] <= 3 && decoded[2] > 0) {
                 var check = decoded[3] != this.me.team;
-                if (check) { this.log("incorrect team field"); }
+                //if (check) { this.log("incorrect team field"); }
                 for (var j = 0; j < enemy_castle_locs.length; j++) {
                     //make sure not already received
                     check = check || (enemy_castle_locs[j][0] == decoded[0] && enemy_castle_locs[j][1] == decoded[1]);
                 }
-                if (check) { this.log("already received"); }
+                //if (check) { this.log("already received"); }
                 if (!check) {
                     //not already in the array
                     enemy_castle_locs.push(loc);
