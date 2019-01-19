@@ -99,10 +99,12 @@ export var Castle = function() {
             if (robotsnear[i].signal != 0 && robotsnear[i].signal % 8 == 2 && (robotsnear[i].signal >> 3) % 8 == enemy_castle_locs.length) {
                 var decoded = this.decodeSignal(robotsnear[i].signal);
                 var check = decoded[3] != this.me.team; //check same team
+                var check2 = false;
                 for (var j = 0; j < castle_locs.length; j++) {
                     //verify signal was from our own castle
-                    check = check || this.distance([robotsnear[i].x, robotsnear[i].y], castle_locs[j]) > 18;
+                    check2 = check2 || this.distance([robotsnear[i].x, robotsnear[i].y], castle_locs[j]) <= 18;
                 }
+                check = check || !check2;
                 //this.log("diagnose counter");
                 //this.log([decoded[0], decoded[1]]);
                 //this.log(castleLocCount[[decoded[0], decoded[1]]]);
@@ -137,6 +139,8 @@ export var Castle = function() {
         }
         this.log("!!!!!!! sending enemy castle loc");
         this.log(minFuel);
+        this.log(castleLocCount);
+        this.log(coarseEnemyLocs[locIndex]);
         //this.log(this.generateEnemyCastleSignal(coarseEnemyLocs[locIndex], coarseEnemyLocs.length));
         //this.log(coarseEnemyLocs[locIndex]);
         //this.log(this.decodeSignal(this.generateEnemyCastleSignal(coarseEnemyLocs[locIndex], coarseEnemyLocs.length)));

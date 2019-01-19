@@ -17,10 +17,6 @@ var enemy_castle_locs = [];
 
 export var Preacher = function() {
 
-    if (this.me.turn > 3) { //to avoid conflicting with castle locations 
-        this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a preacher and im alive"
-    }
-
     var tempmap = this.getVisibleRobotMap();
     if (this.me.turn == 1) {
         //first turn, find location of church/castle and obtain initial pos
@@ -97,7 +93,6 @@ export var Preacher = function() {
                     //not already in the array
                     enemy_castle_locs.push(loc);
                     receivedCastleLocs++;
-                    
                     if (receivedCastleLocs == decoded[2]) {
                         //have all castle locs, sice deets
                         target = null;
@@ -108,6 +103,9 @@ export var Preacher = function() {
             }
         }
     }
+    if (this.me.turn > 3) { //to avoid conflicting with castle locations 
+        this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a preacher and im alive"
+    }
 
     if (offenseFlag == 1) {
         if (target == null) {
@@ -116,7 +114,23 @@ export var Preacher = function() {
             //altTargets = [opposite,[this.map.length - this.me.x, this.map.length - this.me.y],[this.map.length - opposite[0], this.map.length - opposite[1]], [Math.floor(this.map.length / 2), Math.floor(this.map.length / 2)], [0,0], [0, this.map.length-8], [this.map.length-8, this.map.length-8], [this.map.length-8, 0], [this.me.x, this.me.y]];
             for (var i = 0; i < altTargets.length; i++) {
                 if (!this.validCoords([altTargets[i][0], altTargets[i][1]]) || !this.map[altTargets[i][1]][altTargets[i][0]]) {
-                    altTargets.splice(i, 1); //remove impassable tile targets
+                    //if target is impassable, look around for a passable tile within (3, 3) dx dy (positive only)
+                    //one of these tiles MUST be passable, as one of them will have the enemy castle on it.
+                    //altTargets.splice(i, 1); //remove impassable tile targets
+                    var siced = false;
+                    for (var j = 0; !siced && j < 3; j++) {
+                        for (var k = 0; !siced && k < 3; k++) {
+                            var enemloc = [altTargets[i][0] + j, altTargets[i][1] + k];
+                            if (this.validCoords(enemloc) && this.map[enemloc[1]][enemloc[0]]) {
+                                //found a passable terrain tile, set as new target
+                                altTargets[i] = enemloc;
+                                siced = true;
+                            }
+                        }
+                    }
+                    if (!siced) {
+                        this.log("F code is borked or something, couldnt find passable terrain in given enemy castle loc");
+                    }
                 }
             }
             target = altTargets[targetNum];
