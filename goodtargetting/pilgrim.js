@@ -66,7 +66,6 @@ export var Pilgrim = function(self) {
                 if (!check) {
                     //not already in the array
                     enemy_castle_locs.push(loc);
-                    this.log("klodd is a big fat retard!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     //receivedCastleLocs++;
                 }
             }
