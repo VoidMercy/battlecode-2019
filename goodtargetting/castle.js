@@ -182,7 +182,7 @@ export var Castle = function() {
             enemy_health += robot.health;
             if(this.isVisible(robot)) {
                 var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
-                if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
+                if (dist < minDist && (SPECS.UNITS[robot.unit].ATTACK_RADIUS != null && SPECS.UNITS[robot.unit].ATTACK_RADIUS != 0)) {
                     minDist = dist;
                     closestEnemy = robot;
                     lastenemyseen = closestEnemy;

@@ -197,7 +197,7 @@ class MyRobot extends BCAbstractRobot {
                     if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && visible[j][i] == 0 && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
                         var good = true;
                         for (var a = 0; a < robotsnear.length; a++) {
-                            if (robotsnear[a].team != this.me.team && robotsnear[a].unit >= 3 && robotsnear[a].ATTACK_RADIUS != null && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= robotsnear[a].ATTACK_RADIUS[1]) {
+                            if (this.isVisible(robotsnear[a]) && robotsnear[a].team != this.me.team && robotsnear[a].unit >= 3 && SPECS.UNITS[robotsnear[a].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[a].unit].ATTACK_RADIUS != 0 && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= SPECS.UNITS[robotsnear[a].unit].ATTACK_RADIUS[1]) {
                                 good = false;
                                 break;
                             }

@@ -81,20 +81,18 @@ export var Church = function() {
     var closestEnemy = null;
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
-        if (robot.team != this.me.team) {
+        if (this.isVisible(robot) && robot.team != this.me.team) {
             numenemy[robot.unit]++;
             enemy_health += robot.health;
-            if(this.isVisible(robot)) {
-                var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
-                if (dist < minDist && SPECS.UNITS[robot.unit].ATTACK_RADIUS != null) {
-                    minDist = dist;
-                    closestEnemy = robot;
-                    lastenemyseen = closestEnemy;
-                }
+            var dist = this.distance([this.me.x, this.me.y], [robot.x, robot.y])
+            if (dist < minDist && (SPECS.UNITS[robot.unit].ATTACK_RADIUS != null && SPECS.UNITS[robot.unit].ATTACK_RADIUS != 0)) {
+                minDist = dist;
+                closestEnemy = robot;
+                lastenemyseen = closestEnemy;
             }
-        } else {
+        } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
-            if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
                 if (robot.unit >= 3) {
