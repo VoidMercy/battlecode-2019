@@ -542,7 +542,7 @@ class MyRobot extends BCAbstractRobot {
     }
 
     canAttack(loc) {
-        return (this.validCoords(loc) && (this.getVisibleRobotMap()[loc[1]][loc[0]] >= 0) && this.map[loc[1]][loc[0]]);
+        return (this.validCoords(loc) && (this.getVisibleRobotMap()[loc[1]][loc[0]] >= 0));
     }
 
     canBuild(unit) {
