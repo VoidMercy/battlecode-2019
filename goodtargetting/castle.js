@@ -490,15 +490,18 @@ export var Castle = function() {
         }
     }
 
-    if (this.canBuild(SPECS.PILGRIM) && (friendlies[SPECS.PILGRIM] == 0 ||
-        (pilgrimcount < karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000) &&
+    const condition1 = friendlies[SPECS.PILGRIM] == 0;
+    const condition2 = (pilgrimcount < (karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000)) &&
          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
-          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3))) {
+          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3);
+
+    if (this.canBuild(SPECS.PILGRIM) && (condition1 || condition2)) {
         //can produce pilgrim
         var result = this.build(SPECS.PILGRIM);
         if(result != null) {
+            //this.log("Created pilgrim "+condition1 + " " + condition2);
+            //this.log("counted "+pilgrimcount+" pilgrims, target "+(karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000))+" patches")
             pilgrimcount++;
-            this.log("Created pilgrim");
             return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
         }
     }
