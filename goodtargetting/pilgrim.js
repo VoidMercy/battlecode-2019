@@ -160,7 +160,7 @@ export var Pilgrim = function(self) {
     var nearby = this.getVisibleRobots();
     for (var i = 0; i < nearby.length; i++) {
         //check if any enemies can attack me
-        if (this.isVisible(nearby[i]) && nearby[i].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y]) - 4) {
+        if (this.isVisible(nearby[i]) && nearby[i].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= (Math.sqrt(this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y])) - 2)**2) {
             goback = true;
             break;
         }
