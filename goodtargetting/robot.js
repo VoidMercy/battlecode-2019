@@ -522,6 +522,16 @@ class MyRobot extends BCAbstractRobot {
         return true;
     }
 
+    indexOf2D(arr, item) {
+        for(var i = 0; i < arr.length; i++) {
+            if(this.arraysEqual(arr[i], item)) return i;
+        }
+        return -1;
+    }
+
+    // 1 = vertical symmetry
+    // 0 = horizontal symmetry
+
     symmetricType() {
         // determine if map is horizontally or vertically symmetric
         const ysize = this.map.length;
@@ -578,7 +588,7 @@ class MyRobot extends BCAbstractRobot {
         return x;
     }
 
-    moveto(dest) {
+    moveto(dest, workerflag = false) {
         if (dest[0] == this.me.x && dest[1] == this.me.y) {
             return; //at target, do nothing
         }
@@ -635,6 +645,7 @@ class MyRobot extends BCAbstractRobot {
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+                if(workerflag === true) return null;
                 return this.greedyMove(dest);
             }
             if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {

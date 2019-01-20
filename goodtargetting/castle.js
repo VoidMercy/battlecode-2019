@@ -3,10 +3,7 @@ import {alldirs, range10, lattices} from 'constants.js'
 import * as Comms from 'communication.js'
 
 //castle variables
-var pilgrimcount = 0;
 var underattack = false;
-var karbonite_patches = 0;
-var fuel_patches = 0;
 var usedDefensePositions = []; //used for assigning where units go
 var curFlatEnemyVector = null;
 var turnsSinceLastReposition = 0; //prevent spamming if we're surrounded lol
@@ -23,10 +20,25 @@ var castleLocCount = {};
 var coarseEnemyLocs = [];
 var minFuel = -1;
 
+var karbonite_patches = 0;
+var fuel_patches = 0;
+var karbonite_locs = [];
+var fuel_locs = [];
+var all_resources = [];
+var karbonite_index = 0, fuel_index = 0;
+var pilgrim_status = {};
+var blacklisted_patches = {};
+var used_patches;
+var pilgrim_id_map = {};
+var partial_locator = {};
+var pilgrim_timer = {};
+var new_pilgrim_used_patch_timer = {};  // This is to prevent blocking of used patches by pilgrims who die right after they are spawned
+var all_pilgrims_seen = {};
+
 export var Castle = function() {
     var unitcounts = [0, 0, 0, 0, 0, 0]; //only valid after turn 3
 
-    if (this.me.turn > 3) { //to avoid conflicting with castle locations 
+    if (this.me.turn > 3) { //to avoid conflicting with castle locations
         this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a castle and im alive"
     }
     if (minFuel == -1) {
@@ -40,15 +52,18 @@ export var Castle = function() {
     var robotsnear = this.getVisibleRobots();
     var robotmap = this.getVisibleRobotMap();
     turnsSinceLastReposition++;
-    pilgrimcount = 0;
     if (this.me.turn == 1) {
         this.log([["CASTLE_AT"], [this.me.x, this.me.y]]);
         for (var i = 0; i < this.map[0].length; i++) {
             for (var j = 0; j < this.map.length; j++) {
                 if (this.karbonite_map[j][i]) {
                     karbonite_patches++;
+                    karbonite_locs.push([i, j]);
+                    all_resources.push([i, j]);
                 } else if (this.fuel_map[j][i]) {
                     fuel_patches++;
+                    fuel_locs.push([i, j]);
+                    all_resources.push([i, j]);
                 }
             }
         }
@@ -56,9 +71,23 @@ export var Castle = function() {
         for(var i = 0; i < robotsnear.length; i++) {
             if(robotsnear[i].castle_talk) {
                 first_castle = false;
+                castle_locs.push(Comms.Decompress8Bits(robotsnear[i].castle_talk));
             }
         }
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
+
+        var compare_func = function(a, b) {
+            return this.distance([this.me.x, this.me.y], a) - this.distance([this.me.x, this.me.y], b);
+        };
+        karbonite_locs.sort(compare_func.bind(this));
+        fuel_locs.sort(compare_func.bind(this));
+
+        used_patches = this.createarr(this.map.length, this.map[0].length);
+        for(var y = 0; y < this.map.length; y++) {
+            for(var x = 0; x < this.map[0].length; x++) {
+                used_patches[y][x] = 0;
+            }
+        }
     } else if(this.me.turn == 2) {
         for(var i = 0; i < robotsnear.length; i++) {
             if(robotsnear[i].castle_talk) {
@@ -73,9 +102,7 @@ export var Castle = function() {
                 nearest_enemy_castle = enemy_castle_locs[i];
             }
         }
-        this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
     } else if(this.me.turn == 3) {
-        this.castleTalk(0);
         this.log(["CASTLES", castle_locs]);
         this.log(["ENEMY CASTLES", enemy_castle_locs]);
         this.log(["NEAREST ENEMY CASTLE", nearest_enemy_castle]);
@@ -89,9 +116,6 @@ export var Castle = function() {
             if (robotsnear[i].castle_talk != 0 && robotsnear[i].castle_talk % 8 <= 6 && (robotsnear[i].castle_talk >> 3) < enemy_castle_locs.length && (robotsnear[i].castle_talk >> 5) == 0) {
                 //counts units that have not yet received all castle locations
                 unitcounts[robotsnear[i].castle_talk-1]++;
-            }
-            if (robotsnear[i].castle_talk == SPECS.PILGRIM+1) {
-                pilgrimcount++;
             }
 
             //read signals from castle and track which enemy locs have been broadcasted
@@ -206,6 +230,111 @@ export var Castle = function() {
         }
     }
 
+    for(var i = 0; i < robotsnear.length; i++) {
+        robot = robotsnear[i];
+        if(robot.castle_talk !== undefined && robot.castle_talk !== 0) {
+            var talk_value = robot.castle_talk;
+            if((talk_value >> 6) == 0b10) {
+                partial_locator[robot.id] = talk_value % 64;
+            }
+            else if((talk_value >> 6) == 0b11) {
+                if(partial_locator[robot.id] === undefined) {
+                    throw "This shouldn't happen, only got second part of pilgrim data";
+                }
+                else {
+                    partial_locator[robot.id] += (talk_value % 64) << 6;
+                    pilgrim_id_map[robot.id] = partial_locator[robot.id]
+                    delete partial_locator[robot.id];
+                    var patch = all_resources[pilgrim_id_map[robot.id]];
+                    if(new_pilgrim_used_patch_timer[patch] === undefined) {
+                        used_patches[patch[1]][patch[0]] += 1;
+                    }
+                    delete new_pilgrim_used_patch_timer[patch];
+                    this.log("Pilgrim #" + robot.id + " communicated back " + all_resources[pilgrim_id_map[robot.id]]);
+                    pilgrim_timer[robot.id] = 3;
+                    pilgrim_timer[robot.id]++;
+                    pilgrim_status[robot.id] = 0;
+                    all_pilgrims_seen[robot.id] = 1;
+                }
+            }
+            else if(talk_value == 0b01111110) {
+                if(pilgrim_id_map[robot.id] !== undefined) {
+                    pilgrim_timer[robot.id]++;
+                    pilgrim_status[robot.id]++;
+                    this.log("Pilgrim #" + robot.id + " is going to " + all_resources[pilgrim_id_map[robot.id]]);
+                }
+            }
+            else if(talk_value == 0b01111111) {
+                if(pilgrim_id_map[robot.id] !== undefined) {
+                    pilgrim_timer[robot.id]++;
+                    pilgrim_status[robot.id] = 0;
+                    this.log("Pilgrim #" + robot.id + " is working on " + all_resources[pilgrim_id_map[robot.id]]);
+                }
+            }
+        }
+    }
+
+    // If a pilgrim has timed out, we assume it's dead and discard it.
+    for(var pilgrim in pilgrim_timer) {
+        pilgrim_timer[pilgrim]--;
+        if(pilgrim_timer[pilgrim] == 0) {
+            if(pilgrim_id_map[pilgrim] === undefined) throw "Invalid Data State in pilgrim_id_map";
+            var resource_loc = all_resources[pilgrim_id_map[pilgrim]];
+            used_patches[resource_loc[1]][resource_loc[0]] -= 1;
+            if(used_patches[resource_loc[1]][resource_loc[0]] < 0) {
+                throw "Invalid Data in used_patches, race condition or double counting";
+            }
+            delete pilgrim_timer[pilgrim];
+            delete pilgrim_id_map[pilgrim];
+            delete pilgrim_status[pilgrim];
+            if(blacklisted_patches[resource_loc] === undefined) {
+                blacklisted_patches[resource_loc] = 0;
+            }
+            blacklisted_patches[resource_loc] += 25;
+            this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_timer) on " + resource_loc);
+        }
+    }
+
+    // If a pilgrim has done nothing useful for 64 turns, we discard him and free up the patch
+    for(var pilgrim in pilgrim_status) {
+        if(pilgrim_status[pilgrim] == 64) {
+            var curr_patch = all_resources[pilgrim_id_map[pilgrim]];
+            used_patches[curr_patch[1]][curr_patch[0]] -= 1;
+            if(used_patches[curr_patch[1]][curr_patch[0]] < 0) {
+                throw "Invalid Data in used_patches, race condition or double counting";
+            }
+            delete pilgrim_timer[pilgrim];
+            delete pilgrim_id_map[pilgrim];
+            delete pilgrim_status[pilgrim];
+            if(blacklisted_patches[curr_patch] === undefined) {
+                blacklisted_patches[curr_patch] = 0;
+            }
+            blacklisted_patches[curr_patch] += 25;
+            this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_status) on " + curr_patch);
+        }
+    }
+
+    // remove a patch from the blacklist once the timer hits 0.
+    // The timer is set based upon how many troops the pilgrim reports back
+    for(var patch in blacklisted_patches) {
+        blacklisted_patches[patch]--;
+        if(blacklisted_patches[patch] == 0) {
+            delete blacklisted_patches[patch];
+        }
+    }
+
+    for(var patch in new_pilgrim_used_patch_timer) {
+        new_pilgrim_used_patch_timer[patch]--;
+        if(new_pilgrim_used_patch_timer[patch] == 0) {
+            used_patches[patch[1]][patch[0]] -= 1;
+            if(used_patches[patch[1]][patch[0]] < 0) {
+                throw "Invalid Data in used_patches, race condition or double counting";
+            }
+            delete new_pilgrim_used_patch_timer[patch];
+            this.log("Pilgrim to " + patch + " timed out before communicating back");
+        }
+    }
+
     /*if (closestEnemy != null && this.fuel >= 10 && turnsSinceLastReposition >= 10) {
         underattack = true;
         var enemVector = [closestEnemy.x - this.me.x, closestEnemy.y - this.me.y];
@@ -232,7 +361,7 @@ export var Castle = function() {
             } else {
                 this.log("SOMETHING BORKED");
             }
-            
+
         }
     }*/
 
@@ -256,13 +385,13 @@ export var Castle = function() {
                 }
             }
 
-            
+
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
-                     if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                         robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
@@ -288,7 +417,7 @@ export var Castle = function() {
             var toAttack = null;
             for (var i = 0; i < robotsnear.length; i++) {
                 var robot = robotsnear[i];
-                if (this.isVisible(robot) && robot.team != this.me.team && robot.unit == SPECS.PROPHET && 
+                if (this.isVisible(robot) && robot.team != this.me.team && robot.unit == SPECS.PROPHET &&
                     this.distance([this.me.x, this.me.y], [robot.x, robot.y]) <= minDist) {
                     minDist = this.distance([this.me.x, this.me.y], [robot.x, robot.y]);
                     toAttack = [robot.x - this.me.x, robot.y - this.me.y];
@@ -306,8 +435,8 @@ export var Castle = function() {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
-                     if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                         robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
@@ -328,7 +457,6 @@ export var Castle = function() {
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
         }
-        
 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
@@ -351,8 +479,8 @@ export var Castle = function() {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
-                     if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                         robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
@@ -381,8 +509,8 @@ export var Castle = function() {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
-                     if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                        this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                         robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
@@ -477,8 +605,8 @@ export var Castle = function() {
             var index = -1;
             for (index = 0; index < lattices.length; index++) {
                     var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
-                    if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                    this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                    if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                    this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                     robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
@@ -500,21 +628,49 @@ export var Castle = function() {
         }
     }
 
-    const condition1 = friendlies[SPECS.PILGRIM] == 0;
-    const condition2 = (pilgrimcount < (karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000)) &&
-         this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
-          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3);
-
-    if (this.canBuild(SPECS.PILGRIM) && (condition1 || condition2)) {
-        //can produce pilgrim
-        var result = this.build(SPECS.PILGRIM);
-        if(result != null) {
-            //this.log("Created pilgrim "+condition1 + " " + condition2);
-            //this.log("counted "+pilgrimcount+" pilgrims, target "+(karbonite_patches / (2 - this.me.turn / 1000) + fuel_patches / (2 - this.me.turn / 1000))+" patches")
-            pilgrimcount++;
-            return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
-        }
+    if (this.canBuild(SPECS.PILGRIM) &&
+          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
+          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3) {
+          var cnt = 0;
+          if(this.me.turn % 2 == 0) {
+              while(used_patches[fuel_locs[fuel_index][1]][fuel_locs[fuel_index][0]] > 0 ||
+                    blacklisted_patches[fuel_locs[fuel_index]] !== undefined) {
+                  fuel_index = (fuel_index + 1) % fuel_patches;
+                  cnt++;
+                  if(cnt == fuel_locs.length) return;
+              }
+              var target = fuel_locs[fuel_index];
+              var result = this.build(SPECS.PILGRIM);
+              if(result != null) {
+                  used_patches[target[1]][target[0]] += 1;
+                  // ALL THIS BULLSHIT BECAUSE POOORTHO IS  RETARDED
+                  var translated = [target[0] - 32, target[1] - 32];
+                  var signal = this.generateInitialPosSignalVal(translated);
+                  this.log("Pilgrim sent to: " + target);
+                  this.log("Pilgrim signal: " + translated + " -> " + signal);
+                  this.signal(signal, 2);
+                  return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
+              }
+          }
+          else {
+              while(used_patches[karbonite_locs[karbonite_index][1]][karbonite_locs[karbonite_index][0]] > 0 ||
+                    blacklisted_patches[karbonite_locs[karbonite_index]] !== undefined) {
+                  karbonite_index = (karbonite_index + 1) % karbonite_patches;
+                  cnt++;
+                  if(cnt == karbonite_locs.length) return;
+              }
+              var target = karbonite_locs[karbonite_index];
+              var result = this.build(SPECS.PILGRIM);
+              if(result != null) {
+                  used_patches[target[1]][target[0]] += 1;
+                  new_pilgrim_used_patch_timer[target] = 4;
+                  var translated = [target[0] - 32, target[1] - 32];
+                  var signal = this.generateInitialPosSignalVal(translated);
+                  this.log("Pilgrim sent to: " + target);
+                  this.log("Pilgrim signal: " + translated + " -> " + signal);
+                  this.signal(signal, 2);
+                  return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
+              }
+          }
     }
-    
-    
 }
