@@ -129,7 +129,7 @@ export var Castle = function() {
     }
 
     //send castle locs if enough units and enough fuel, arbitrary values right now
-    if (this.fuel > 1000 && unitcounts[SPECS.PREACHER] + unitcounts[SPECS.PROPHET] + unitcounts[SPECS.CRUSADER] > 50 && unitcounts[SPECS.CASTLE] == castle_locs.length) {
+    if (this.fuel > 2000 && unitcounts[SPECS.PREACHER] + unitcounts[SPECS.PROPHET] + unitcounts[SPECS.CRUSADER] > 50 /*&& unitcounts[SPECS.CASTLE] != castle_locs.length*/) {
         var locIndex = 0;
         for (var i = 1; i < coarseEnemyLocs.length; i++) {
             if (castleLocCount[coarseEnemyLocs[i]] < castleLocCount[coarseEnemyLocs[locIndex]]) {
