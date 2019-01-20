@@ -290,7 +290,7 @@ export var Castle = function() {
             if(blacklisted_patches[resource_loc] === undefined) {
                 blacklisted_patches[resource_loc] = 0;
             }
-            blacklisted_patches[resource_loc] += 25;
+            blacklisted_patches[resource_loc] += 75;
             this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_timer) on " + resource_loc);
         }
     }
@@ -309,7 +309,7 @@ export var Castle = function() {
             if(blacklisted_patches[curr_patch] === undefined) {
                 blacklisted_patches[curr_patch] = 0;
             }
-            blacklisted_patches[curr_patch] += 25;
+            blacklisted_patches[curr_patch] += 75;
             this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_status) on " + curr_patch);
         }
     }
