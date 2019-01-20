@@ -160,7 +160,7 @@ export var Pilgrim = function(self) {
     var nearby = this.getVisibleRobots();
     for (var i = 0; i < nearby.length; i++) {
         //check if any enemies can attack me
-        if (this.isVisible(nearby[i]) && nearby[i].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= (Math.sqrt(this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y])) - 2)**2) {
+        if (this.isVisible(nearby[i]) && nearby[i].team != this.me.team && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != 0 && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS[1] >= (Math.sqrt(this.distance([this.me.x, this.me.y], [nearby[i].x, nearby[i].y])) - 2)**2) {
             goback = true;
             break;
         }
@@ -181,7 +181,7 @@ export var Pilgrim = function(self) {
         var minDist = 99999;
         var closest = null;
         for (var i = 0; i < enemies.length; i++) {
-            if (this.isVisible(enemies[i]) && enemies[i].team != this.me.team && SPECS.UNITS[enemies[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[enemies[i].unit].ATTACK_RADIUS != 0 && this.distance([this.me.x, this.me.y], [enemies[i].x, enemies[i].y]) < minDist) {
+            if (this.isVisible(enemies[i]) && enemies[i].team != this.me.team && SPECS.UNITS[enemies[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[nearby[i].unit].ATTACK_RADIUS != 0 && SPECS.UNITS[enemies[i].unit].ATTACK_RADIUS != 0 && this.distance([this.me.x, this.me.y], [enemies[i].x, enemies[i].y]) < minDist) {
                 minDist = this.distance([this.me.x, this.me.y], [enemies[i].x, enemies[i].y]);
                 closest = enemies[i];
                 //find closest attacking unit
