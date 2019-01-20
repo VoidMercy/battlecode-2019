@@ -79,6 +79,8 @@ export var Church = function() {
     var enemy_health = 0;
     var minDist = 9999999;
     var closestEnemy = null;
+    var smallestDist = 999999;
+    var closestNonAttacking = null;
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (this.isVisible(robot) && robot.team != this.me.team) {
@@ -89,6 +91,10 @@ export var Church = function() {
                 minDist = dist;
                 closestEnemy = robot;
                 lastenemyseen = closestEnemy;
+            }
+            if (dist < smallestDist) {
+                smallestDist = dist;
+                closestNonAttacking = robotsnear[i];
             }
         } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
@@ -218,13 +224,13 @@ export var Church = function() {
             }
         }*/
     }
-
-    if (!underattack && closestEnemy == null) {
+    if (!underattack && closestEnemy == null && closestNonAttacking != null) {
         //produce these even tho not "under attack" technically
-        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
+        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER] && smallestDist <= 25) {
             //spawn preacher for enemy castles/churches
+            //todo: make sure distance is low
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
-            var result = this.build(SPECS.PREACHER);
+            var result = this.buildNear(SPECS.PREACHER, [closestNonAttacking.x, closestNonAttacking.y]);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -250,10 +256,11 @@ export var Church = function() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if (numenemy[SPECS.PILGRIM] > friendlies[SPECS.CRUSADER]*5) {
+        } else if (numenemy[SPECS.PILGRIM] > (friendlies[SPECS.PROPHET] + friendlies[SPECS.CRUSADER])*2 && smallestDist <= 64) {
             //spawn crusaders for enemy pilgrims
-            this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
-            var result = this.build(SPECS.CRUSADER);
+            this.log("CREATE prophet/crusader FOR ATTACKING ENEMY PILGRIM");
+            var toBuild = smallestDist <= 16 ? SPECS.CRUSADER : SPECS.PROPHET;
+            var result = this.build(toBuild);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -277,7 +284,7 @@ export var Church = function() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
         }
     }

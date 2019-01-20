@@ -175,6 +175,8 @@ export var Castle = function() {
     var enemy_health = 0;
     var minDist = 9999999;
     var closestEnemy = null;
+    var smallestDist = 999999;
+    var closestNonAttacking = null;
     for (var i = 0; i < robotsnear.length; i++) {
         robot = robotsnear[i];
         if (robot.team != this.me.team) {
@@ -186,6 +188,10 @@ export var Castle = function() {
                     minDist = dist;
                     closestEnemy = robot;
                     lastenemyseen = closestEnemy;
+                }
+                if (dist < smallestDist) {
+                    smallestDist = dist;
+                    closestNonAttacking = robotsnear[i];
                 }
             }
         } else {
@@ -322,56 +328,7 @@ export var Castle = function() {
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
         }
-        //im under attack and not enough karbt o build a unit (havent returned)
-        //attack pls
-        var bestTarget = null;
-        var bestScore = -1;
-        for (var i = 0; i < robotsnear.length; i++) {
-
-            if (this.isVisible(robotsnear[i])) {
-                if (robotsnear[i].team != this.me.team) {
-                    var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
-    
-                    const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                    if (dist <= 64) {
-                        //adjacent, a t t a c c
-                        // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
-                        // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
-                        var priority = 0;
-                        switch (robotsnear[i].unit) {
-                            case SPECS.PROPHET:
-                                priority = 5;
-                                break;
-                            case SPECS.PREACHER:
-                                priority = 4;
-                                break;
-                            case SPECS.CRUSADER:
-                                priority = 3;
-                                break;
-                            case SPECS.PILGRIM:
-                                priority = 2;
-                                break;
-                            case SPECS.CASTLE:
-                                priority = 1;
-                                break;
-                            default:
-                                priority = 0;
-                        }
-                        var score = (100 + priority * 100 - dist);
-                        if (score > bestScore) {
-                            bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
-                            bestScore = score;
-                        }
-                    }
-                }
-
-            }
-        }
-
-        if (bestTarget != null) {
-            // this.log("attacc");
-            return this.attack(...bestTarget);
-        }
+        
 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
@@ -383,12 +340,13 @@ export var Castle = function() {
         }*/
     }
 
-    if (!underattack && closestEnemy == null) {
+    if (!underattack && closestEnemy == null && closestNonAttacking != null) {
         //produce these even tho not "under attack" technically
-        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER]) {
+        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER] && smallestDist <= 25) {
             //spawn preacher for enemy castles/churches
+            //todo: make sure distance is low
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
-            var result = this.build(SPECS.PREACHER);
+            var result = this.buildNear(SPECS.PREACHER, [closestNonAttacking.x, closestNonAttacking.y]);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -414,10 +372,11 @@ export var Castle = function() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if (numenemy[SPECS.PILGRIM] > friendlies[SPECS.CRUSADER]*5) {
+        } else if (numenemy[SPECS.PILGRIM] > (friendlies[SPECS.PROPHET] + friendlies[SPECS.CRUSADER])*2 && smallestDist <= 64) {
             //spawn crusaders for enemy pilgrims
-            this.log("CREATE crusader FOR ATTACKING ENEMY PILGRIM");
-            var result = this.build(SPECS.CRUSADER);
+            this.log("CREATE prophet/crusader FOR ATTACKING ENEMY PILGRIM");
+            var toBuild = smallestDist <= 16 ? SPECS.CRUSADER : SPECS.PROPHET;
+            var result = this.build(toBuild);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -441,9 +400,60 @@ export var Castle = function() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.CRUSADER, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
         }
+    }
+
+    //im under attack and not enough karbt o build a unit (havent returned)
+    //attack pls
+    var bestTarget = null;
+    var bestScore = -1;
+    for (var i = 0; i < robotsnear.length; i++) {
+
+        if (this.isVisible(robotsnear[i])) {
+            if (robotsnear[i].team != this.me.team) {
+                var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+
+                const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
+                if (dist <= 64) {
+                    //adjacent, a t t a c c
+                    // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
+                    // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
+                    var priority = 0;
+                    switch (robotsnear[i].unit) {
+                        case SPECS.PROPHET:
+                            priority = 5;
+                            break;
+                        case SPECS.PREACHER:
+                            priority = 4;
+                            break;
+                        case SPECS.CRUSADER:
+                            priority = 3;
+                            break;
+                        case SPECS.PILGRIM:
+                            priority = 2;
+                            break;
+                        case SPECS.CASTLE:
+                            priority = 1;
+                            break;
+                        default:
+                            priority = 0;
+                    }
+                    var score = (100 + priority * 100 - dist);
+                    if (score > bestScore) {
+                        bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                        bestScore = score;
+                    }
+                }
+            }
+
+        }
+    }
+
+    if (bestTarget != null) {
+        // this.log("attacc");
+        return this.attack(...bestTarget);
     }
 
 
