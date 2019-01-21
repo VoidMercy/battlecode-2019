@@ -282,7 +282,9 @@ export var Castle = function() {
             var resource_loc = all_resources[pilgrim_id_map[pilgrim]];
             used_patches[resource_loc[1]][resource_loc[0]] -= 1;
             if(used_patches[resource_loc[1]][resource_loc[0]] < 0) {
-                throw "Invalid Data in used_patches, race condition or double counting";
+                this.log("Invalid Data in used_patches, race condition or double counting: " + [used_patches[resource_loc[1]][resource_loc[0]], resource_loc]);
+                used_patches[resource_loc[1]][resource_loc[0]] = 0;
+                // throw "Invalid Data in used_patches, race condition or double counting";
             }
             delete pilgrim_timer[pilgrim];
             delete pilgrim_id_map[pilgrim];
@@ -301,7 +303,9 @@ export var Castle = function() {
             var curr_patch = all_resources[pilgrim_id_map[pilgrim]];
             used_patches[curr_patch[1]][curr_patch[0]] -= 1;
             if(used_patches[curr_patch[1]][curr_patch[0]] < 0) {
-                throw "Invalid Data in used_patches, race condition or double counting";
+                this.log("Invalid Data in used_patches, race condition or double counting: " + [used_patches[curr_patch[1]][curr_patch[0]], curr_patch]);
+                used_patches[curr_patch[1]][curr_patch[0]] = 0;
+                // throw "Invalid Data in used_patches, race condition or double counting";
             }
             delete pilgrim_timer[pilgrim];
             delete pilgrim_id_map[pilgrim];
@@ -328,7 +332,9 @@ export var Castle = function() {
         if(new_pilgrim_used_patch_timer[patch] == 0) {
             used_patches[patch[1]][patch[0]] -= 1;
             if(used_patches[patch[1]][patch[0]] < 0) {
-                throw "Invalid Data in used_patches, race condition or double counting";
+                this.log("Invalid Data in used_patches, race condition or double counting: " + [used_patches[patch[1]][patch[0]], patch]);
+                used_patches[patch[1]][patch[0]] = 0;
+                // throw "Invalid Data in used_patches, race condition or double counting";
             }
             delete new_pilgrim_used_patch_timer[patch];
             this.log("Pilgrim to " + patch + " timed out before communicating back");

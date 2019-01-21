@@ -7,9 +7,11 @@ var karbfuel = null;
 var builtchurch = false;
 var churchloc = null;
 var castleloc = null;
-var goback = false;
 var blacklistkarb = [];
 var potentialChurchLocs = null;
+var spawnloc = null;
+var suicideloc = null;
+var suiciding = false;
 
 var target = null;
 var all_resources = [];
@@ -51,6 +53,8 @@ export var Pilgrim = function() {
                         target = null;
                     }
                     castleloc = nextLoc;
+                    spawnloc = nextLoc;
+                    suicideloc = this.oppositeCoords(nextLoc);
                     break;
                 }
             }
@@ -74,13 +78,13 @@ export var Pilgrim = function() {
             throw "Target is not fuel or karbonite??!?!?!??!";
         }
     }
-    else if(this.me.turn == 2) {
+    else if(!suiciding && this.me.turn == 2) {
         var target_index = this.indexOf2D(all_resources, target);
         target_index %= 64;
         target_index += 0b10000000;
         this.castleTalk(target_index);
     }
-    else if(this.me.turn == 3) {
+    else if(!suiciding && this.me.turn == 3) {
         var target_index = this.indexOf2D(all_resources, target);
         target_index >>= 6;
         target_index += 0b11000000;
@@ -98,8 +102,29 @@ export var Pilgrim = function() {
     }
 
     if(!reached_target) {
-        if(this.me.turn > 3) this.castleTalk(GOING_SIGNAL);
+        if(!suiciding && this.distance([this.me.x, this.me.y], target) < SPECS.UNITS[this.me.unit].VISION_RADIUS) {
+            var robot_id = this.getVisibleRobotMap()[target[1]][target[0]];
+            if(robot_id > 0) {
+                var robot = this.getRobot(robot_id);
+                if(robot.team === this.me.team) {
+                    suiciding = true;
+                    this.log("Pilgrim #" + this.me.id + " going to " + target + " is suiciding.")
+                    if(suicideloc !== null) {
+                        target = suicideloc;
+                    }
+                    else {
+                        target = [this.map[0].length, this.map.length];
+                    }
+                }
+            }
+        }
+        if(!suiciding && this.me.turn > 3) this.castleTalk(GOING_SIGNAL);
         return this.moveto(target, true);
+    }
+
+    if(suiciding) {
+        // fuck this shit im out
+        return;
     }
 
     //if u can see a church or castle closer to ur current karb deposit, start depositing there.
@@ -180,7 +205,6 @@ export var Pilgrim = function() {
                 }
 
             } else {
-                goback = false;
                 if(this.me.turn > 3) this.castleTalk(DOING_SIGNAL);
                 return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
             }
