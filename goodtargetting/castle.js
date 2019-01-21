@@ -77,7 +77,17 @@ export var Castle = function() {
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
 
         var compare_func = function(a, b) {
-            return this.distance([this.me.x, this.me.y], a) - this.distance([this.me.x, this.me.y], b);
+            var quanta = this.distance(this.oppositeCoords(a), a) + this.distance([this.me.x, this.me.y], a);
+            var quantb = this.distance(this.oppositeCoords(b), b) + this.distance([this.me.x, this.me.y], b);
+            if (this.distance([this.me.x, this.me.y], a) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(a))) {
+                //is on our side, negate
+                quanta = -1 / quanta;
+            }
+            if (this.distance([this.me.x, this.me.y], b) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(b))) {
+                //is on our side, negate
+                quantb = -1 / quantb;
+            }
+            return quanta - quantb;
         };
         karbonite_locs.sort(compare_func.bind(this));
         fuel_locs.sort(compare_func.bind(this));
@@ -635,8 +645,8 @@ export var Castle = function() {
     }
 
     if (this.canBuild(SPECS.PILGRIM) &&
-          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 3 &&
-          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 3) {
+          this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 &&
+          this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2) {
           var cnt = 0;
           if(this.me.turn % 2 == 0) {
               while(used_patches[fuel_locs[fuel_index][1]][fuel_locs[fuel_index][0]] > 0 ||
