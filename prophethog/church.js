@@ -99,7 +99,7 @@ export var Church = function() {
             }
         } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
-            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+            if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 25) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
                 if (robot.unit >= 3) {
@@ -147,6 +147,8 @@ export var Church = function() {
     } else {
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health < enemy_health) {
             this.log("CREATE PREACHER FOR DEFENSE");
+            this.log(numenemy[SPECS.PREACHER]);
+            this.log(defense_units[SPECS.PREACHER]);
             var result = null;
             if (closestEnemy == null) {
                 this.log("THIS SHOULD RARELY HAPPEN");

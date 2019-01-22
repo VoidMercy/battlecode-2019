@@ -80,6 +80,14 @@ export var Castle = function() {
         var compare_func = function(a, b) {
             var quanta = (this.distance([this.me.x, this.me.y], a));
             var quantb = (this.distance([this.me.x, this.me.y], b));
+            if (this.distance([this.me.x, this.me.y], a) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(a))) {
+                //is on our side, negate
+                quanta = -1 / quanta;
+            }
+            if (this.distance([this.me.x, this.me.y], b) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(b))) {
+                //is on our side, negate
+                quantb = -1 / quantb;
+            }
             /*var quanta = this.distance(this.oppositeCoords(a), a) + (this.distance([this.me.x, this.me.y], a));
             var quantb = this.distance(this.oppositeCoords(b), b) + (this.distance([this.me.x, this.me.y], b));
             if (this.distance([this.me.x, this.me.y], a) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(a))) {
@@ -166,7 +174,7 @@ export var Castle = function() {
     }
 
     //send castle locs if enough units and enough fuel, arbitrary values right now
-    if (this.fuel > 2000 && unitcounts[SPECS.PREACHER] + unitcounts[SPECS.PROPHET] + unitcounts[SPECS.CRUSADER] > 50 /*&& unitcounts[SPECS.CASTLE] != castle_locs.length*/) {
+    if (this.fuel > 2000 && unitcounts[SPECS.PREACHER] + unitcounts[SPECS.PROPHET] + unitcounts[SPECS.CRUSADER] > 50 && unitcounts[SPECS.CASTLE] != castle_locs.length) {
         var locIndex = 0;
         for (var i = 1; i < coarseEnemyLocs.length; i++) {
             if (castleLocCount[coarseEnemyLocs[i]] < castleLocCount[coarseEnemyLocs[locIndex]]) {
@@ -233,7 +241,7 @@ export var Castle = function() {
             }
         } else {
             friendlies[robot.unit]++;
-            if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
+            if (this.isVisible(robot) && this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 25) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
                 if (robot.unit >= 3) {
@@ -263,7 +271,7 @@ export var Castle = function() {
                         used_patches[patch[1]][patch[0]] += 1;
                     }
                     delete new_pilgrim_used_patch_timer[patch];
-                    this.log("Pilgrim #" + robot.id + " communicated back " + all_resources[pilgrim_id_map[robot.id]]);
+                    //this.log("Pilgrim #" + robot.id + " communicated back " + all_resources[pilgrim_id_map[robot.id]]);
                     pilgrim_timer[robot.id] = 3;
                     pilgrim_timer[robot.id]++;
                     pilgrim_status[robot.id] = 0;
@@ -274,14 +282,14 @@ export var Castle = function() {
                 if(pilgrim_id_map[robot.id] !== undefined) {
                     pilgrim_timer[robot.id]++;
                     pilgrim_status[robot.id]++;
-                    this.log("Pilgrim #" + robot.id + " is going to " + all_resources[pilgrim_id_map[robot.id]]);
+                    //this.log("Pilgrim #" + robot.id + " is going to " + all_resources[pilgrim_id_map[robot.id]]);
                 }
             }
             else if(talk_value == 0b01111111) {
                 if(pilgrim_id_map[robot.id] !== undefined) {
                     pilgrim_timer[robot.id]++;
                     pilgrim_status[robot.id] = 0;
-                    this.log("Pilgrim #" + robot.id + " is working on " + all_resources[pilgrim_id_map[robot.id]]);
+                    //this.log("Pilgrim #" + robot.id + " is working on " + all_resources[pilgrim_id_map[robot.id]]);
                 }
             }
         }
@@ -306,7 +314,7 @@ export var Castle = function() {
                 blacklisted_patches[resource_loc] = 0;
             }
             blacklisted_patches[resource_loc] += 75;
-            this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_timer) on " + resource_loc);
+            //this.log("Pilgrim #" + pilgrim + " timed out (pilgrim_timer) on " + resource_loc);
         }
     }
 
@@ -656,7 +664,7 @@ export var Castle = function() {
             var inbetween = [Math.floor((all_resources[i][0] + this.oppositeCoords(all_resources[i])[0]) / 2), Math.floor((all_resources[i][1] + this.oppositeCoords(all_resources[i])[1]) / 2)];
             var distFromCenter = this.distance(inbetween, all_resources[i]);
             if (this.distance(myloc, all_resources[i]) > this.distance(myloc, this.oppositeCoords(all_resources[i]))
-                && distFromCenter <= 36) {
+                && distFromCenter <= 49) {
                 //if it is on enemy side and close enough to center (values arbitrary right now)
                 //count karb within radius 5 to choose best one to steal
                 //only do semicircle closer to center as we dont want to consider what may be unreachable deposits
@@ -664,7 +672,8 @@ export var Castle = function() {
                 for (var j = 0; j < range25.length; j++) {
                     var sourceloc = [all_resources[i][0] + range25[j][0], all_resources[i][1] + range25[j][1]];
                     var nextDistFromCenter = this.distance(sourceloc, [Math.floor((sourceloc[0] + this.oppositeCoords(sourceloc)[0]) / 2), Math.floor((sourceloc[1] + this.oppositeCoords(sourceloc)[1]) / 2)]);
-                    if (this.validCoords(sourceloc) && nextDistFromCenter <= distFromCenter && (this.fuel_map[sourceloc[1]][sourceloc[0]] || this.karbonite_map[sourceloc[1]][sourceloc[0]])) {
+                    if (this.validCoords(sourceloc) && nextDistFromCenter <= distFromCenter && this.distance(myloc, sourceloc) > this.distance(myloc, this.oppositeCoords(sourceloc)) && 
+                        (this.fuel_map[sourceloc[1]][sourceloc[0]] || this.karbonite_map[sourceloc[1]][sourceloc[0]])) {
                         count++;
                     }
                 }
@@ -730,8 +739,8 @@ export var Castle = function() {
                   // ALL THIS BULLSHIT BECAUSE POOORTHO IS  RETARDED
                   var translated = [target[0] - 32, target[1] - 32];
                   var signal = this.generateInitialPosSignalVal(translated);
-                  this.log("Pilgrim sent to: " + target);
-                  this.log("Pilgrim signal: " + translated + " -> " + signal);
+                  //this.log("Pilgrim sent to: " + target);
+                  //this.log("Pilgrim signal: " + translated + " -> " + signal);
                   this.signal(signal, 2);
                   return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
               }
@@ -750,8 +759,8 @@ export var Castle = function() {
                   new_pilgrim_used_patch_timer[target] = 4;
                   var translated = [target[0] - 32, target[1] - 32];
                   var signal = this.generateInitialPosSignalVal(translated);
-                  this.log("Pilgrim sent to: " + target);
-                  this.log("Pilgrim signal: " + translated + " -> " + signal);
+                  //this.log("Pilgrim sent to: " + target);
+                  //this.log("Pilgrim signal: " + translated + " -> " + signal);
                   this.signal(signal, 2);
                   return this.buildUnit(SPECS.PILGRIM, result[0], result[1]);
               }
