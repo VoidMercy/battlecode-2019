@@ -61,14 +61,21 @@ export var Prophet = function() {
         }
     }
 
-    /*
-    if (tempTarget != null && this.distance(tempTarget, [this.me.x, this.me.y]) <= 4) {
-        //close enough to temp target, we are probably aggrod onto enemy and/or enemy is dead now
-        tempTarget = null;
-    }*/
-
-
     var robotsnear = this.getVisibleRobots();
+
+    // kite back from preachers
+    for (var i = 0; i < robotsnear.length; i++) {
+        if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
+            if (robotsnear[i].unit == SPECS.PREACHER && this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]) <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1]) {
+                var move = this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
+                if (move != null) {
+                    this.log("KITE BACK!!");
+                    return move;
+                }
+            }
+        }
+    }
+
     var robot = null;
     for (var i=0; i < robotsnear.length; i++) {
         //read signal for castle locations

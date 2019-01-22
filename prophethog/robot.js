@@ -463,12 +463,12 @@ class MyRobot extends BCAbstractRobot {
         }
         if (minDir == null) {
             this.log("no good directions for greedymove");
-            return;
+            return null;
         }
         if (this.fuel >= this.distance(minDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
             return this.move(minDir[0], minDir[1]);
         } else {
-            return null
+            return null;
         }
     }
 
