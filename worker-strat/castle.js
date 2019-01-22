@@ -9,9 +9,12 @@ var stronghold_info = [];
 var is_stronghold = false;
 var stronghold_karb = [];
 var working_workers = [];
+
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var TRY_TO_STEAL = 2;
+var IM_ALIVE_PILGRiM = 0;
+var IM_ALIVE_CHURCH = 1;
 
 function update_strongholds(castle_location) {
 	var spaces_covered = [];
@@ -44,7 +47,7 @@ function update_strongholds(castle_location) {
 			this.log("REPLACE CHURCH");
 			this.log([this.me.x, this.me.y]);
 			this.log(plannedchurches[i][1]);
-			plannedchurches.splice(i, 1);
+			plannedchurches[i] = null;
 			return;
 		}
 	}
@@ -173,6 +176,9 @@ function find_target_stronghold() {
 	var bestindex = null;
 	var tempdist = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
+		if (plannedchurches[i] == null) {
+			continue;
+		}
 		tempdist = this.distance([this.me.x, this.me.y], plannedchurches[i][1]);
 		if (!plannedchurches[i][3] && tempdist < mindist) {
 			mindist = tempdist;
@@ -182,7 +188,7 @@ function find_target_stronghold() {
 	if (bestindex == null) {
 		return null;
 	}
-	return plannedchurches[bestindex];
+	return bestindex;
 }
 
 function handle_my_stronghold() {
@@ -200,7 +206,6 @@ function handle_my_stronghold() {
 		}
 	}
 	if (closestloc == null) {
-		this.log(stronghold_karb);
 		return null;
 	}
 	var res = build_pilgrim_toward.call(this, closestloc);
@@ -213,13 +218,23 @@ function handle_my_stronghold() {
 	return null;
 }
 
+function handle_castle_talk() {
+	var robotsnear = this.getVisibleRobots();
+
+	for (var i = 0; i < robotsnear.length; i++) {
+		if (robotsnear[i].castle_talk) {
+			
+		}
+	}
+}
+
 export var Castle = function() {
 
 	if (this.me.turn == 1) {
 
 		find_church_locs.call(this);
-		
 		update_strongholds.call(this, [this.me.x, this.me.y]);
+		this.log(plannedchurches);
 		
 	}
 
@@ -232,14 +247,17 @@ export var Castle = function() {
 			}
 		}
 
-		var next_stronghold = find_target_stronghold.call(this);
+		var next_stronghold_index = find_target_stronghold.call(this);
 
-		// this.log("Next Stronghold: " + next_stronghold);
-
-		// var res = build_pilgrim_toward.call(this, target_karb);
-		// if (res != null) {
-			// return res;
-		// }
+		if (next_stronghold_index != null) {
+			var res = build_pilgrim_toward.call(this, plannedchurches[next_stronghold_index][1]);
+			if (res != null) {
+				this.signal(next_stronghold_index | ((1) << 12), 2);
+				this.log("Next Stronghold: " + plannedchurches[next_stronghold_index][1]);
+				plannedchurches[next_stronghold_index][3] = true;
+				return res;
+			}
+		}
 	}
 
 	//do nothing

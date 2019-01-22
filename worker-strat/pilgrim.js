@@ -4,15 +4,21 @@ import {Decompress12Bits} from 'communication.js'
 import {alldirs, range10} from 'constants.js'
 
 var churches = null;
+var church_index = null;
 var plannedchurches = [];
 var castleloc = null;
 var karblocation = null;
 var karbfuel = null;
+var currentstatus = null;
+var spawn_loc = null;
+
 var KARB = 0;
 var FUEL = 1;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var TRY_TO_STEAL = 2;
+var MINER = 0;
+var SETTLER = 1;
 
 function get_spawn_loc(tempmap) {
 	// find location of church/castle and obtain which karb/fuel to go to
@@ -22,19 +28,32 @@ function get_spawn_loc(tempmap) {
             var robot = this.getRobot(tempmap[nextLoc[1]][nextLoc[0]]);
             if (tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
             (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
+            	spawn_loc = nextLoc;
                 if (robot.signal != -1) {
                 	// parse for karb location
-                	karblocation = Decompress12Bits(robot.signal);
-                	this.log("Received Location: " + karblocation)
-                	if (this.fuel_map[karblocation[1]][karblocation[0]]) {
-                		karbfuel = FUEL;
-                	} else {
-                		karbfuel = KARB;
+                	var directive = robot.signal >> 12;
+                	if (directive == 0) {
+                		this.log("I'm a karb miner");
+                		this.log("Received Location: " + karblocation)
+                		currentstatus = MINER;
+                		karblocation = Decompress12Bits(robot.signal & 0b111111111111);
+                		if (this.fuel_map[karblocation[1]][karblocation[0]]) {
+	                		karbfuel = FUEL;
+	                	} else {
+	                		karbfuel = KARB;
+	                	}
+	                	castleloc = nextLoc;
+	                	return;
+                	} else if (directive == 1) {
+                		this.log("I'm a settler");
+                		currentstatus = SETTLER;
+                		church_index = robot.signal & 0b111111111111;
+                		// this.log("Received castle location: " + castleloc);
+                		return;
                 	}
                 } else {
                     this.log("NO SIGNAL?? wtf?");
                 }
-                castleloc = nextLoc;
                 break;
             }
         }
@@ -44,7 +63,7 @@ function get_spawn_loc(tempmap) {
 
 }
 
-function update_strongholds() {
+function find_church_locs() {
 	//find optimal church locations that cover all karbonite
 	churches = getLocs.call(this);
 	var compare_func = function(a, b) {
@@ -74,10 +93,15 @@ function update_strongholds() {
 			}
 		}
 	}
-	var myloc = [0, 0];
+	var myloc = spawn_loc;
 
-	var temp_karb_map = this.karbonite_map.slice();
-	var temp_fuel_map = this.fuel_map.slice();
+	var temp_karb_map = new Array(this.karbonite_map.length);
+	var temp_fuel_map = new Array(this.fuel_map.length);
+
+	for (var i = 0; i < temp_karb_map.length; i++) {
+		temp_karb_map[i] = this.karbonite_map[i].slice();
+		temp_fuel_map[i] = this.fuel_map[i].slice();
+	}
 
 	var total_resources_obtained = 0;
 
@@ -130,20 +154,7 @@ function update_strongholds() {
 	}
 }
 
-export var Pilgrim = function() {
-
-	var tempmap = this.getVisibleRobotMap();
-
-	if (this.me.turn == 1) {
-
-		get_spawn_loc.call(this, tempmap);
-
-		update_strongholds.call(this);
-
-	}
-
-	// not turn 1 stuff
-
+function gomine() {
 	// go mine
 	var check = false;
     if (karbfuel == KARB) {
@@ -157,17 +168,85 @@ export var Pilgrim = function() {
 	} else if (!check) {
 		if (this.distance(castleloc, karblocation) > 10) {
 			// try to build church, otherwise wait here
-			this.log("Need to build church tbh");
+			this.log("This shouldn't happen");
 			return null;
 		} else {
 			if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
-				return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
+				// build a church if there isn't a castle or church there
+				var robotmap = this.getVisibleRobotMap();
+				if (robotmap[castleloc[1]][castleloc[0]] == 0) {
+					// build church
+					if (this.canBuild(SPECS.CHURCH)) {
+						//build a church
+						this.log("Building a Church :o");
+						return this.buildUnit(SPECS.CHURCH, castleloc[0] - this.me.x, castleloc[1] - this.me.y);
+					}
+				} else {
+					var robotthere = this.getRobot(robotmap[castleloc[1]][castleloc[0]]);
+					if (robotthere.team == this.me.team && (robotthere.unit == SPECS.CASTLE || robotthere.unit == SPECS.CHURCH)) {
+						return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
+					}
+				}
 			} else {
-				return this.moveto(castleloc, true);
+				return this.moveto(castleloc);
 			}
 		}
 		
 	} else {
-		return this.moveto(karblocation, true);
+		return this.moveto(karblocation);
 	}
+}
+
+function gosettle() {
+	// Go build a church
+
+	if (this.distance([this.me.x, this.me.y], castleloc) <= SPECS.PILGRIM.VISION_RADIUS) {
+		// I'm in vision of my destination, pick closest karbonite
+		var nextloc = null;
+		var mindist = 999999;
+		var bestloc = null;
+		var dist = null;
+		for (var i = 0; i < range10.length; i++) {
+			nextloc = [castleloc[0] + range10[i][0], castleloc[1] + range10[i][1]];
+			if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
+				dist = this.distance(castleloc, nextloc);
+				if (dist < mindist) {
+					mindist = dist;
+					bestloc = nextloc;
+				}
+			}
+		}
+		if (bestloc == null) {
+			this.log("THIS SHOULD NEVER EVER HAPPEN");
+		}
+		currentstatus = MINER;
+		karblocation = bestloc;
+	} else {
+		return this.moveto(castleloc);
+	}
+}
+
+export var Pilgrim = function() {
+
+	var tempmap = this.getVisibleRobotMap();
+
+	if (this.me.turn == 1) {
+
+		get_spawn_loc.call(this, tempmap);
+		find_church_locs.call(this);
+		if (currentstatus == SETTLER) {
+			castleloc = plannedchurches[church_index][1];
+			this.log("Settle Location: " + castleloc);
+		}
+	}
+
+	// not turn 1 stuff
+
+	// go mine
+	if (currentstatus == MINER) {
+		return gomine.call(this);
+	} else {
+		return gosettle.call(this);
+	}
+	
 }

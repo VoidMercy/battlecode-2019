@@ -17,7 +17,7 @@ export var getLocs = function() {
                         }
                         if (this.map[tempy][tempx] &&
                             !this.karbonite_map[tempy][tempx] && !this.fuel_map[tempy][tempx]) {
-                               compound_map[tempx][tempy] += 1;
+                               compound_map[tempx][tempy] += 10 - this.distance([0, 0], range10[k]);
                         }
                     }
                     
