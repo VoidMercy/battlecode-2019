@@ -668,8 +668,8 @@ export var Castle = function() {
                 if (count > highestResources) {
                     var symmetry = this.symmetricType();
 
-                    var tmpLoc = null;
-                    var tmpLoc1 = [all_resources[i][0],all_resources[i][1]];
+                    var tmpLoc = inbetween;
+                    /*var tmpLoc1 = [all_resources[i][0],all_resources[i][1]];
                     var tmpLoc2 = [all_resources[i][0],all_resources[i][1]];
                     tmpLoc1[1 - symmetry] += 7;
                     tmpLoc2[1 - symmetry] -= 7; //7 is necessary radius to see all detected resources
@@ -680,7 +680,7 @@ export var Castle = function() {
                     } else {
                         //loc1 is our side
                         tmpLoc = tmpLoc1;
-                    }
+                    }*/
                     if (tmpLoc != null && this.map[tmpLoc[1]][tmpLoc[0]]) {
                         //passable
                         highestResources = count;
