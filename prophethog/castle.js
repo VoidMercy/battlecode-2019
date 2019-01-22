@@ -1,5 +1,5 @@
 import {SPECS} from 'battlecode';
-import {alldirs, range10, lattices} from 'constants.js'
+import {alldirs, range10, lattices, range25} from 'constants.js'
 import * as Comms from 'communication.js'
 
 //castle variables
@@ -34,6 +34,7 @@ var partial_locator = {};
 var pilgrim_timer = {};
 var new_pilgrim_used_patch_timer = {};  // This is to prevent blocking of used patches by pilgrims who die right after they are spawned
 var all_pilgrims_seen = {};
+var karb_fuel_toggle = -1;
 
 export var Castle = function() {
     var unitcounts = [0, 0, 0, 0, 0, 0]; //only valid after turn 3
@@ -41,8 +42,8 @@ export var Castle = function() {
     if (this.me.turn > 3) { //to avoid conflicting with castle locations
         this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a castle and im alive"
     }
+    var myloc = [this.me.x, this.me.y];
     if (minFuel == -1) {
-        var myloc = [this.me.x, this.me.y];
         this.log("set minfuel");
         //this.log([this.distance(myloc, [0,0]), this.distance(myloc, [this.map.length-1, 0]), this.distance(myloc, [this.map.length -1, this.map.length -1]), this.distance(myloc, [0,this.map.length-1])]);
         minFuel = Math.max(this.distance(myloc, [0,0]), this.distance(myloc, [this.map.length-1, 0]), this.distance(myloc, [this.map.length -1, this.map.length -1]), this.distance(myloc, [0,this.map.length-1]));
@@ -644,11 +645,75 @@ export var Castle = function() {
         }
     }
 
+    if (this.me.turn == 1 && this.karbonite == 100 /* first castle */) {
+        //spawn prophet to reach ideal resource cucking (if exists)
+        var highestResources = 1;
+        var siceLoc = null;
+        for (var i = 0; i < all_resources.length; i++) {
+            var inbetween = [Math.floor((all_resources[i][0] + this.oppositeCoords(all_resources[i])[0]) / 2), Math.floor((all_resources[i][1] + this.oppositeCoords(all_resources[i])[1]) / 2)];
+            var distFromCenter = this.distance(inbetween, all_resources[i]);
+            if (this.distance(myloc, all_resources[i]) > this.distance(myloc, this.oppositeCoords(all_resources[i]))
+                && distFromCenter <= 36) {
+                //if it is on enemy side and close enough to center (values arbitrary right now)
+                //count karb within radius 5 to choose best one to steal
+                //only do semicircle closer to center as we dont want to consider what may be unreachable deposits
+                var count = 0;
+                for (var j = 0; j < range25.length; j++) {
+                    var sourceloc = [all_resources[i][0] + range25[j][0], all_resources[i][1] + range25[j][1]];
+                    var nextDistFromCenter = this.distance(sourceloc, [Math.floor((sourceloc[0] + this.oppositeCoords(sourceloc)[0]) / 2), Math.floor((sourceloc[1] + this.oppositeCoords(sourceloc)[1]) / 2)]);
+                    if (this.validCoords(sourceloc) && nextDistFromCenter <= distFromCenter && (this.fuel_map[sourceloc[1]][sourceloc[0]] || this.karbonite_map[sourceloc[1]][sourceloc[0]])) {
+                        count++;
+                    }
+                }
+                if (count > highestResources) {
+                    var symmetry = this.symmetricType();
+
+                    var tmpLoc = null;
+                    var tmpLoc1 = [all_resources[i][0],all_resources[i][1]];
+                    var tmpLoc2 = [all_resources[i][0],all_resources[i][1]];
+                    tmpLoc1[1 - symmetry] += 7;
+                    tmpLoc2[1 - symmetry] -= 7; //7 is necessary radius to see all detected resources
+
+                    if (this.distance(myloc, tmpLoc1) > this.distance(myloc, tmpLoc2)) {
+                        //loc2 is on our side
+                        tmpLoc = tmpLoc2;
+                    } else {
+                        //loc1 is our side
+                        tmpLoc = tmpLoc1;
+                    }
+                    if (tmpLoc != null && this.map[tmpLoc[1]][tmpLoc[0]]) {
+                        //passable
+                        highestResources = count;
+                        siceLoc = tmpLoc;
+                    }
+                }
+            }
+        }
+        if (siceLoc != null) {
+            this.log("good cuck spot?");
+            this.log(siceLoc);
+            this.log("produce prophet to hog resources lol");
+            var result = this.buildNear(SPECS.PROPHET, siceLoc);
+            if (result != null) {
+                var signal = this.generateAbsoluteTarget(siceLoc);
+                this.signal(signal, 2);
+                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+            }
+        } else {
+            this.log("no good cuck spot");
+        }
+    }
+
+    var mine_karb = function() {
+        karb_fuel_toggle++;
+        return karb_fuel_toggle % 2 == 0; //0 for karb, 1 for fuel
+    }
+
     if (this.canBuild(SPECS.PILGRIM) &&
           this.karbonite > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_KARBONITE * 2 &&
           this.fuel > SPECS.UNITS[SPECS.PREACHER].CONSTRUCTION_FUEL * 2) {
           var cnt = 0;
-          if(this.me.turn % 2 == 0) {
+          if(!mine_karb()) {
               while(used_patches[fuel_locs[fuel_index][1]][fuel_locs[fuel_index][0]] > 0 ||
                     blacklisted_patches[fuel_locs[fuel_index]] !== undefined) {
                   fuel_index = (fuel_index + 1) % fuel_patches;
@@ -656,7 +721,7 @@ export var Castle = function() {
                   if(cnt == fuel_locs.length) return;
               }
               var target = fuel_locs[fuel_index];
-              var result = this.build(SPECS.PILGRIM);
+              var result = this.buildNear(SPECS.PILGRIM, fuel_locs[fuel_index]);
               if(result != null) {
                   used_patches[target[1]][target[0]] += 1;
                   // ALL THIS BULLSHIT BECAUSE POOORTHO IS  RETARDED
@@ -676,7 +741,7 @@ export var Castle = function() {
                   if(cnt == karbonite_locs.length) return;
               }
               var target = karbonite_locs[karbonite_index];
-              var result = this.build(SPECS.PILGRIM);
+              var result = this.buildNear(SPECS.PILGRIM, karbonite_locs[karbonite_index]);
               if(result != null) {
                   used_patches[target[1]][target[0]] += 1;
                   new_pilgrim_used_patch_timer[target] = 4;
