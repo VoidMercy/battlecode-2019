@@ -24,7 +24,7 @@ function get_spawn_loc(tempmap) {
             (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
                 if (robot.signal != -1) {
                 	// parse for karb location
-                	var karblocation = Decompress12Bits(robot.signal);
+                	karblocation = Decompress12Bits(robot.signal);
                 	this.log("Received Location: " + karblocation)
                 	if (this.fuel_map[karblocation[1]][karblocation[0]]) {
                 		karbfuel = FUEL;
@@ -142,8 +142,6 @@ export var Pilgrim = function() {
 
 	}
 
-	return null;
-
 	// not turn 1 stuff
 
 	// go mine
@@ -159,10 +157,17 @@ export var Pilgrim = function() {
 	} else if (!check) {
 		if (this.distance(castleloc, karblocation) > 10) {
 			// try to build church, otherwise wait here
-
+			this.log("Need to build church tbh");
+			return null;
+		} else {
+			if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
+				return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
+			} else {
+				return this.moveto(castleloc, true);
+			}
 		}
-		return this.moveto(castleloc);
+		
 	} else {
-		return this.moveto(karblocation);
+		return this.moveto(karblocation, true);
 	}
 }

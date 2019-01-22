@@ -31,7 +31,7 @@ function update_strongholds(castle_location) {
 		for (var j = 0; j < range10.length; j++) {
 			nextloc = [plannedchurches[i][1][0] + range10[j][0], plannedchurches[i][1][1] + range10[j][1]];
 			if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
-				if (!spaces_covered.includes(this.hash(nextloc))) {
+				if (!spaces_covered.includes(this.hash(...nextloc))) {
 					not_covered = true;
 					break;
 				}
@@ -42,8 +42,8 @@ function update_strongholds(castle_location) {
 			is_stronghold = true;
 
 			this.log("REPLACE CHURCH");
-			this.log(spaces_covered);
-			this.log(stronghold_karb);
+			this.log([this.me.x, this.me.y]);
+			this.log(plannedchurches[i][1]);
 			plannedchurches.splice(i, 1);
 			return;
 		}
@@ -83,8 +83,13 @@ function find_church_locs() {
 	// this.log("NUMBER OF RESOURCES: " + resource_count);
 	var myloc = this.centerOurSide([this.me.x, this.me.y]);
 
-	var temp_karb_map = Array.from(this.karbonite_map);
-	var temp_fuel_map = Array.from(this.fuel_map);
+	var temp_karb_map = new Array(this.karbonite_map.length);
+	var temp_fuel_map = new Array(this.fuel_map.length);
+
+	for (var i = 0; i < temp_karb_map.length; i++) {
+		temp_karb_map[i] = this.karbonite_map[i].slice();
+		temp_fuel_map[i] = this.fuel_map[i].slice();
+	}
 
 	var total_resources_obtained = 0;
 
@@ -157,7 +162,7 @@ function build_pilgrim_toward(loc) {
         }
 	}
 	if (bestindex != null) {
-		return this.buildUnit(SPECS.PILGRIM, ...alldirs[i]);
+		return this.buildUnit(SPECS.PILGRIM, ...alldirs[bestindex]);
 	}
 	return null;
 }
@@ -189,19 +194,18 @@ function handle_my_stronghold() {
 		if (!working_workers.includes(this.hash(...stronghold_karb[i]))) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
-				mindst = tempdist;
+				mindist = tempdist;
 				closestloc = stronghold_karb[i];
 			}
 		}
 	}
 	if (closestloc == null) {
-		this.log("All Workers Working");
 		this.log(stronghold_karb);
 		return null;
 	}
 	var res = build_pilgrim_toward.call(this, closestloc);
 	if (res != null) {
-		this.signal(Compress12Bits(...closestloc));
+		this.signal(Compress12Bits(...closestloc), 2);
 		this.log("Building Pilgrim Towards: " + closestloc);
 		working_workers.push(this.hash(...closestloc));
 		return res;
@@ -230,7 +234,7 @@ export var Castle = function() {
 
 		var next_stronghold = find_target_stronghold.call(this);
 
-		this.log("Next Stronghold: " + next_stronghold);
+		// this.log("Next Stronghold: " + next_stronghold);
 
 		// var res = build_pilgrim_toward.call(this, target_karb);
 		// if (res != null) {
