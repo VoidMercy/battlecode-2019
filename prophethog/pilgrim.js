@@ -142,7 +142,7 @@ export var Pilgrim = function() {
     //if we have excess resources and are far enough away from our nearest church/castle, then build a church
     //filler values for now idk
     if (this.karbonite > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_KARBONITE &&
-        this.fuel > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_FUEL &&
+        this.fuel > SPECS.UNITS[SPECS.CHURCH].CONSTRUCTION_FUEL * 1.5 &&
         this.distance(target, castleloc) > 25 && this.me.x == target[0] && this.me.y == target[1]) {
         //only build if on my target cuz thats easy and ensures at least somewhat good placements
         //now check around to pick highest value from kevins crusty heuristic

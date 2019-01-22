@@ -21,6 +21,7 @@ export var Church = function() {
         this.castleTalk((receivedCastleLocs << 3) + this.me.unit + 1); //signifies "im a church and im alive"
     }
 
+    var myloc = [this.me.x, this.me.y];
     var prophetCount = 0;
     var preacherCount = 0;
     var crusaderCount = 0;
@@ -187,8 +188,9 @@ export var Church = function() {
             }
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
             //produce preacher to counter crusader
-            this.log("CREATE PROPHET FOR DEFENSE");
-            var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
+            var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -212,7 +214,7 @@ export var Church = function() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
         } 
         /*

@@ -78,7 +78,9 @@ export var Castle = function() {
         this.castleTalk(Comms.Compress8Bits(this.me.x, this.me.y));
 
         var compare_func = function(a, b) {
-            var quanta = this.distance(this.oppositeCoords(a), a) + (this.distance([this.me.x, this.me.y], a));
+            var quanta = (this.distance([this.me.x, this.me.y], a));
+            var quantb = (this.distance([this.me.x, this.me.y], b));
+            /*var quanta = this.distance(this.oppositeCoords(a), a) + (this.distance([this.me.x, this.me.y], a));
             var quantb = this.distance(this.oppositeCoords(b), b) + (this.distance([this.me.x, this.me.y], b));
             if (this.distance([this.me.x, this.me.y], a) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(a))) {
                 //is on our side, negate
@@ -87,7 +89,7 @@ export var Castle = function() {
             if (this.distance([this.me.x, this.me.y], b) <= this.distance([this.me.x, this.me.y], this.oppositeCoords(b))) {
                 //is on our side, negate
                 quantb = -1 / quantb;
-            }
+            }*/
             return quanta - quantb;
         };
         karbonite_locs.sort(compare_func.bind(this));
@@ -445,8 +447,9 @@ export var Castle = function() {
                 return this.attack(...toAttack);
             }
             //otherwise, make a prophet
-            this.log("CREATE PROPHET FOR DEFENSE");
-            var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
+            var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 minDist = 9999999; //reuse var
                 var index = -1;
@@ -471,7 +474,7 @@ export var Castle = function() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
         }
 
