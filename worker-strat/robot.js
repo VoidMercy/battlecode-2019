@@ -1,8 +1,10 @@
 import {BCAbstractRobot, SPECS} from 'battlecode';
 import { Castle } from 'castle.js'
-// import { Church } from 'church.js'
+import { Church } from 'church.js'
 import { Pilgrim } from 'pilgrim.js'
-// import { Prophet } from 'prophet.js'
+import { Prophet } from 'prophet.js'
+import { Crusader } from 'crusader.js'
+import { Preacher } from 'preacher.js'
 
 import {alldirs, crusaderdirs, otherdirs} from 'constants.js'
 
@@ -12,6 +14,120 @@ var symmetry; //1 is vertical, 0 is horizontal
 var dict = {};
 
 class MyRobot extends BCAbstractRobot {
+
+    greedyMoveAway(dest) {
+        var dirs = ((this.me.unit == SPECS.CRUSADER) ? crusaderdirs : otherdirs);
+        var maxVal = -1;
+        var maxDir = null;
+        for (var i = 0; i < dirs.length; i++) {
+            const newloc = [this.me.x + dirs[i][0], this.me.y + dirs[i][1]];
+            const dist = this.distance(newloc, dest);
+            const visMap = this.getVisibleRobotMap();
+            if (this.validCoords(newloc) && visMap[newloc[1]][newloc[0]] == 0 && this.map[newloc[1]][newloc[0]] && dist > maxVal) {
+                maxVal = dist;
+                maxDir = dirs[i];
+            }
+        }
+        if (maxDir == null) {
+            this.log("no good directions for greedymoveaway");
+            return;
+        }
+        if (this.fuel >= this.distance(maxDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+            return this.move(maxDir[0], maxDir[1]);
+        } else {
+            return null
+        }
+    }
+
+    decodeSignal(signal) {
+        if (signal % 8 == 7 || signal % 8 == 6) { //decoding is the same
+            //initial pos signal or reposition signal
+            var ret = [signal >> 10,(signal >> 4) % 64];
+            for (var i = 0; i < 2; i++) {
+                if (ret[i] >= 32) {
+                    ret[i] -= 32;
+                    ret[i] = ret[i] * -1;
+                }
+            }
+            return ret;
+        }
+
+        if (signal % 8 == 4 || signal % 8 == 3) {
+            var ret = [signal >> 11,(signal >> 6) % 32, (signal >> 3) % 8];
+            for (var i = 0; i < 2; i++) {
+                if (ret[i] >= 16) {
+                    ret[i] -= 16;
+                    ret[i] = ret[i] * -1;
+                }
+            }
+            return ret;
+        }
+
+        if (signal % 8 == 2) {
+            //enemy castle loc signal, returns loc + number of enemy castles
+            return [(signal >> 11)*2, ((signal >> 6) % 32)*2, (signal >> 3) % 4, (signal >> 5) % 2];
+        }
+        if (signal % 8 == 1) {
+            //absolute decode cuz im a lazy fuck
+            return [(signal >> 10), (signal >> 4) % 64];
+        }
+    }
+
+    generateDefenseInitialSignal(relDest, enemyType) {
+        //used when building specifically for defense
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 5;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 16; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        ret = ret << 3;
+        ret += enemyType;
+        ret = ret << 3;
+        ret += 3;
+        return ret;
+    }
+
+    generateInitialPosSignalVal(relDest) {
+        //protocol specs
+        //lsb 3 bits are used for what type of signal
+        //rn "7" denotes starting pos
+        //for starting pos, msb 6 bits will be dx, next msb 6 bits with be dy relative to position of church
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 6;
+            if (relDest[i] < 0) {
+                //negative
+                ret += 32; //for signed xd
+            }
+            ret += Math.abs(relDest[i]);
+        }
+        ret = ret << 4; //shift to align bits
+        ret += 7; //lsb 3 bits
+        return ret;
+    }
+
+    buildNear(unittype, loc) {
+        var dist = 999999;
+        var best = null;
+        if (this.canBuild(unittype)) {
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    //this.log("Create unit!");
+                    if(this.distance(loc, nextloc) < dist) {
+                        dist = this.distance(loc, nextloc);
+                        best = alldirs[i];
+                    }
+                }
+            }
+        }
+        return best;
+    }
 
     build(unittype) {
         if (this.canBuild(unittype)) {

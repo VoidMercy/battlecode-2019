@@ -1,6 +1,6 @@
 import {SPECS} from 'battlecode';
 import {getLocs} from 'churchloc.js'
-import {Decompress12Bits} from 'communication.js'
+import {Decompress12Bits, Compress12Bits} from 'communication.js'
 import {alldirs, range10} from 'constants.js'
 
 var churches = null;
@@ -11,6 +11,7 @@ var karblocation = null;
 var karbfuel = null;
 var currentstatus = null;
 var spawn_loc = null;
+var suicide = false;
 
 var KARB = 0;
 var FUEL = 1;
@@ -33,11 +34,11 @@ function get_spawn_loc(tempmap) {
                 	// parse for karb location
                 	var directive = robot.signal >> 12;
                 	if (directive == 0) {
-                		this.log("I'm a karb miner");
-                		this.log("Received Location: " + karblocation)
                 		currentstatus = MINER;
                 		karblocation = Decompress12Bits(robot.signal & 0b111111111111);
-                		if (this.fuel_map[karblocation[1]][karblocation[0]]) {
+                		this.log("I'm a karb miner");
+                		this.log("Received Location: " + karblocation)
+                   		if (this.fuel_map[karblocation[1]][karblocation[0]]) {
 	                		karbfuel = FUEL;
 	                	} else {
 	                		karbfuel = KARB;
@@ -48,7 +49,7 @@ function get_spawn_loc(tempmap) {
                 		this.log("I'm a settler");
                 		currentstatus = SETTLER;
                 		church_index = robot.signal & 0b111111111111;
-                		// this.log("Received castle location: " + castleloc);
+                		this.log("Received church index: " + church_index);
                 		return;
                 	}
                 } else {
@@ -179,6 +180,8 @@ function gomine() {
 					if (this.canBuild(SPECS.CHURCH)) {
 						//build a church
 						this.log("Building a Church :o");
+						var signal = Compress12Bits(...spawn_loc);
+						this.signal(signal, 2);
 						return this.buildUnit(SPECS.CHURCH, castleloc[0] - this.me.x, castleloc[1] - this.me.y);
 					}
 				} else {
@@ -187,6 +190,7 @@ function gomine() {
 						return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
 					}
 				}
+				return null;
 			} else {
 				return this.moveto(castleloc);
 			}
@@ -199,10 +203,23 @@ function gomine() {
 
 function gosettle() {
 	// Go build a church
-
-	if (this.distance([this.me.x, this.me.y], castleloc) <= SPECS.PILGRIM.VISION_RADIUS) {
-		// I'm in vision of my destination, pick closest karbonite
+	if (this.distance([this.me.x, this.me.y], castleloc) + 10 <= SPECS.UNITS[SPECS.PILGRIM].VISION_RADIUS) {
+		// I'm in vision of destination, check around for a castle
 		var nextloc = null;
+		var robotmap = this.getVisibleRobotMap();
+		for (var i = 0; i < range10.length; i++) {
+			nextloc = [castleloc[0] + range10[i][0], castleloc[1] + range10[i][1]];
+			if (this.validCoords(nextloc) && robotmap[nextloc[1]][nextloc[0]] > 0) {
+				var robotthere = this.getRobot(robotmap[nextloc[1]][nextloc[0]]);
+				if (robotthere.unit == SPECS.CASTLE) {
+					this.log("Darn there's already a settlement there, guess i'm gonna die");
+					suicide = true;
+					return null;
+				}
+			}
+		}
+
+		// I'm in vision of my destination, pick closest karbonite
 		var mindist = 999999;
 		var bestloc = null;
 		var dist = null;
@@ -221,6 +238,11 @@ function gosettle() {
 		}
 		currentstatus = MINER;
 		karblocation = bestloc;
+		if (this.fuel_map[karblocation[1]][karblocation[0]]) {
+    		karbfuel = FUEL;
+    	} else {
+    		karbfuel = KARB;
+    	}
 	} else {
 		return this.moveto(castleloc);
 	}
@@ -236,11 +258,27 @@ export var Pilgrim = function() {
 		find_church_locs.call(this);
 		if (currentstatus == SETTLER) {
 			castleloc = plannedchurches[church_index][1];
-			this.log("Settle Location: " + castleloc);
+			this.log("Church Settle Location: " + castleloc);
 		}
 	}
 
+	if (suicide) {
+		return this.moveto([0, 0]);
+	}
+
 	// not turn 1 stuff
+
+	if (church_index != null) {
+		// i was sent out to build a church
+		var talk = (SPECS.PILGRIM) << 4;
+		talk = talk | 1 << 7
+		if (church_index <= 15) {
+			talk = talk | church_index;
+		} else {
+			this.log("This shouldn't happen, more than 16 churches??");
+		}
+		this.castleTalk(talk);
+	}
 
 	// go mine
 	if (currentstatus == MINER) {
@@ -248,5 +286,5 @@ export var Pilgrim = function() {
 	} else {
 		return gosettle.call(this);
 	}
-	
+
 }
