@@ -73,6 +73,17 @@ class MyRobot extends BCAbstractRobot {
         }
     }
 
+    generateAbsoluteTarget(dest) {
+        var ret = 0;
+        for (var i = 0; i < 2; i++) {
+            ret = ret << 6;
+            ret += dest[i];
+        }
+        ret = ret << 4; //shift to align bits
+        ret += 1; //lsb 3 bits
+        return ret;
+    }
+
     generateDefenseInitialSignal(relDest, enemyType) {
         //used when building specifically for defense
         var ret = 0;

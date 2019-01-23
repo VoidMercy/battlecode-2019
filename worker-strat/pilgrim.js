@@ -36,8 +36,8 @@ function get_spawn_loc(tempmap) {
                 	if (directive == 0) {
                 		currentstatus = MINER;
                 		karblocation = Decompress12Bits(robot.signal & 0b111111111111);
-                		this.log("I'm a karb miner");
-                		this.log("Received Location: " + karblocation)
+                		// this.log("I'm a karb miner");
+                		// this.log("Received Location: " + karblocation)
                    		if (this.fuel_map[karblocation[1]][karblocation[0]]) {
 	                		karbfuel = FUEL;
 	                	} else {
@@ -46,10 +46,10 @@ function get_spawn_loc(tempmap) {
 	                	castleloc = nextLoc;
 	                	return;
                 	} else if (directive == 1) {
-                		this.log("I'm a settler");
+                		// this.log("I'm a settler");
                 		currentstatus = SETTLER;
                 		church_index = robot.signal & 0b111111111111;
-                		this.log("Received church index: " + church_index);
+                		// this.log("Received church index: " + church_index);
                 		return;
                 	}
                 } else {
@@ -203,7 +203,7 @@ function gomine() {
 
 function gosettle() {
 	// Go build a church
-	if (this.distance([this.me.x, this.me.y], castleloc) + 10 <= SPECS.UNITS[SPECS.PILGRIM].VISION_RADIUS) {
+	if (this.distance([this.me.x, this.me.y], castleloc) <= 10) {
 		// I'm in vision of destination, check around for a castle
 		var nextloc = null;
 		var robotmap = this.getVisibleRobotMap();
@@ -211,10 +211,10 @@ function gosettle() {
 			nextloc = [castleloc[0] + range10[i][0], castleloc[1] + range10[i][1]];
 			if (this.validCoords(nextloc) && robotmap[nextloc[1]][nextloc[0]] > 0) {
 				var robotthere = this.getRobot(robotmap[nextloc[1]][nextloc[0]]);
-				if (robotthere.unit == SPECS.CASTLE) {
+				if (robotthere.unit == SPECS.CASTLE || robotthere.unit == SPECS.CHURCH) {
 					this.log("Darn there's already a settlement there, guess i'm gonna die");
 					suicide = true;
-					return null;
+					return gosuicide.call(this);
 				}
 			}
 		}
@@ -248,6 +248,20 @@ function gosettle() {
 	}
 }
 
+function gosuicide() {
+	var talk = 0;
+	talk = talk | (1 << 4);
+	talk = talk | (1 << 5);
+	talk = talk | (1 << 7);
+	if (church_index <= 15) {
+		talk = talk | church_index;
+	} else {
+		this.log("This shouldn't happen, more than 16 churches??");
+	}
+	this.castleTalk(talk);
+	return this.moveto([0, 0]);
+}
+
 export var Pilgrim = function() {
 
 	var tempmap = this.getVisibleRobotMap();
@@ -263,17 +277,7 @@ export var Pilgrim = function() {
 	}
 
 	if (suicide) {
-		var talk = 0;
-		talk = talk | (1 << 4);
-		talk = talk | (1 << 5);
-		talk = talk | (1 << 7);
-		if (church_index <= 15) {
-			talk = talk | church_index;
-		} else {
-			this.log("This shouldn't happen, more than 16 churches??");
-		}
-		this.castleTalk(talk);
-		return this.moveto([0, 0]);
+		return gosuicide.call(this);
 	}
 
 	// not turn 1 stuff
@@ -292,7 +296,7 @@ export var Pilgrim = function() {
 	// go mine
 	if (currentstatus == MINER) {
 		return gomine.call(this);
-	} else {
+	} else if (currentstatus == SETTLER) {
 		return gosettle.call(this);
 	}
 

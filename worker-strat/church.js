@@ -412,7 +412,7 @@ function defend() {
 function offense() {
 	//offensive code lategame
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
-    if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) {
+    if (this.karbonite > 200 + 5*friendlyAttackUnits && this.fuel > 500) {
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;
@@ -475,7 +475,7 @@ export var Church = function() {
 		}
 	}
 
-	var talk = 0;
+	var talk = 1 << 7;
 	if (church_index <= 15) {
 		talk = talk | church_index;
 	} else {

@@ -29,7 +29,11 @@ export var Prophet = function() {
                         //this.log("SIGNAL");
                         //this.log(robot.signal);
                         relStartPos = this.decodeSignal(robot.signal);
-                        target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
+                        if (robot.signal % 8 == 1) {
+                            target = [relStartPos[0], relStartPos[1]];
+                        } else {
+                            target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
+                        }
                         //this.log("Received: ");
                         //this.log(relStartPos);
                     } else {
