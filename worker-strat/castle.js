@@ -247,19 +247,26 @@ function handle_castle_talk() {
 	for (var i = 0; i < robotsnear.length; i++) {
 		if (robotsnear[i].castle_talk != null && robotsnear[i].castle_talk > 0) {
 			var church_index = robotsnear[i].castle_talk & 0b1111; // the church this unit is serving
-			var unit_type = (robotsnear[i].castle_talk >> 4) & 0b111;
+			var unit_type = (robotsnear[i].castle_talk >> 4) & 1; // 5th bit, 1 == pilgrim, 0 == church
 			if (plannedchurches[church_index] == null) {
 				// a castle is replaced the church lol
 				continue;
 			}
-			if (unit_type == SPECS.PILGRIM && robotsnear[i].castle_talk >> 7 == 1) {
-				plannedchurches[church_index][3] = true;
+			if (unit_type == 1 && robotsnear[i].castle_talk >> 7 == 1) {
+				var occupied = (robotsnear[i].castle_talk >> 5) & 1 // if 6th bit is set, then church has been replaced
+				if (occupied == 1) {
+					plannedchurches[church_index] = null;
+					continue;
+				}  else {
+					plannedchurches[church_index][3] = true;
+				}
 			} else if (unit_type == SPECS.CHURCH) {
 				active_strongholds[church_index] = true;
-				save_for_church = false;
 			}
 			if (plannedchurches[church_index][3] && !active_strongholds[church_index]) {
 				save_for_church = true;
+			} else {
+				save_for_church = false;
 			}
 		}
 	}
@@ -503,6 +510,12 @@ function offense() {
 
 export var Castle = function() {
 
+	// reset workers working on planned churches
+	for (var i = 0; i < plannedchurches.length; i++) {
+		if (plannedchurches[i] != null) {
+			plannedchurches[i][3] = false;
+		}
+	}
 	handle_castle_talk.call(this);
 
 	if (this.me.turn == 1) {

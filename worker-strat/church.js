@@ -475,7 +475,7 @@ export var Church = function() {
 		}
 	}
 
-	var talk = (SPECS.CHURCH) << 4;
+	var talk = 0;
 	if (church_index <= 15) {
 		talk = talk | church_index;
 	} else {

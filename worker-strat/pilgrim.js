@@ -263,6 +263,16 @@ export var Pilgrim = function() {
 	}
 
 	if (suicide) {
+		var talk = 0;
+		talk = talk | (1 << 4);
+		talk = talk | (1 << 5);
+		talk = talk | (1 << 7);
+		if (church_index <= 15) {
+			talk = talk | church_index;
+		} else {
+			this.log("This shouldn't happen, more than 16 churches??");
+		}
+		this.castleTalk(talk);
 		return this.moveto([0, 0]);
 	}
 
@@ -270,8 +280,7 @@ export var Pilgrim = function() {
 
 	if (church_index != null) {
 		// i was sent out to build a church
-		var talk = (SPECS.PILGRIM) << 4;
-		talk = talk | 1 << 7
+		var talk = (1 << 4) | (1 << 7);
 		if (church_index <= 15) {
 			talk = talk | church_index;
 		} else {
