@@ -493,7 +493,7 @@ function defend() {
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
             return null;
-        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= defense_units[SPECS.PROPHET] + defense_units[SPECS.PREACHER]) || (i_got_attacked && defense_robots[SPECS.PROPHET] < 2)) {
+        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= defense_units[SPECS.PROPHET] + defense_units[SPECS.PREACHER]) || (i_got_attacked && (defense_units[SPECS.PROPHET] < 2 || defensive_health < 40))) {
 			underattack = true;
     		i_got_attacked = true;
 			//produce prophet to counter prophet or attack
@@ -504,7 +504,9 @@ function defend() {
             var toBuild = SPECS.PROPHET;
             var result = null;
             if (closestEnemy == null) {
-            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2};
+            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
+            	this.log("CAN I PLEASE DEFEND");
+            	this.log(this.karbonite);
             }
             if (numenemy[SPECS.PREACHER] > 0) {
             	result = this.buildAway(toBuild, [closestEnemy.x, closestEnemy.y]);
@@ -545,7 +547,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                this.log("CREATE PREACHER BITCH");
+                this.log("CREATE PROPHET BITCH");
                 return this.buildUnit(toBuild, result[0], result[1]);
             }
             return null;
