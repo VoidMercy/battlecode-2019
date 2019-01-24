@@ -512,13 +512,7 @@ function offense() {
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;
-        if (lategameUnitCount % 3 == 0) {
-            //make preacher
-            unitBuilder = SPECS.PREACHER;
-        } else {
-            //make prophet
-            unitBuilder = SPECS.PROPHET;
-        }
+        unitBuilder = SPECS.PROPHET;
         this.log("BUILDING RANGER!!!")
         var result = this.build(unitBuilder);
         if (result != null) {
