@@ -414,9 +414,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -443,9 +453,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -485,9 +505,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -515,9 +545,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -556,9 +596,19 @@ function offense() {
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                     !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                    used_lattice_locs.push(index);
-                    turns_since_used_lattice.push(0);
-                    break; //found tile :O
+					var num_adjacent_deposits = 0;
+					for (var i = 0; i < alldirs.length; i++) {
+						var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+						if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+							num_adjacent_deposits++;
+						}
+					}
+					if (num_adjacent_deposits <= 1) {
+						//dont want too many fuel depos
+						used_lattice_locs.push(index);
+						turns_since_used_lattice.push(0);
+						break; //found tile :O
+					}
                 }
             }
             //send signal for starting pos
