@@ -206,7 +206,7 @@ function find_target_stronghold() {
 	var closest_castle = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
-			if (plannedchurches[i] == null) {
+			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
 				continue;
 			}
 			tempdist = this.distance(plannedchurches[i][1], castlelocs[j]);
