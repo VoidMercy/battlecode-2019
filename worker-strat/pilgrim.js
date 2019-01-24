@@ -168,7 +168,7 @@ function stay_away_from_danger() {
 				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
 				if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * SPECS.UNITS[this.me.unit].SPEED) {
 					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * 3) {
-						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
+						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);;
 					}
 					return null;
 				}
@@ -197,6 +197,11 @@ function gomine() {
 	    } else {
 	        check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
 	    }
+	}
+
+	var res = stay_away_from_danger.call(this);
+	if (res != false) {
+		return res;
 	}
 
 	var robotmap = this.getVisibleRobotMap();
@@ -233,20 +238,13 @@ function gomine() {
 				}
 				return null;
 			} else {
-				var res = stay_away_from_danger.call(this);
-				if (res != false) {
-					return res;
-				}
+
 				return this.moveto(castleloc);
 			}
 		}
 		
 	} else {
 		// if i would be walking into enemy range, then do nothing
-		var res = stay_away_from_danger.call(this);
-		if (res != false) {
-			return res;
-		}
 		return this.moveto(karblocation);
 	}
 }

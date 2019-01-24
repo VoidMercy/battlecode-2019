@@ -204,7 +204,7 @@ export var Prophet = function() {
     // kite back from preachers
     for (var i = 0; i < robotsnear.length; i++) {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
-            if (robotsnear[i].unit == SPECS.PREACHER && this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]) <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + 10) {
+            if (robotsnear[i].unit == SPECS.PREACHER && this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]) <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + 4) {
                 var move = this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
                 if (move != null) {
                     this.log("KITE BACK!!");
