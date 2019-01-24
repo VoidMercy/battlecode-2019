@@ -496,7 +496,7 @@ function defend() {
 			//also add attack at the end of all the ifs
 			//otherwise, make a prophet
 			//technically thisll always build a prophet as it will attack if its close enough for a preacher but for consistency i thought i'd add it here
-            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], [this.me.x, this.me.y]) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
             this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
             var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
@@ -856,6 +856,16 @@ function handle_unit_production(next_stronghold_index) {
 
 export var Castle = function() {
 
+    for (var i = 0; i < used_lattice_locs.length; i++) {
+        if (turns_since_used_lattice[i] > used_lattice_locs[i][0] + used_lattice_locs[i][1] + 2) {
+            //pop since its been long enough probably
+            turns_since_used_lattice.splice(i, 1);
+            used_lattice_locs.splice(i, 1);
+        } else {
+            turns_since_used_lattice[i]++;
+        }
+	}
+	
 	if (this.me.turn != 1) {
 
 		// reset workers working on planned churches

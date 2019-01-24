@@ -316,7 +316,7 @@ function defend() {
             return null;
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0 || (defense_robots[SPECS.PROPHET] == 0 && numenemy[SPECS.PILGRIM] != 0)) {
             //produce prophet to counter prophet or attack
-            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], [this.me.x, this.me.y]) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
             this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
             var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
@@ -507,6 +507,16 @@ function offense() {
 }
 
 export var Church = function() {
+
+    for (var i = 0; i < used_lattice_locs.length; i++) {
+        if (turns_since_used_lattice[i] > used_lattice_locs[i][0] + used_lattice_locs[i][1] + 2) {
+            //pop since its been long enough probably
+            turns_since_used_lattice.splice(i, 1);
+            used_lattice_locs.splice(i, 1);
+        } else {
+            turns_since_used_lattice[i]++;
+        }
+    }
 
 	if (this.me.turn == 1) {
 

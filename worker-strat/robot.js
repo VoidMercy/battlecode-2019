@@ -251,7 +251,7 @@ class MyRobot extends BCAbstractRobot {
         //TODO: make it possible to move multiple tiles at once xd
         //note: this moves backwards if it cant move closer lol
         var dirs = ((this.me.unit == SPECS.CRUSADER) ? crusaderdirs : otherdirs);
-        var minVal = 999999999;
+        var minVal = 9999999999999;
         var minDir = null;
         for (var i = 0; i < dirs.length; i++) {
             var newloc = [this.me.x + dirs[i][0], this.me.y + dirs[i][1]];
@@ -263,13 +263,13 @@ class MyRobot extends BCAbstractRobot {
             }
         }
         if (minDir == null) {
-            this.log("no good directions for greedymove");
-            return;
+            //this.log("no good directions for greedymove");
+            return null;;
         }
         if (this.fuel >= this.distance(minDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
             return this.move(minDir[0], minDir[1]);
         } else {
-            return null
+            return null;
         }
     }
 
@@ -331,6 +331,7 @@ class MyRobot extends BCAbstractRobot {
             }
 
             //this.log("MOVING");
+            //this.log(this.me.id);
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y && idealcoord != null) {
