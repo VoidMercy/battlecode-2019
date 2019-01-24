@@ -98,7 +98,7 @@ function find_church_locs() {
 			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				// add to planned churches
-				if (dist_between_churches > 16) {
+				if (dist_between_churches >= 64) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
 				} else {
 					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
@@ -313,7 +313,8 @@ function defend() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
+            return null;
+        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0 || (defense_robots[SPECS.PROPHET] == 0 && numenemy[SPECS.PILGRIM] != 0)) {
             //produce preacher to counter crusader
             this.log("CREATE PROPHET FOR DEFENSE");
             var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
@@ -352,6 +353,7 @@ function defend() {
                 }
                 return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
             }
+            return null;
         } 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
@@ -404,10 +406,11 @@ function defend() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
+            return null;
         } else if (numenemy[SPECS.PILGRIM] > (friendlies[SPECS.PROPHET] + friendlies[SPECS.CRUSADER])*2 && smallestDist <= 64) {
             //spawn crusaders for enemy pilgrims
             this.log("CREATE prophet/crusader FOR ATTACKING ENEMY PILGRIM");
-            var toBuild = smallestDist <= 16 ? SPECS.CRUSADER : SPECS.PROPHET;
+            var toBuild = SPECS.PROPHET;
             var result = this.build(toBuild);
             if (result != null) {
                 var index = -1;
@@ -444,9 +447,10 @@ function defend() {
                 }
                 return this.buildUnit(toBuild, result[0], result[1]);
             }
+            return null;
         }
     }
-    return null;
+    return false;
 }
 
 function offense() {
@@ -535,7 +539,8 @@ export var Church = function() {
 	}
 
 	var res = defend.call(this);
-	if (res != null) {
+	// false neans does not need to defend
+	if (res != false) {
 		return res;
 	}
 

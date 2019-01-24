@@ -15,6 +15,12 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    distanceFromCenter(loc) {
+        var otherloc = this.oppositeCoords(loc);
+        var middle = [this.map[0].length / 2, this.map.length / 2];
+        return this.distance(loc, otherloc) + this.distance(loc, middle);
+    }
+
     greedyMoveAway(dest) {
         var dirs = ((this.me.unit == SPECS.CRUSADER) ? crusaderdirs : otherdirs);
         var maxVal = -1;
@@ -327,7 +333,7 @@ class MyRobot extends BCAbstractRobot {
             //this.log("MOVING");
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
-            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y && idealcoord != null) {
                 return this.greedyMove(idealcoord);
             }
             if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {

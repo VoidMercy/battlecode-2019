@@ -13,6 +13,7 @@ var currentstatus = null;
 var spawn_loc = null;
 var suicide = false;
 var serve = null;
+var robotsnear;
 
 var KARB = 0;
 var FUEL = 1;
@@ -21,7 +22,7 @@ var CONTESTED = 1;
 var TRY_TO_STEAL = 2;
 var MINER = 0;
 var SETTLER = 1;
-var POOR_THRESHOLD = 100;
+var POOR_THRESHOLD = 70;
 var POOR_KARB_AMOUNT = 10;
 
 function get_spawn_loc(tempmap) {
@@ -133,7 +134,7 @@ function find_church_locs() {
 			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				// add to planned churches
-				if (dist_between_churches > 16) {
+				if (dist_between_churches >= 64) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
 				} else {
 					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
@@ -160,6 +161,31 @@ function find_church_locs() {
 	}
 }
 
+function stay_away_from_danger() {
+	for (var i = 0; i < robotsnear.length; i++) {
+		if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
+			if (SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != 0) {
+				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
+				if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * SPECS.UNITS[this.me.unit].SPEED) {
+					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * 3) {
+						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
+					}
+					return null;
+				}
+			} else if (robotsnear[i].unit == SPECS.CHURCH) {
+				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
+				if (dist_to_robot <= 64 + SPECS.UNITS[this.me.unit].SPEED * SPECS.UNITS[this.me.unit].SPEED) {
+					if (dist_to_robot <= 64 + SPECS.UNITS[this.me.unit].SPEED * 3) {
+						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
+					}
+					return null;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 function gomine() {
 	// go mine
 	var check = false;
@@ -172,8 +198,13 @@ function gomine() {
 	        check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
 	    }
 	}
-    
 
+	var robotmap = this.getVisibleRobotMap();
+
+	if (robotmap[castleloc[1]][castleloc[0]] == 0 && plannedchurches[church_index][0] == CONTESTED) {
+		check = false;
+	}
+    
 	if (check && this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
 		return this.mine();
 	} else if (!check) {
@@ -184,7 +215,7 @@ function gomine() {
 		} else {
 			if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
 				// build a church if there isn't a castle or church there
-				var robotmap = this.getVisibleRobotMap();
+				
 				if (robotmap[castleloc[1]][castleloc[0]] == 0) {
 					// build church
 					if (this.canBuild(SPECS.CHURCH)) {
@@ -202,11 +233,20 @@ function gomine() {
 				}
 				return null;
 			} else {
+				var res = stay_away_from_danger.call(this);
+				if (res != false) {
+					return res;
+				}
 				return this.moveto(castleloc);
 			}
 		}
 		
 	} else {
+		// if i would be walking into enemy range, then do nothing
+		var res = stay_away_from_danger.call(this);
+		if (res != false) {
+			return res;
+		}
 		return this.moveto(karblocation);
 	}
 }
@@ -254,6 +294,10 @@ function gosettle() {
     		karbfuel = KARB;
     	}
 	} else {
+		var res = stay_away_from_danger.call(this);
+		if (res != false) {
+			return res;
+		}
 		return this.moveto(castleloc);
 	}
 }
@@ -281,6 +325,7 @@ function get_church_index() {
 export var Pilgrim = function() {
 
 	var tempmap = this.getVisibleRobotMap();
+	robotsnear = this.getVisibleRobots();
 
 	if (this.me.turn == 1) {
 

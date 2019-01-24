@@ -15,6 +15,7 @@ var active_strongholds = [];
 var save_for_church = false;
 var contest_units = [];
 var castlelocs = [];
+var my_church_loc = null;
 
 //combat vars
 var underattack = false;
@@ -38,12 +39,12 @@ var lategameUnitCount = 0;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var VERY_CONTESTED = 2;
-var CONTESTED_UNITS = [0, 0, 0, 1, 2, 0];
+var CONTESTED_UNITS = [0, 0, 0, 0, 2, 1];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
 function update_strongholds(castle_location) {
 	for (var i = 0; i < plannedchurches.length; i++) {
-		if (this.distance([this.me.x, this.me.y], plannedchurches[i][1]) <= 9) {
+		if (this.distance([this.me.x, this.me.y], plannedchurches[i][1]) <= 10) {
 			// good, replace church
 			is_stronghold = true;
 
@@ -60,6 +61,7 @@ function update_strongholds(castle_location) {
 			this.log("REPLACE CHURCH");
 			this.log([this.me.x, this.me.y]);
 			this.log(plannedchurches[i][1]);
+			my_church_loc = plannedchurches[i][1];
 			plannedchurches[i] = null;
 
 			return;
@@ -169,7 +171,7 @@ function find_church_locs() {
 			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				// add to planned churches
-				if (dist_between_churches > 16) {
+				if (dist_between_churches >= 64) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				} else {
 					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
@@ -225,7 +227,51 @@ function build_pilgrim_toward(loc) {
 }
 
 function find_target_stronghold() {
+
+	var tempdist = null;
+	var mindist = 999999;
+	var closest_stronghold_index = null;
+
+	for (var i = 0; i < plannedchurches.length; i++) {
+		for (var j = 0; j < castlelocs.length; j++) {
+			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
+				continue;
+			}
+			tempdist = this.distanceFromCenter(plannedchurches[i][1]);
+			if (tempdist < mindist && !plannedchurches[i][3]) {
+				mindist = tempdist;
+				closest_stronghold_index = i;
+			}
+		}
+	}
+
+	if (closest_stronghold_index != null) {
+		mindist = 9999999;
+		var closest_castle = null;
+		var tempdist;
+		for (var i = 0; i < castlelocs.length; i++) {
+			tempdist = this.distance(plannedchurches[closest_stronghold_index][1], castlelocs[i]);
+			if (tempdist < mindist) {
+				mindist = tempdist;
+				closest_castle = castlelocs[i];
+			}
+		}
+		// this.log("Closest castle");
+		// this.log(closest_castle);
+		// this.log([this.me.x, this.me.y]);
+		// this.log(my_church_loc);
+		// this.log(closest_stronghold_index);
+		if (this.hash(...closest_castle) == this.hash(...my_church_loc)) {
+			return closest_stronghold_index;
+		}
+	}
+
+	return null;
+
+
 	// find closest two castle loc and stronghold loc
+
+	/*
 	var tempdist = null;
 	var mindist = 999999;
 	var closest_stronghold_index = null;
@@ -257,57 +303,27 @@ function find_target_stronghold() {
 		}
 	}
 
-	if (min_contest_dist - 40 < mindist) {
-		if (closest_contest_castle != null && this.distance(closest_contest_castle, [this.me.x, this.me.y]) <= 5) {
+	// this.log(closest_contest_castle);
+	// this.log(my_church_loc);
+	// this.log(min_contest_dist);
+
+	if (min_contest_dist - 200 < mindist) {
+		if (closest_contest_castle != null && this.hash(...closest_contest_castle) == this.hash(...my_church_loc)) {
 			this.log("new contested settlmeent");
 			this.log(closest_contest_castle);
 			this.log([this.me.x, this.me.y]);
 			this.log(plannedchurches[closest_contest_index]);
 			return closest_contest_index;
 		}
-	} else {
-		if (closest_castle != null && this.distance(closest_castle, [this.me.x, this.me.y]) <= 5) {
-			this.log("new settlmeent");
-			this.log(closest_castle);
-			this.log([this.me.x, this.me.y]);
-			this.log(plannedchurches[closest_stronghold_index]);
-			return closest_stronghold_index;
-		}
+	} else if (closest_castle != null && this.hash(...closest_castle) == this.hash(...my_church_loc)) {
+		this.log("new settlmeent");
+		this.log(closest_castle);
+		this.log([this.me.x, this.me.y]);
+		this.log(plannedchurches[closest_stronghold_index]);
+		return closest_stronghold_index;
 	}
-
 	
-
-	
-	return null;
-
-
-	// find next closest church location
-	var mindist = 99999;
-	var bestindex = null;
-	for (var i = 0; i < plannedchurches.length; i++) {
-		if (plannedchurches[i] == null) {
-			continue;
-		}
-		tempdist = this.distance([this.me.x, this.me.y], plannedchurches[i][1]);
-		if (!plannedchurches[i][3] && tempdist < mindist) {
-			var imtheclosest = true;
-			var mydist = this.distance(plannedchurches[i][1], [this.me.x, this.me.y]);
-			for (var j = 0; j < castlelocs.length; j++) {
-				if (this.distance(castlelocs[j], plannedchurches[i][1]) < mydist) {
-					imtheclosest = false;
-					break;
-				}
-			}
-			if (imtheclosest) {
-				mindist = tempdist;
-				bestindex = i;
-			}
-		}
-	}
-	if (bestindex == null) {
-		return null;
-	}
-	return bestindex;
+	return null;*/
 }
 
 function handle_my_stronghold() {
@@ -353,11 +369,21 @@ function handle_castle_talk() {
 				var occupied = (robotsnear[i].castle_talk >> 5) & 1 // if 6th bit is set, then it's a castle
 				if (occupied == 1) {
 					// there's already a castle here
-					this.log("Castle sice");
-					castlelocs.push(plannedchurches[church_index][1]);
-					this.log(castlelocs);
-					plannedchurches[church_index] = null;
-					this.log(plannedchurches);
+					var already_added = false;
+					for (var j = 0; j < castlelocs.length; j++) {
+						if (this.hash(...castlelocs[j]) == this.hash(...plannedchurches[church_index][1])) {
+							already_added = true;
+							break;
+						}
+					}
+					if (!already_added) {
+						this.log("Castle sice");
+						castlelocs.push(plannedchurches[church_index][1]);
+						this.log(castlelocs);
+						plannedchurches[church_index] = null;
+						this.log(plannedchurches);
+					}
+					
 					continue;
 				}  else {
 					plannedchurches[church_index][3] = true;
@@ -685,10 +711,29 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	if (units_needed == total_units_needed) {
 		karb_needed += 30;
 	}*/
-	if (karb_needed > this.karbonite) {
+	if (karb_needed - 20 > this.karbonite) {
 		return null;
 	}
-	if (contest_units[next_stronghold_index][SPECS.PROPHET] < target_amount[SPECS.PROPHET]) {
+	if (contest_units[next_stronghold_index][SPECS.PREACHER] < target_amount[SPECS.PREACHER]) {
+		// build preacher
+		var churchloc = plannedchurches[next_stronghold_index][1];
+		var res = this.buildNear(SPECS.PREACHER, churchloc);
+		if (res != null) {
+			var otherchurchloc = this.oppositeCoords(churchloc);
+			var middle = null;
+			if (this.symmetry == 1) {
+				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
+			} else {
+				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
+			}
+			var signal = this.generateAbsoluteTarget(middle);
+			this.signal(signal, 2);
+			contest_units[next_stronghold_index][SPECS.PREACHER]++;
+			return this.buildUnit(SPECS.PREACHER, ...res);
+		}
+		this.log("Failed to build preacher to frontlines");
+		return null;
+	} if (contest_units[next_stronghold_index][SPECS.PROPHET] < target_amount[SPECS.PROPHET]) {
 		// build propheto
 		var churchloc = plannedchurches[next_stronghold_index][1];
 		var res = this.buildNear(SPECS.PROPHET, churchloc);
@@ -753,7 +798,6 @@ function handle_unit_production(next_stronghold_index) {
 export var Castle = function() {
 
 	if (this.me.turn != 1) {
-		castlelocs.push([this.me.x, this.me.y])
 
 		// reset workers working on planned churches
 		previous_working_on = []
@@ -794,6 +838,7 @@ export var Castle = function() {
 			active_strongholds.push(false);
 			contest_units.push([0, 0, 0, 0, 0, 0]);
 		}
+		castlelocs.push(my_church_loc);
 	}
 
 	var res = defend.call(this);
