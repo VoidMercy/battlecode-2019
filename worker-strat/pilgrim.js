@@ -12,6 +12,7 @@ var karbfuel = null;
 var currentstatus = null;
 var spawn_loc = null;
 var suicide = false;
+var serve = null;
 
 var KARB = 0;
 var FUEL = 1;
@@ -30,6 +31,7 @@ function get_spawn_loc(tempmap) {
             if (tempmap[nextLoc[1]][nextLoc[0]] > 0 &&
             (robot.unit == SPECS.CASTLE || robot.unit == SPECS.CHURCH)) {
             	spawn_loc = nextLoc;
+            	serve = robot.unit;
                 if (robot.signal != -1) {
                 	// parse for karb location
                 	var directive = robot.signal >> 12;
@@ -49,6 +51,7 @@ function get_spawn_loc(tempmap) {
                 		// this.log("I'm a settler");
                 		currentstatus = SETTLER;
                 		church_index = robot.signal & 0b111111111111;
+                		serve = SPECS.CHURCH;
                 		// this.log("Received church index: " + church_index);
                 		return;
                 	}
@@ -211,7 +214,7 @@ function gosettle() {
 			nextloc = [castleloc[0] + range10[i][0], castleloc[1] + range10[i][1]];
 			if (this.validCoords(nextloc) && robotmap[nextloc[1]][nextloc[0]] > 0) {
 				var robotthere = this.getRobot(robotmap[nextloc[1]][nextloc[0]]);
-				if (robotthere.unit == SPECS.CASTLE || robotthere.unit == SPECS.CHURCH) {
+				if (robotthere.unit == SPECS.CASTLE) {
 					this.log("Darn there's already a settlement there, guess i'm gonna die");
 					suicide = true;
 					return gosuicide.call(this);
@@ -249,17 +252,23 @@ function gosettle() {
 }
 
 function gosuicide() {
-	var talk = 0;
-	talk = talk | (1 << 4);
-	talk = talk | (1 << 5);
-	talk = talk | (1 << 7);
-	if (church_index <= 15) {
-		talk = talk | church_index;
-	} else {
-		this.log("This shouldn't happen, more than 16 churches??");
-	}
-	this.castleTalk(talk);
+	this.log("SUICIDING!!!");
 	return this.moveto([0, 0]);
+}
+
+function get_church_index() {
+	var mindist = 999999;
+	var closest_index = null;
+	var tempdist = null;
+	var myloc = [this.me.x, this.me.y];
+	for (var i = 0; i < plannedchurches.length; i++) {
+		tempdist = this.distance(myloc, plannedchurches[i][1]);
+		if (tempdist < mindist) {
+			mindist = tempdist;
+			closest_index = i;
+		}
+	}
+	return closest_index;
 }
 
 export var Pilgrim = function() {
@@ -273,6 +282,8 @@ export var Pilgrim = function() {
 		if (currentstatus == SETTLER) {
 			castleloc = plannedchurches[church_index][1];
 			this.log("Church Settle Location: " + castleloc);
+		} else {
+			church_index = get_church_index.call(this);
 		}
 	}
 
@@ -285,12 +296,17 @@ export var Pilgrim = function() {
 	if (church_index != null) {
 		// i was sent out to build a church
 		var talk = (1 << 4) | (1 << 7);
+		if (serve == SPECS.CASTLE) {
+			talk = talk | (1 << 5);
+		}
 		if (church_index <= 15) {
 			talk = talk | church_index;
 		} else {
 			this.log("This shouldn't happen, more than 16 churches??");
 		}
 		this.castleTalk(talk);
+	} else {
+		this.log("WHAT THE FUCK THIS SHOULDN'T HAPPEN SOMETHING BROKE");
 	}
 
 	// go mine

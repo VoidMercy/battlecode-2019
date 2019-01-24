@@ -14,6 +14,7 @@ var working_workers = [];
 var active_strongholds = [];
 var save_for_church = false;
 var contest_units = [];
+var castlelocs = [];
 
 //combat vars
 var underattack = false;
@@ -196,18 +197,53 @@ function build_pilgrim_toward(loc) {
 }
 
 function find_target_stronghold() {
+	// find closest two castle loc and stronghold loc
+	var tempdist = null;
+	var mindist = 999999;
+	var closest_stronghold_index = null;
+	var closest_castle = null;
+	for (var i = 0; i < plannedchurches.length; i++) {
+		for (var j = 0; j < castlelocs.length; j++) {
+			if (plannedchurches[i] == null) {
+				continue;
+			}
+			tempdist = this.distance(plannedchurches[i][1], castlelocs[j]);
+			if (tempdist < mindist && !plannedchurches[i][3]) {
+				this.log(plannedchurches[i]);
+				mindist = tempdist;
+				closest_stronghold_index = i;
+				closest_castle = castlelocs[j];
+			}
+		}
+	}
+
+	if (closest_castle != null && closest_castle[0] == this.me.x && closest_castle[1] == this.me.y) {
+		return closest_stronghold_index;
+	}
+	return null;
+
+
 	// find next closest church location
 	var mindist = 99999;
 	var bestindex = null;
-	var tempdist = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
 		if (plannedchurches[i] == null) {
 			continue;
 		}
 		tempdist = this.distance([this.me.x, this.me.y], plannedchurches[i][1]);
-		if (!plannedchurches[i][3] && !active_strongholds[i] && tempdist < mindist) {
-			mindist = tempdist;
-			bestindex = i;
+		if (!plannedchurches[i][3] && tempdist < mindist) {
+			var imtheclosest = true;
+			var mydist = this.distance(plannedchurches[i][1], [this.me.x, this.me.y]);
+			for (var j = 0; j < castlelocs.length; j++) {
+				if (this.distance(castlelocs[j], plannedchurches[i][1]) < mydist) {
+					imtheclosest = false;
+					break;
+				}
+			}
+			if (imtheclosest) {
+				mindist = tempdist;
+				bestindex = i;
+			}
 		}
 	}
 	if (bestindex == null) {
@@ -252,22 +288,21 @@ function handle_castle_talk() {
 			// this.log("Castle received Church Index: " + church_index);
 			var unit_type = (robotsnear[i].castle_talk >> 4) & 1; // 5th bit, 1 == pilgrim, 0 == church
 			if (plannedchurches[church_index] == null) {
-				// a castle is replaced the church lol
+				// it's a castle bro
 				continue;
 			}
 			if (unit_type == 1 && robotsnear[i].castle_talk >> 7 == 1) {
-				var occupied = (robotsnear[i].castle_talk >> 5) & 1 // if 6th bit is set, then church has been replaced
+				var occupied = (robotsnear[i].castle_talk >> 5) & 1 // if 6th bit is set, then it's a castle
 				if (occupied == 1) {
-					this.log("CHURCH LOCATION OCCUPIED");
+					// there's already a castle here
+					this.log("Castle sice");
+					castlelocs.push(plannedchurches[church_index][1]);
+					this.log(castlelocs);
 					plannedchurches[church_index] = null;
 					continue;
 				}  else {
 					plannedchurches[church_index][3] = true;
 				}
-				// if (plannedchurches[church_index][3] && !active_strongholds[church_index]) {
-				// 	this.log("SAVE FOR CHURCH");
-				// 	save_for_church = true;
-				// }
 			} else if (unit_type == 0 && robotsnear[i].castle_talk >> 7 == 1) {
 				active_strongholds[church_index] = true;
 			}
@@ -514,6 +549,8 @@ function offense() {
 export var Castle = function() {
 
 	if (this.me.turn != 1) {
+		castlelocs.push([this.me.x, this.me.y])
+
 		// reset workers working on planned churches
 		previous_working_on = []
 		for (var i = 0; i < plannedchurches.length; i++) {
@@ -565,17 +602,16 @@ export var Castle = function() {
 		if (is_stronghold) {
 			var res = handle_my_stronghold.call(this);
 			if (res != null) {
+				this.log("Doing stronghold stuff");
 				return res;
 			}
 		}
 
-		if (!save_for_church) {
+		if (!save_for_church || this.karbonite > 150) {
 			// send out a worker to establish a new church settlement
 			var next_stronghold_index = find_target_stronghold.call(this);
 
 			if (next_stronghold_index != null) {
-
-				this.log("Try sicing new location");
 
 				if (plannedchurches[next_stronghold_index][0] == NOT_CONTESTED) {
 					var res = build_pilgrim_toward.call(this, plannedchurches[next_stronghold_index][1]);

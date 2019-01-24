@@ -305,16 +305,20 @@ class MyRobot extends BCAbstractRobot {
             var smallest = distancetodest[this.me.x][this.me.y];
             var smallestcoord = [this.me.x, this.me.y];
             var visible = this.getVisibleRobotMap();
+            var idealcoord = null;
 
             for (var i = this.me.x - Math.sqrt(moveradius); i < this.me.x + Math.sqrt(moveradius); i++) {
                 for (var j = this.me.y - Math.sqrt(moveradius); j < this.me.y + Math.sqrt(moveradius); j++) {
-                    if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && visible[j][i] == 0 && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
-                        if (distancetodest[i][j] < smallest) {
-                            smallest = distancetodest[i][j];
-                            smallestcoord = [i, j];
-                        } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
-                            smallest = distancetodest[i][j];
-                            smallestcoord = [i, j];
+                    if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                        idealcoord = [i, j];
+                        if (visible[j][i] == 0) {
+                                if (distancetodest[i][j] < smallest) {
+                                smallest = distancetodest[i][j];
+                                smallestcoord = [i, j];
+                            } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
+                                smallest = distancetodest[i][j];
+                                smallestcoord = [i, j];
+                            }
                         }
                     }
                 }
@@ -324,7 +328,7 @@ class MyRobot extends BCAbstractRobot {
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
             if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
-                return this.greedyMove(dest);
+                return this.greedyMove(idealcoord);
             }
             if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
                 return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);

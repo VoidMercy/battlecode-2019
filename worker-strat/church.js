@@ -475,13 +475,17 @@ export var Church = function() {
 		}
 	}
 
-	var talk = 1 << 7;
-	if (church_index <= 15) {
-		talk = talk | church_index;
+	if (church_index != null) {
+		var talk = 1 << 7;
+		if (church_index <= 15) {
+			talk = talk | church_index;
+		} else {
+			this.log("This shouldn't happen, more than 16 churches??");
+		}
+		this.castleTalk(talk);
 	} else {
-		this.log("This shouldn't happen, more than 16 churches??");
+		this.log("WHAT THE FUCK THIS SHOULDN'T HAPPEN SOMETHING BROKE");
 	}
-	this.castleTalk(talk);
 
 	var res = defend.call(this);
 	if (res != null) {
