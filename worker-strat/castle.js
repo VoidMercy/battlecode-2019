@@ -497,11 +497,6 @@ function defend() {
 			underattack = true;
     		i_got_attacked = true;
 			//produce prophet to counter prophet or attack
-			//TODO: @void add a condition to attack here if enemy is within attack range
-			//also add attack at the end of all the ifs
-			if (this.distance([closestEnemy.x, closestEnemy.y], [this.me.x, this.me.y]) <= 64) {
-				return castleAttack.call(this);
-			}
 			//otherwise, make a prophet
 			//technically thisll always build a prophet as it will attack if its close enough for a preacher but for consistency i thought i'd add it here
             var toBuild = SPECS.PROPHET;
