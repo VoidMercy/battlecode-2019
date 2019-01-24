@@ -315,9 +315,10 @@ function defend() {
             }
             return null;
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0 || (defense_robots[SPECS.PROPHET] == 0 && numenemy[SPECS.PILGRIM] != 0)) {
-            //produce preacher to counter crusader
-            this.log("CREATE PROPHET FOR DEFENSE");
-            var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
+            //produce prophet to counter prophet or attack
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
+            var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -351,7 +352,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+                return this.buildUnit(toBuildi, result[0], result[1]);
             }
             return null;
         } 

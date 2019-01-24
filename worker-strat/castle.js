@@ -491,9 +491,14 @@ function defend() {
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
-            //produce preacher to counter crusader
-            this.log("CREATE PROPHET FOR DEFENSE");
-            var result = this.buildNear(SPECS.PROPHET, [closestEnemy.x, closestEnemy.y]);
+			//produce prophet to counter prophet or attack
+			//TODO: @void add a condition to attack here if enemy is within attack range
+			//also add attack at the end of all the ifs
+			//otherwise, make a prophet
+			//technically thisll always build a prophet as it will attack if its close enough for a preacher but for consistency i thought i'd add it here
+            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], myloc) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
+            this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
+            var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -527,7 +532,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PROPHET, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
         } 
         /*
@@ -624,6 +629,60 @@ function defend() {
         }
     }
     return null;
+}
+
+function castleAttack() {
+    //attack pls
+    var bestTarget = null;
+    var bestScore = -1;
+    for (var i = 0; i < robotsnear.length; i++) {
+
+        if (this.isVisible(robotsnear[i])) {
+            if (robotsnear[i].team != this.me.team) {
+                var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
+
+                const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
+                if (dist <= 64) {
+                    //adjacent, a t t a c c
+                    // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
+                    // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
+                    var priority = 0;
+                    switch (robotsnear[i].unit) {
+                        case SPECS.PROPHET:
+                            priority = 5;
+                            break;
+                        case SPECS.PREACHER:
+                            priority = 4;
+                            break;
+                        case SPECS.CRUSADER:
+                            priority = 3;
+                            break;
+                        case SPECS.PILGRIM:
+                            priority = 2;
+                            break;
+                        case SPECS.CASTLE:
+                            priority = 1;
+                            break;
+                        default:
+                            priority = 0;
+                    }
+                    var score = (100 + priority * 100 - dist);
+                    if (score > bestScore) {
+                        bestTarget = [enemyLoc[0] - this.me.x, enemyLoc[1]- this.me.y];
+                        bestScore = score;
+                    }
+                }
+            }
+
+        }
+    }
+
+    if (bestTarget != null) {
+        // this.log("attacc");
+        return this.attack(...bestTarget);
+    } else {
+		return null;
+	}
 }
 
 function offense() {
