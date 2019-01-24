@@ -352,7 +352,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(toBuildi, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
             return null;
         } 
