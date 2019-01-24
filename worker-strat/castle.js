@@ -42,6 +42,30 @@ var CONTESTED_UNITS = [0, 0, 0, 1, 2, 0];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
 function update_strongholds(castle_location) {
+	for (var i = 0; i < plannedchurches.length; i++) {
+		if (this.distance([this.me.x, this.me.y], plannedchurches[i][1]) <= 9) {
+			// good, replace church
+			is_stronghold = true;
+
+			var nextloc = null;
+			for (var j = 0; j < range15.length; j++) {
+				nextloc = [this.me.x + range15[j][0], this.me.y + range15[j][1]];
+				if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
+					stronghold_karb.push(nextloc);
+				}
+			}
+
+			this.log(stronghold_karb);
+
+			this.log("REPLACE CHURCH");
+			this.log([this.me.x, this.me.y]);
+			this.log(plannedchurches[i][1]);
+			plannedchurches[i] = null;
+
+			return;
+		}
+	}
+	/*
 	var spaces_covered = [];
 	var nextloc = null;
 	for (var i = 0; i < range15.length; i++) {
@@ -53,19 +77,18 @@ function update_strongholds(castle_location) {
 			}
 		}
 	}
-	var not_covered = null;
+	var not_covered_count = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
-		not_covered = false;
+		not_covered_count = 0;
 		for (var j = 0; j < range10.length; j++) {
 			nextloc = [plannedchurches[i][1][0] + range10[j][0], plannedchurches[i][1][1] + range10[j][1]];
 			if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
 				if (!spaces_covered.includes(this.hash(...nextloc))) {
-					not_covered = true;
-					break;
+					not_covered_count++;
 				}
 			}
 		}
-		if (!not_covered) {
+		if (not_covered_count <= 1) {
 			// good, replace church
 			is_stronghold = true;
 
@@ -75,7 +98,7 @@ function update_strongholds(castle_location) {
 			plannedchurches[i] = null;
 			return;
 		}
-	}
+	}*/
 }
 
 function find_church_locs() {
@@ -97,6 +120,7 @@ function find_church_locs() {
 		}
 	}
 	parsed_churches.sort(compare_func.bind(this));
+	// this.log(parsed_churches);
 
 	var resource_count = 0;
 	for (var i = 0; i < this.karbonite_map.length; i++) {
@@ -110,6 +134,8 @@ function find_church_locs() {
 	}
 	// this.log("NUMBER OF RESOURCES: " + resource_count);
 	var myloc = this.centerOurSide([this.me.x, this.me.y]);
+	this.log("SAMe LOC");
+	this.log(myloc);
 
 	var temp_karb_map = new Array(this.karbonite_map.length);
 	var temp_fuel_map = new Array(this.fuel_map.length);
@@ -140,7 +166,7 @@ function find_church_locs() {
 				}
 			}
 
-			if (resources_obtained_by_this_church != 0) {
+			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				// add to planned churches
 				if (dist_between_churches > 16) {
@@ -162,13 +188,13 @@ function find_church_locs() {
 				}
 			}
 
-			if (resources_obtained_by_this_church != 0) {
+			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 			}
 		} 
 	}
-
+	this.log("PLANNED CHURCHES");
 	this.log(plannedchurches);
 
 }
@@ -206,7 +232,7 @@ function find_target_stronghold() {
 	var closest_castle = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
-			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
+			if (plannedchurches[i] == null) {
 				continue;
 			}
 			tempdist = this.distance(plannedchurches[i][1], castlelocs[j]);
@@ -221,7 +247,11 @@ function find_target_stronghold() {
 		}
 	}
 
-	if (closest_castle != null && closest_castle[0] == this.me.x && closest_castle[1] == this.me.y) {
+	this.log("new settlmeent");
+	this.log(closest_castle);
+	this.log([this.me.x, this.me.y]);
+
+	if (closest_castle != null && this.distance(closest_castle, [this.me.x, this.me.y]) <= 5) {
 		return closest_stronghold_index;
 	}
 	return null;
@@ -384,9 +414,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -413,9 +453,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -455,9 +505,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -485,9 +545,19 @@ function defend() {
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                        used_lattice_locs.push(index);
-                        turns_since_used_lattice.push(0);
-                        break; //found tile :O
+						var num_adjacent_deposits = 0;
+						for (var i = 0; i < alldirs.length; i++) {
+							var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+							if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+								num_adjacent_deposits++;
+							}
+						}
+						if (num_adjacent_deposits <= 1) {
+							//dont want too many fuel depos
+							used_lattice_locs.push(index);
+							turns_since_used_lattice.push(0);
+							break; //found tile :O
+						}
                     }
                 }
                 //send signal for starting pos
@@ -514,13 +584,7 @@ function offense() {
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;
-        if (lategameUnitCount % 3 == 0) {
-            //make preacher
-            unitBuilder = SPECS.PREACHER;
-        } else {
-            //make prophet
-            unitBuilder = SPECS.PROPHET;
-        }
+        unitBuilder = SPECS.PROPHET;
         this.log("BUILDING RANGER!!!")
         var result = this.build(unitBuilder);
         if (result != null) {
@@ -534,9 +598,19 @@ function offense() {
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                     !used_lattice_locs.includes(index) /* havent used in past few turns */) {
-                    used_lattice_locs.push(index);
-                    turns_since_used_lattice.push(0);
-                    break; //found tile :O
+					var num_adjacent_deposits = 0;
+					for (var i = 0; i < alldirs.length; i++) {
+						var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+						if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+							num_adjacent_deposits++;
+						}
+					}
+					if (num_adjacent_deposits <= 1) {
+						//dont want too many fuel depos
+						used_lattice_locs.push(index);
+						turns_since_used_lattice.push(0);
+						break; //found tile :O
+					}
                 }
             }
             //send signal for starting pos
@@ -645,6 +719,7 @@ function handle_unit_production(next_stronghold_index) {
 		return build_contest_units.call(this, CONTESTED_UNITS, next_stronghold_index);
 	} else if (plannedchurches[next_stronghold_index][0] == VERY_CONTESTED) {
 		this.log("VERY CONTESTED");
+		this.log(plannedchurches[next_stronghold_index][1]);
 		return build_contest_units.call(this, VERY_CONTESTED_UNITS, next_stronghold_index);
 	}
 	return null;
