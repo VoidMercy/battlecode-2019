@@ -67,39 +67,6 @@ export var Preacher = function() {
         }
     }
 
-    var robotsnear = this.getVisibleRobots();
-    var robot = null;
-    var enemyPreachers = [];
-    for (var i=0; i < robotsnear.length; i++) {
-        robot = robotsnear[i];
-        if (this.isVisible(robot) && robotsnear[i].team != this.me.team && robotsnear[i].unit == SPECS.PREACHER) {
-            enemyPreachers.push(robot);
-        }
-        //read signal for castle locations
-        if (robotsnear[i].signal != 0 && robotsnear[i].signal % 8 == 2) {
-            var decoded = this.decodeSignal(robotsnear[i].signal);
-            var loc = [decoded[0], decoded[1]];
-            if (this.validCoords(loc) && decoded[2] <= 3 && decoded[2] > 0) {
-                var check = decoded[3] != this.me.team;
-                for (var j = 0; j < enemy_castle_locs.length; j++) {
-                    //make sure not already received
-                    check = check || (enemy_castle_locs[j][0] == decoded[0] && enemy_castle_locs[j][1] == decoded[1]);
-                }
-                if (!check) {
-                    //not already in the array
-                    enemy_castle_locs.push(loc);
-                    receivedCastleLocs++;
-                    if (receivedCastleLocs == decoded[2]) {
-                        //have all castle locs, sice deets
-                        target = null;
-                        altTargets = enemy_castle_locs;
-                        offenseFlag = 1;
-                    }
-                }
-            }
-        }
-    }
-
     // attack
     var best_score = 0;
     var best_score_locs;
@@ -153,7 +120,7 @@ export var Preacher = function() {
     }
 
     // move to defensive position
-    if (this.me.x != target[0] || this.me.y != target[1]) {
+    if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         return this.moveto(target);
     }
     
