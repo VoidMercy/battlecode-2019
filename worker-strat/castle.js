@@ -446,8 +446,6 @@ function defend() {
     		var res = castleAttack.call(this);
     		if (res != null) {
     			return res;
-    		} else {
-    			this.log("This shouldn't happen unless we dont have enough fuel to castle attacc");
     		}
     	}
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] * 3) {
