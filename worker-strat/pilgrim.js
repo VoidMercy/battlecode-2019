@@ -130,7 +130,7 @@ function find_church_locs() {
 				}
 			}
 
-			if (resources_obtained_by_this_church != 0) {
+			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				// add to planned churches
 				if (dist_between_churches > 16) {
@@ -152,7 +152,7 @@ function find_church_locs() {
 				}
 			}
 
-			if (resources_obtained_by_this_church != 0) {
+			if (resources_obtained_by_this_church > 1) {
 				total_resources_obtained += resources_obtained_by_this_church;
 				plannedchurches.push([TRY_TO_STEAL, nextchurchloc, resources_obtained_by_this_church]);
 			}
