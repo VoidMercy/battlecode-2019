@@ -442,6 +442,14 @@ function defend() {
     }
 
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] != 0 || i_got_attacked) {
+    	if (numenemy[SPECS.PROPHET] > 0 && numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] == 0) {
+    		var res = castleAttack.call(this);
+    		if (res != null) {
+    			return res;
+    		} else {
+    			this.log("This shouldn't happen unless we dont have enough fuel to castle attacc");
+    		}
+    	}
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] * 3) {
         	underattack = true;
     		i_got_attacked = true;
