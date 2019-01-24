@@ -11,6 +11,7 @@ var offenseFlag = 2;
 var relStartPos = null;
 var receivedCastleLocs = 0;
 var enemy_castle_locs = [];
+var im_contested_rushing = false;
 
 export var Crusader = function() {
 	// knight
@@ -31,6 +32,7 @@ export var Crusader = function() {
                         relStartPos = this.decodeSignal(robot.signal);
                         if (robot.signal % 8 == 1) {
                             target = [relStartPos[0], relStartPos[1]];
+                            im_contested_rushing = true;
                         } else {
                             target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
                         }
@@ -90,8 +92,14 @@ export var Crusader = function() {
         return this.attack(...bestTarget);
     } 
 
-    if (target != null && this.me.x != target[0] || this.me.y != target[1]) {
+    // go to position
+    if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
+        //this.log("prophet moving to defensive position!");
         return this.moveto(target);
+    } else if (im_contested_rushing) {
+        target = null;
+        this.log("Moving towards enemy castle")
+        return this.moveto(this.oppositeCoords(castleLoc));
     }
     return;
 

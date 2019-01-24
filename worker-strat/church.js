@@ -32,7 +32,7 @@ var lategameUnitCount = 0
 //some constants
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
-var TRY_TO_STEAL = 2;
+var VERY_CONTESTED = 2;
 
 function find_church_locs() {
 	//find optimal church locations that cover all karbonite
@@ -119,7 +119,7 @@ function find_church_locs() {
 
 			if (resources_obtained_by_this_church != 0) {
 				total_resources_obtained += resources_obtained_by_this_church;
-				plannedchurches.push([TRY_TO_STEAL, nextchurchloc, resources_obtained_by_this_church]);
+				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
 			}
 		}
 	}

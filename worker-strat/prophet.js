@@ -152,6 +152,7 @@ export var Prophet = function() {
         return this.moveto(target);
     } else if (im_contested_rushing) {
         target = null;
+        this.log("Moving towards enemy castle")
         return this.moveto(this.oppositeCoords(castleLoc));
     }
     return;

@@ -21,6 +21,8 @@ var CONTESTED = 1;
 var TRY_TO_STEAL = 2;
 var MINER = 0;
 var SETTLER = 1;
+var POOR_THRESHOLD = 100;
+var POOR_KARB_AMOUNT = 10;
 
 function get_spawn_loc(tempmap) {
 	// find location of church/castle and obtain which karb/fuel to go to
@@ -161,11 +163,16 @@ function find_church_locs() {
 function gomine() {
 	// go mine
 	var check = false;
-    if (karbfuel == KARB) {
+	if (this.karbonite < POOR_THRESHOLD && karbfuel == KARB) {
+		check = this.me.karbonite < POOR_KARB_AMOUNT;
+	} else {
+		if (karbfuel == KARB) {
         check = this.me.karbonite < SPECS.UNITS[SPECS.PILGRIM].KARBONITE_CAPACITY;
-    } else {
-        check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
-    }
+	    } else {
+	        check = this.me.fuel < SPECS.UNITS[SPECS.PILGRIM].FUEL_CAPACITY;
+	    }
+	}
+    
 
 	if (check && this.me.x == karblocation[0] && this.me.y == karblocation[1]) {
 		return this.mine();
