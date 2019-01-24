@@ -699,6 +699,7 @@ function castleAttack() {
 
     if (bestTarget != null) {
         // this.log("attacc");
+        i_got_attacked = true;
         return this.attack(...bestTarget);
     } else {
 		return null;
