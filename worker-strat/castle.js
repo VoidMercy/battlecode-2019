@@ -16,6 +16,7 @@ var save_for_church = false;
 var contest_units = [];
 var castlelocs = [];
 var my_church_loc = null;
+var i_got_attacked = false;
 
 //combat vars
 var underattack = false;
@@ -437,23 +438,24 @@ function defend() {
     }
 
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] == 0 && underattack) {
-        underattack = false;
-    } else {
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health < enemy_health) {
+    	underattack = false;
+    }
+
+    if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] != 0 || i_got_attacked) {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] * 3) {
+        	underattack = true;
+    		i_got_attacked = true;
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
             if (closestEnemy == null) {
-                this.log("THIS SHOULD RARELY HAPPEN");
-                result = this.buildNear(SPECS.PREACHER, [lastenemyseen.x, lastenemyseen.y]);
-            } else {
-                if (underattack && closestEnemy.unit == SPECS.PREACHER) {
-                    this.log("ohno");
-                    result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
-                } else {
-                    result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
-                }
+            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
             }
-
+            if (closestEnemy.unit == SPECS.PREACHER) {
+                this.log("ohno");
+                result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+            } else {
+                result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+            }
             
             if (result != null) {
                 var index = -1;
@@ -490,7 +492,10 @@ function defend() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
-        } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0) {
+            return null;
+        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= defense_units[SPECS.PROPHET] + defense_units[SPECS.PREACHER]) || (i_got_attacked && (defense_units[SPECS.PROPHET] < 2 || defensive_health < 40))) {
+			underattack = true;
+    		i_got_attacked = true;
 			//produce prophet to counter prophet or attack
 			//TODO: @void add a condition to attack here if enemy is within attack range
 			//also add attack at the end of all the ifs
@@ -499,9 +504,19 @@ function defend() {
 			}
 			//otherwise, make a prophet
 			//technically thisll always build a prophet as it will attack if its close enough for a preacher but for consistency i thought i'd add it here
-            var toBuild = this.distance([closestEnemy.x, closestEnemy.y], [this.me.x, this.me.y]) <= 16 ? SPECS.PREACHER : SPECS.PROPHET;
-            this.log("CREATE PREACHER/PROPHET FOR DEFENSE");
-            var result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
+            var toBuild = SPECS.PROPHET;
+            var result = null;
+            if (closestEnemy == null) {
+            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
+            	this.log("CAN I PLEASE DEFEND");
+            	this.log(this.karbonite);
+            }
+            if (numenemy[SPECS.PREACHER] > 0) {
+            	result = this.buildAway(toBuild, [closestEnemy.x, closestEnemy.y]);
+            } else {
+            	result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
+            }
+            
             if (result != null) {
                 var index = -1;
                 for (index = 0; index < lattices.length; index++) {
@@ -535,8 +550,10 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
+                this.log("CREATE PROPHET BITCH");
                 return this.buildUnit(toBuild, result[0], result[1]);
             }
+            return null;
         } 
         /*
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PROPHET]) {
@@ -547,6 +564,7 @@ function defend() {
             }
         }*/
     }
+
     if (!underattack && closestEnemy == null && closestNonAttacking != null) {
         //produce these even tho not "under attack" technically
         if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER] && smallestDist <= 25) {
@@ -589,6 +607,7 @@ function defend() {
                 }
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
+            return null;
         } else if (numenemy[SPECS.PILGRIM] > (friendlies[SPECS.PROPHET] + friendlies[SPECS.CRUSADER])*2 && smallestDist <= 64) {
             //spawn crusaders for enemy pilgrims
             this.log("CREATE prophet/crusader FOR ATTACKING ENEMY PILGRIM");
@@ -629,9 +648,10 @@ function defend() {
                 }
                 return this.buildUnit(toBuild, result[0], result[1]);
             }
+            return null;
         }
     }
-    return castleAttack.call(this);
+    return false;
 }
 
 function castleAttack() {
@@ -914,6 +934,14 @@ export var Castle = function() {
 	}
 
 	var res = defend.call(this);
+	if (res != false) {
+		if (res == null) {
+			return castleAttack.call(this);
+		}
+		return res;
+	}
+
+	res = castleAttack.call(this);
 	if (res != null) {
 		return res;
 	}

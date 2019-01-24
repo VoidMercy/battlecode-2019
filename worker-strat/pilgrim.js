@@ -22,7 +22,7 @@ var CONTESTED = 1;
 var TRY_TO_STEAL = 2;
 var MINER = 0;
 var SETTLER = 1;
-var POOR_THRESHOLD = 70;
+var POOR_THRESHOLD = 80;
 var POOR_KARB_AMOUNT = 10;
 
 function get_spawn_loc(tempmap) {
