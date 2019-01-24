@@ -452,7 +452,10 @@ function defend() {
 function offense() {
 	//offensive code lategame
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
-    if (this.karbonite > 200 + 5*friendlyAttackUnits && this.fuel > 500) {
+
+    var distanceToCenter = this.distance([this.me.x, this.me.y], [Math.floor(this.map.length/2), Math.floor(this.map.length/2)]);
+    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/2 && this.fuel > 450 + distanceToCenter/2) { // new heuristic
+    // if (this.karbonite > 200 + 5*friendlyAttackUnits && this.fuel > 500) { // old heuristic
         // lmoa build a prophet
         lategameUnitCount++;
         var unitBuilder;
