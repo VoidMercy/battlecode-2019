@@ -230,6 +230,10 @@ function find_target_stronghold() {
 	var mindist = 999999;
 	var closest_stronghold_index = null;
 	var closest_castle = null;
+
+	var min_contest_dist = 999999;
+	var closest_contest_index = null;
+	var closest_contest_castle = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
 			if (plannedchurches[i] == null) {
@@ -237,23 +241,43 @@ function find_target_stronghold() {
 			}
 			tempdist = this.distance(plannedchurches[i][1], castlelocs[j]);
 			if (plannedchurches[i][0] == CONTESTED) {
-				tempdist -= 40;
+				if (tempdist < min_contest_dist && !plannedchurches[i][3]) {
+					min_contest_dist = tempdist;
+					closest_contest_index = i;
+					closest_contest_castle = castlelocs[j];
+				}
+			} else if (plannedchurches[i][0] == NOT_CONTESTED) {
+				if (tempdist < mindist && !plannedchurches[i][3]) {
+					mindist = tempdist;
+					closest_stronghold_index = i;
+					closest_castle = castlelocs[j];
+				}
 			}
-			if (tempdist < mindist && !plannedchurches[i][3]) {
-				mindist = tempdist;
-				closest_stronghold_index = i;
-				closest_castle = castlelocs[j];
-			}
+			
 		}
 	}
 
-	this.log("new settlmeent");
-	this.log(closest_castle);
-	this.log([this.me.x, this.me.y]);
-
-	if (closest_castle != null && this.distance(closest_castle, [this.me.x, this.me.y]) <= 5) {
-		return closest_stronghold_index;
+	if (min_contest_dist - 40 < mindist) {
+		if (closest_contest_castle != null && this.distance(closest_contest_castle, [this.me.x, this.me.y]) <= 5) {
+			this.log("new contested settlmeent");
+			this.log(closest_contest_castle);
+			this.log([this.me.x, this.me.y]);
+			this.log(plannedchurches[closest_contest_index]);
+			return closest_contest_index;
+		}
+	} else {
+		if (closest_castle != null && this.distance(closest_castle, [this.me.x, this.me.y]) <= 5) {
+			this.log("new settlmeent");
+			this.log(closest_castle);
+			this.log([this.me.x, this.me.y]);
+			this.log(plannedchurches[closest_stronghold_index]);
+			return closest_stronghold_index;
+		}
 	}
+
+	
+
+	
 	return null;
 
 
@@ -333,6 +357,7 @@ function handle_castle_talk() {
 					castlelocs.push(plannedchurches[church_index][1]);
 					this.log(castlelocs);
 					plannedchurches[church_index] = null;
+					this.log(plannedchurches);
 					continue;
 				}  else {
 					plannedchurches[church_index][3] = true;
