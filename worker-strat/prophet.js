@@ -152,7 +152,7 @@ export var Prophet = function() {
                     var enemyLoc = [robotsnear[i].x, robotsnear[i].y];
 
                     const dist = this.distance(enemyLoc, [this.me.x, this.me.y]);
-                    if (dist <= 64 && dist > 16) {
+                    if (dist <= 64 && dist >= 16) {
                         //adjacent, a t t a c c
                         // determine best thing to shoot. 0 stands for Castle, 1 stands for Church, 2 stands for Pilgrim, 3 stands for Crusader, 4 stands for Prophet and 5 stands for Preacher.
                         // preacher > prophet > crusader > pilgrim > church > castle for now (ease of coding LMOA)
