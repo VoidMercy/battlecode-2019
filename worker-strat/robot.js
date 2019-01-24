@@ -15,6 +15,36 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    buildSpread(unittype, loc) {
+        var dist = 999999;
+        var best = null;
+        if (this.canBuild(unittype)) {
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    var good = true;
+                    for (var j = 0; j < alldirs.length; j++) {
+                        var nextloc2 = [nextloc[0] + alldirs[j][0], nextloc[1] + alldirs[j][1]];
+                        if (this.validCoords(nextloc2) && robotsnear[nextloc2[1]][nextloc2[0]] != 0 && this.getRobot(robotsnear[nextloc2[1]][nextloc2[0]]).unit >= 3) {
+                            good = false;
+                            break;
+                        }
+                    }
+                    if (good) {
+                        //this.log("Create unit!");
+                        if(this.distance(loc, nextloc) < dist) {
+                            dist = this.distance(loc, nextloc);
+                            best = alldirs[i];
+                        }
+                    }
+                    
+                }
+            }
+        }
+        return best;
+    }
+
     distanceFromCenter(loc) {
         var otherloc = this.oppositeCoords(loc);
         var middle = [this.map[0].length / 2, this.map.length / 2];
@@ -271,6 +301,25 @@ class MyRobot extends BCAbstractRobot {
         } else {
             return null;
         }
+    }
+
+    buildAway(unittype, loc) {
+        var dist = -1;
+        var best = null;
+        if (this.canBuild(unittype)) {
+            var robotsnear = this.getVisibleRobotMap();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
+                if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
+                    //this.log("Create unit!");
+                    if(this.distance(loc, nextloc) > dist) {
+                        dist = this.distance(loc, nextloc);
+                        best = alldirs[i];
+                    }
+                }
+            }
+        }
+        return best;
     }
 
     moveto(dest) {
