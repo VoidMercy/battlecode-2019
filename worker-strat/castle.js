@@ -629,8 +629,8 @@ function defend() {
 function offense() {
 	//offensive code lategame
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
-    var distanceToCenter = this.distance([this.me.x, this.me.y], [Math.floor(this.map.length/2), Math.floor(this.map.length/2)]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/2 && this.fuel > 450 + distanceToCenter/2) {
+    var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
+    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/4 && this.fuel > 450 + distanceToCenter/4) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
         lategameUnitCount++;
