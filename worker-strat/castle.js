@@ -53,31 +53,38 @@ var CONTESTED_UNITS_FAR = [0, 0, 0, 0, 1, 0];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
 function update_strongholds(castle_location) {
+	var mindist = 9999999;
+	var siceindex = null;
+	var dist = null;
 	for (var i = 0; i < plannedchurches.length; i++) {
-		if (this.distance([this.me.x, this.me.y], plannedchurches[i][1]) <= 10) {
-			// good, replace church
-			is_stronghold = true;
-
-			var nextloc = null;
-			for (var j = 0; j < range15.length; j++) {
-				nextloc = [this.me.x + range15[j][0], this.me.y + range15[j][1]];
-				if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
-					stronghold_karb.push(nextloc);
-				}
-			}
-
-			this.log(stronghold_karb);
-
-			this.log("REPLACE CHURCH");
-			this.log([this.me.x, this.me.y]);
-			this.log(plannedchurches[i][1]);
-			my_church_loc = plannedchurches[i][1];
-			plannedchurches[i] = null;
-
-			return;
+		dist = this.distance([this.me.x, this.me.y], plannedchurches[i][1]);
+		if (dist < mindist) {
+			mindist = dist;
+			siceindex = i;
 		}
 	}
+	// good, replace church
+	is_stronghold = true;
+
+	var nextloc = null;
+	for (var j = 0; j < range15.length; j++) {
+		nextloc = [this.me.x + range15[j][0], this.me.y + range15[j][1]];
+		if (this.validCoords(nextloc) && (this.karbonite_map[nextloc[1]][nextloc[0]] || this.fuel_map[nextloc[1]][nextloc[0]])) {
+			stronghold_karb.push(nextloc);
+		}
+	}
+
+	this.log(stronghold_karb);
+
+	this.log("REPLACE CHURCH");
+	this.log([this.me.x, this.me.y]);
+	this.log(plannedchurches[siceindex][1]);
+	my_church_loc = plannedchurches[siceindex][1];
+	plannedchurches[siceindex] = null;
+
+	return;
 	/*
+
 	var spaces_covered = [];
 	var nextloc = null;
 	for (var i = 0; i < range15.length; i++) {
@@ -250,11 +257,11 @@ function find_target_stronghold() {
 				closest_castle = castlelocs[i];
 			}
 		}
-		// this.log("Closest castle");
-		// this.log(closest_castle);
-		// this.log([this.me.x, this.me.y]);
-		// this.log(my_church_loc);
-		// this.log(closest_stronghold_index);
+		this.log("Closest castle");
+		this.log(closest_castle);
+		this.log([this.me.x, this.me.y]);
+		this.log(my_church_loc);
+		this.log(closest_stronghold_index);
 		if (this.hash(...closest_castle) == this.hash(...my_church_loc)) {
 			return closest_stronghold_index;
 		}
