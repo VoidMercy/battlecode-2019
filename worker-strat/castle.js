@@ -42,7 +42,7 @@ var lategameUnitCount = 0;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var VERY_CONTESTED = 2;
-var CONTESTED_UNITS_CLOSE = [0, 0, 0, 0, 2, 1];
+var CONTESTED_UNITS_CLOSE = [0, 0, 0, 1, 2, 0];
 var CONTESTED_UNITS_FAR = [0, 0, 0, 0, 1, 0];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
@@ -332,7 +332,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.fuel < 200 && this.karbonite < 200 && this.me.turn < 150 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.karbonite < 200 && (this.me.turn < 150 || this.fuel < 200) && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -718,7 +718,7 @@ function offense() {
 	//offensive code lategame
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/4 && this.fuel > 450 + distanceToCenter/4) {
+    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
         lategameUnitCount++;
@@ -847,7 +847,16 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	this.log(signal);
 
 	// generate units
-	if (contest_units[next_stronghold_index][SPECS.PREACHER] < target_amount[SPECS.PREACHER]) {
+	if (contest_units[next_stronghold_index][SPECS.CRUSADER] < target_amount[SPECS.CRUSADER]) {
+		var res = this.buildNear(SPECS.CRUSADER, churchloc);
+		if (res != null) {
+			this.signal(signal, 2);
+			contest_units[next_stronghold_index][SPECS.CRUSADER]++;
+			return this.buildUnit(SPECS.CRUSADER, ...res);
+		}
+		this.log("Failed to build crusader to frontlines");
+		return null;
+	} else if (contest_units[next_stronghold_index][SPECS.PREACHER] < target_amount[SPECS.PREACHER]) {
 		// build preacher
 		var res = this.buildNear(SPECS.PREACHER, churchloc);
 		if (res != null) {
@@ -866,15 +875,6 @@ function build_contest_units(target_amount, next_stronghold_index) {
 			return this.buildUnit(SPECS.PROPHET, ...res);
 		}
 		this.log("Failed to build prophet to frontlines");
-		return null;
-	} else if (contest_units[next_stronghold_index][SPECS.CRUSADER] < target_amount[SPECS.CRUSADER]) {
-		var res = this.buildNear(SPECS.CRUSADER, churchloc);
-		if (res != null) {
-			this.signal(signal, 2);
-			contest_units[next_stronghold_index][SPECS.CRUSADER]++;
-			return this.buildUnit(SPECS.CRUSADER, ...res);
-		}
-		this.log("Failed to build crusader to frontlines");
 		return null;
 	}
 	return null;
@@ -989,7 +989,7 @@ export var Castle = function() {
 			}
 		}
 
-		if (!save_for_church || this.karbonite > 150) {
+		if (!save_for_church || this.karbonite > 60) {
 			// send out a worker to establish a new church settlement
 			var next_stronghold_index = find_target_stronghold.call(this);
 

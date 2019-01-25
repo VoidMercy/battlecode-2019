@@ -185,7 +185,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.fuel < 200 && this.karbonite < 200 && this.me.turn < 75 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.karbonite < 200 && (this.me.turn < 75 || this.fuel < 200) && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -446,7 +446,7 @@ function offense() {
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
 
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/4 && this.fuel > 450 + distanceToCenter/4) { // new heuristic
+    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) { // new heuristic
     // if (this.karbonite > 200 + 5*friendlyAttackUnits && this.fuel > 500) { // old heuristic
         // lmoa build a prophet
         lategameUnitCount++;
