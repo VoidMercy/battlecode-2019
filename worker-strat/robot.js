@@ -14,6 +14,10 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    get_symmetry() {
+        return symmetry;
+    }
+
     find_idle_spot() {
         var robotmap = this.getVisibleRobotMap();
         for (var index = 0; index < lattices.length; index++) {

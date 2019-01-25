@@ -37,6 +37,11 @@ var closestEnemy = null;
 var smallestDist = 999999;
 var closestNonAttacking = null;
 var lategameUnitCount = 0;
+var ids_to_targets = {};
+var units_have_died = false;
+var latest_target_in_vision = null;
+var prioritize_enemy_counter = 0;
+var units_have_died_counter = 0;
 
 //some constants
 var NOT_CONTESTED = 0;
@@ -447,6 +452,7 @@ function defend() {
     	underattack = false;
     }
 
+	var bestFarAwayLoc = null;
     if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] != 0 || i_got_attacked) {
     	if (numenemy[SPECS.PROPHET] > 0 && numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] == 0) {
     		var res = castleAttack.call(this);
@@ -487,15 +493,29 @@ function defend() {
 							}
 						}
 						if (num_adjacent_deposits <= 1) {
-							//dont want too many fuel depos
-							used_lattice_locs.push(index);
-							turns_since_used_lattice.push(0);
-							break; //found tile :O
-						}
+                            //dont want too many fuel depos
+                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                                //lattice is towards their side of the map and its the right time to do so
+                                break; //found tile :O
+                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                                if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
+                                    break; //found tile :O
+                                }
+                                if (bestFarAwayLoc == null) {
+                                    //in case we run out of locs on their side
+                                    bestFarAwayLoc = index;
+                                }
+                            }
+                        }
                     }
                 }
                 //send signal for starting pos
-                if (index != -1 && index != lattices.length) {
+                if (index != -1 && (index != lattices.length || (index == lattices.length && bestFarAwayLoc != null))) {
+                    index = index == lattices.length ? bestFarAwayLoc : index; //if we ran out of spots near enemy
+                    latest_target_in_vision = this.distance([0, 0], lattices[index]) <= 100;
+                    used_lattice_locs.push(index);
+                    turns_since_used_lattice.push(0);
+                    prioritize_enemy_counter++;
                     var signal = this.generateDefenseInitialSignal(lattices[index], closestEnemy.unit);
                     //this.log("sent: ");
                     //this.log(lattices[index]);
@@ -540,15 +560,29 @@ function defend() {
 							}
 						}
 						if (num_adjacent_deposits <= 1) {
-							//dont want too many fuel depos
-							used_lattice_locs.push(index);
-							turns_since_used_lattice.push(0);
-							break; //found tile :O
-						}
+                            //dont want too many fuel depos
+                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                                //lattice is towards their side of the map and its the right time to do so
+                                break; //found tile :O
+                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                                if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
+                                    break; //found tile :O
+                                }
+                                if (bestFarAwayLoc == null) {
+                                    //in case we run out of locs on their side
+                                    bestFarAwayLoc = index;
+                                }
+                            }
+                        }
                     }
                 }
                 //send signal for starting pos
-                if (index != -1 && index != lattices.length) {
+                if (index != -1 && (index != lattices.length || (index == lattices.length && bestFarAwayLoc != null))) {
+                    index = index == lattices.length ? bestFarAwayLoc : index; //if we ran out of spots near enemy
+                    latest_target_in_vision = this.distance([0, 0], lattices[index]) <= 100;
+                    used_lattice_locs.push(index);
+                    turns_since_used_lattice.push(0);
+                    prioritize_enemy_counter++;
                     var signal = this.generateDefenseInitialSignal(lattices[index], closestEnemy.unit);
                     //this.log("sent: ");
                     //this.log(lattices[index]);
@@ -595,15 +629,29 @@ function defend() {
 							}
 						}
 						if (num_adjacent_deposits <= 1) {
-							//dont want too many fuel depos
-							used_lattice_locs.push(index);
-							turns_since_used_lattice.push(0);
-							break; //found tile :O
-						}
+                            //dont want too many fuel depos
+                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                                //lattice is towards their side of the map and its the right time to do so
+                                break; //found tile :O
+                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                                if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
+                                    break; //found tile :O
+                                }
+                                if (bestFarAwayLoc == null) {
+                                    //in case we run out of locs on their side
+                                    bestFarAwayLoc = index;
+                                }
+                            }
+                        }
                     }
                 }
                 //send signal for starting pos
-                if (index != -1 && index != lattices.length) {
+                if (index != -1 && (index != lattices.length || (index == lattices.length && bestFarAwayLoc != null))) {
+                    index = index == lattices.length ? bestFarAwayLoc : index; //if we ran out of spots near enemy
+                    latest_target_in_vision = this.distance([0, 0], lattices[index]) <= 100;
+                    used_lattice_locs.push(index);
+                    turns_since_used_lattice.push(0);
+                    prioritize_enemy_counter++;
                     var signal = this.generateDefenseInitialSignal(lattices[index], SPECS.CHURCH);
                     //this.log("sent: ");
                     //this.log(lattices[index]);
@@ -636,15 +684,29 @@ function defend() {
 							}
 						}
 						if (num_adjacent_deposits <= 1) {
-							//dont want too many fuel depos
-							used_lattice_locs.push(index);
-							turns_since_used_lattice.push(0);
-							break; //found tile :O
-						}
+                            //dont want too many fuel depos
+                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                                //lattice is towards their side of the map and its the right time to do so
+                                break; //found tile :O
+                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                                if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
+                                    break; //found tile :O
+                                }
+                                if (bestFarAwayLoc == null) {
+                                    //in case we run out of locs on their side
+                                    bestFarAwayLoc = index;
+                                }
+                            }
+                        }
                     }
                 }
                 //send signal for starting pos
-                if (index != -1 && index != lattices.length) {
+                if (index != -1 && (index != lattices.length || (index == lattices.length && bestFarAwayLoc != null))) {
+                    index = index == lattices.length ? bestFarAwayLoc : index; //if we ran out of spots near enemy
+                    latest_target_in_vision = this.distance([0, 0], lattices[index]) <= 100;
+                    used_lattice_locs.push(index);
+                    turns_since_used_lattice.push(0);
+                    prioritize_enemy_counter++;
                     var signal = this.generateDefenseInitialSignal(lattices[index], SPECS.PILGRIM);
                     //this.log("sent: ");
                     //this.log(lattices[index]);
@@ -714,8 +776,24 @@ function castleAttack() {
 	}
 }
 
+function isTowardsTheirSide(relloc) {
+	var baseloc = [this.me.x, this.me.y];
+    var oppRelLoc = this.oppositeCoords(baseloc);
+    var iToCheck = 1 - this.get_symmetry();
+    //this.log(iToCheck);
+    //this.log(oppRelLoc);
+    //this.log(baseloc);
+    //this.log(relloc);
+    if ((oppRelLoc[iToCheck] > baseloc[iToCheck] && relloc[iToCheck] >= 0) || (oppRelLoc[iToCheck] < baseloc[iToCheck] && relloc[iToCheck] <= 0)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function offense() {
 	//offensive code lategame
+	var bestFarAwayLoc = null;
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
     if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) {
@@ -746,14 +824,28 @@ function offense() {
 					}
 					if (num_adjacent_deposits <= 1) {
 						//dont want too many fuel depos
-						used_lattice_locs.push(index);
-						turns_since_used_lattice.push(0);
-						break; //found tile :O
+						if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+							//lattice is towards their side of the map and its the right time to do so
+							break; //found tile :O
+						} else if (!isTowardsTheirSide.call(this, lattices[index])) {
+							if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
+								break; //found tile :O
+							}
+							if (bestFarAwayLoc == null) {
+								//in case we run out of locs on their side
+								bestFarAwayLoc = index;
+							}
+						}
 					}
-                }
-            }
-            //send signal for starting pos
-            if (index != -1 && index != lattices.length) {
+				}
+			}
+			//send signal for starting pos
+			if (index != -1 && (index != lattices.length || (index == lattices.length && bestFarAwayLoc != null))) {
+				index = index == lattices.length ? bestFarAwayLoc : index; //if we ran out of spots near enemy
+				latest_target_in_vision = this.distance([0, 0], lattices[index]) <= 100;
+				used_lattice_locs.push(index);
+				turns_since_used_lattice.push(0);
+				prioritize_enemy_counter++;
                 var signal = this.generateInitialPosSignalVal(lattices[index]);
                 //this.log("sent: ");
                 //this.log(lattices[index]);
@@ -926,6 +1018,38 @@ export var Castle = function() {
             turns_since_used_lattice[i]++;
         }
 	}
+    var robotsnear = this.getVisibleRobots();
+    //check for newly spawned combat units
+    for (var i = 0; i < robotsnear.length; i++) {
+        var nrobot = robotsnear[i];
+        if (this.isVisible(nrobot) && nrobot.team == this.me.team && nrobot.turn == 1 && latest_target_in_vision != null) {
+            //unit is newly spawned and is a combat unit (otherwise latest target in vision is null)
+            ids_to_targets[nrobot.id] = latest_target_in_vision;
+            latest_target_in_vision = null;
+        }
+    }
+    //this.log("IDS to targets");
+    //this.log(ids_to_targets);
+    var ids = Object.keys(ids_to_targets);
+    for (var i = 0; i < ids.length; i++) {
+        //now iterate through ids and check if they're still visible - if not, they DIED
+        var nrobot = this.getRobot(parseInt(ids[i]));
+        if (nrobot == null && !ids_to_targets[ids[i]]) {
+            //robot is out of vision or dead, and it shouldn't be out of vision
+            this.log("woaw a unit has died, only produce units towards enemy!");
+            units_have_died = true;
+            units_have_died_counter = 0;
+        }
+    }
+    if (units_have_died) {
+        if (units_have_died_counter >= 10) {
+            //no units have died in 10 turns, reset
+            units_have_died = false;
+            units_have_died_counter = 0;
+        } else {
+            units_have_died_counter++;
+        }
+    }
 	
 	if (this.me.turn != 1) {
 
