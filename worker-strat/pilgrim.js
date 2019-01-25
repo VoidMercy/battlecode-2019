@@ -159,7 +159,7 @@ function stay_away_from_danger() {
 						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);;
 					}
 				} else {
-					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + 26) {
+					if (dist_to_robot <= 26) {
 						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);;
 					}
 				}
