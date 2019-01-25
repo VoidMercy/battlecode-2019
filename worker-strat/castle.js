@@ -459,7 +459,7 @@ function defend() {
             }
             if (closestEnemy.unit == SPECS.PREACHER) {
                 this.log("ohno");
-                result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+				result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
             } else {
                 result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
             }

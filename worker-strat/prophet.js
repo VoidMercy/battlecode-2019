@@ -165,6 +165,13 @@ export var Prophet = function() {
         if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
             nearbyEnemy = true;
             var enemloc = [robotsnear[i].x, robotsnear[i].y];
+            var radius = SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS;
+            if (radius == 0) {
+                radius = null; //fix inconsistency lol
+            }
+            if (robotsnear[i].unit == SPECS.PREACHER) {
+                radius[1] = 26; //assume smart aoe
+            }
             for (var j = 0; j < range4.length; j++) {
                 if (damagetaken[range4[j]] == undefined) {
                     damagetaken[range4[j]] = 0;
@@ -182,7 +189,7 @@ export var Prophet = function() {
                     //this.log(enemloc);
                     //this.log([this.me.x, this.me.y]);
                     //this.log(range4[j]);
-                    if ((SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != 0) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[0] <= this.distance(newloc, enemloc) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] >= this.distance(newloc, enemloc)) {
+                    if (radius!= null && radius[0] <= this.distance(newloc, enemloc) && radius[1] >= this.distance(newloc, enemloc)) {
                         //this.log("damage taken??");
                         //this.log(range4[j]);
                         //this.log(damagetaken);
