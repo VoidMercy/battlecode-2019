@@ -33,11 +33,11 @@ class MyRobot extends BCAbstractRobot {
         return symmetry;
     }
 
-    find_idle_spot(castleLoc) {
+    find_idle_spot(castleLoc, centerloc) {
         //assume theres a spot since if we're rushing it isnt gonna be full of units lol
         var robotmap = this.getVisibleRobotMap();
         for (var index = 0; index < lattices.length; index++) {
-            var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
+            var latticeloc = [centerloc[0] + lattices[index][0], centerloc[1] + lattices[index][1]];
             if (this.validCoords(latticeloc) /* coordinates are valid */ && 
                 this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
                 robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
@@ -50,7 +50,7 @@ class MyRobot extends BCAbstractRobot {
                         num_adjacent_deposits++;
                     }
                 }
-                if (num_adjacent_deposits <= 1 && this.isTowardsTheirSide(lattices[index], castleLoc)) {
+                if (num_adjacent_deposits <= 1 && this.isTowardsTheirSide(lattices[index], castleLoc) && robotmap[latticeloc[1]][latticeloc[0]] == 0) {
                     return latticeloc;
                 }
             }

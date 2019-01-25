@@ -13,6 +13,7 @@ var relStartPos = null;
 var receivedCastleLocs = 0;
 var enemy_castle_locs = [];
 var im_contested_rushing = false;
+var occupied_targetting_counter = 0;
 
 // find church stuff
 var plannedchurches = [];
@@ -156,6 +157,16 @@ export var Prophet = function() {
     // play defensively
     var robotsnear = this.getVisibleRobots();
     var robotmap = this.getVisibleRobotMap();
+
+    //check occupied target
+    if (target != null && robotmap[target[1]][target[0]] > 0 && robotmap[target[1]][target[0]] != this.me.id) {
+        if (occupied_targetting_counter >= 5) {
+            target = this.find_idle_spot(castleLoc, target);
+            occupied_targetting_counter = 0;
+        } else {
+            occupied_targetting_counter++;
+        }
+    }
 
     //M I C R O 
     var damagetaken = {};
@@ -417,7 +428,7 @@ export var Prophet = function() {
         if (waypoints_siced == waypoints.length || (this.me.x == waypoints[curwaypoint][0] && this.me.y == waypoints[curwaypoint][1])) {
             this.log("STOP COCK BLOCKING");
             im_contested_rushing = false;
-            target = this.find_idle_spot(castleLoc);
+            target = this.find_idle_spot(castleLoc, [this.me.x, this.me.y]);
             this.log(target);
             // return this.moveto(this.oppositeCoords(castleLoc));
         } else {
