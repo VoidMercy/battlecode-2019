@@ -597,7 +597,7 @@ class MyRobot extends BCAbstractRobot {
                 }
             }
         }
-
+        dict[this.hash(...dest)] = distancetodest;
         var moveradius = SPECS.UNITS[this.me.unit].SPEED;
         var smallest = 999999999;
         var smallestcoord = [this.me.x, this.me.y];
