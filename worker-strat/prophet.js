@@ -151,18 +151,6 @@ export var Prophet = function() {
         }
         this.log("Prophet here!");
     }
-    
-    if (castleLoc != null && tempmap[castleLoc[1]][castleLoc[0]] > 0) {
-        var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
-        if (castle.signal != -1 && castle.signal % 8 == 6) {
-            this.log("REPOSITIONAL SIGNAL");
-            this.log(castle.signal);
-            var relStartPos = this.decodeSignal(castle.signal);
-            target = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
-            this.log("Received: ");
-            this.log(relStartPos);
-        }
-    }
 
     // play defensively
     var robotsnear = this.getVisibleRobots();
@@ -187,10 +175,22 @@ export var Prophet = function() {
                 var newloc = [this.me.x + range4[j][0], this.me.y + range4[j][1]];
                 if (this.validCoords(newloc) && this.map[newloc[1]][newloc[0]] && (robotmap[newloc[1]][newloc[0]] == 0 || robotmap[newloc[1]][newloc[0]] == this.me.id)) {
                     //must be valid, passable, and unoccupied (or it is me)
-                    if ((SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != 0) &&  SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[0] >= this.distance(newloc, enemloc) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] <= this.distance(newloc, enemloc)) {
+                    //this.log("damage taken 1???");
+                    //this.log(SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS);
+                    //this.log(this.distance(newloc, enemloc));
+                    //this.log(newloc);
+                    //this.log(enemloc);
+                    //this.log([this.me.x, this.me.y]);
+                    //this.log(range4[j]);
+                    if ((SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != 0) &&  SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[0] <= this.distance(newloc, enemloc) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] >= this.distance(newloc, enemloc)) {
+                        //this.log("damage taken??");
+                        //this.log(range4[j]);
+                        //this.log(damagetaken);
+                        //this.log(SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE);
                         damagetaken[range4[j]] += SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE;
+                        //this.log(damagetaken);
                     }
-                    if (closestEnem[range4[j]] == undefined || this.distance(newloc, enemloc) < closestEnem[range4[j]]) {
+                    if (closestEnem[range4[j]] == undefined || this.distance(newloc, enemloc) < closestEnem[range4[j]][0]) {
                         //closer enemy
                         closestEnem[range4[j]] = [this.distance(newloc, enemloc), this.distance(newloc, enemloc) <= SPECS.UNITS[this.me.unit].ATTACK_RADIUS[1] && this.distance(newloc, enemloc) >= SPECS.UNITS[this.me.unit].ATTACK_RADIUS[0]];
                     }
@@ -237,6 +237,10 @@ export var Prophet = function() {
                 }
             }
         }
+        //this.log("MOCRO");
+        //this.log(closestEnem);
+        //this.log(damagetaken);
+        //this.log(range4[bestIndex]);
         //micro logic
         if (closestEnem[range4[bestIndex]][1] && damagetaken[range4[bestIndex]] == 0 && bestIndex != range4.length - 1 && (damagetaken[range4[range4.length-1]] != 0 || !closestEnem[range4[range4.length-1]][1])) {
             return this.move(...range4[bestIndex]);

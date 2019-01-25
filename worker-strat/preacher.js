@@ -154,23 +154,6 @@ export var Preacher = function() {
         this.log(castleLoc);
     }
 
-    if (castleLoc != null && tempmap[castleLoc[1]][castleLoc[0]] > 0) { //listen for reposition signal
-        var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
-        if (castle.signal != -1 && castle.signal % 8 == 6) {
-            this.log("REPOSITIONAL SIGNAL");
-            this.log(castle.signal);
-            relStartPos = this.decodeSignal(castle.signal);
-            target = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
-            if (relStartPos[2] == SPECS.PREACHER) {
-                therearepreachers = true;
-            }
-            reachedTarget = false;
-            underattack = true;
-            this.log("Received: ");
-            this.log(target);
-        }
-    }
-
     // attack
     var best_score = 0;
     var best_score_locs;

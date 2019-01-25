@@ -151,18 +151,6 @@ export var Crusader = function() {
         }
         this.log(castleLoc);
     }
-    
-    if (tempmap[castleLoc[1]][castleLoc[0]] > 0) {
-        var castle = this.getRobot(tempmap[castleLoc[1]][castleLoc[0]]);
-        if (castle.signal != -1 && castle.signal % 8 == 6) {
-            this.log("REPOSITIONAL SIGNAL");
-            this.log(castle.signal);
-            var relStartPos = this.decodeSignal(castle.signal);
-            target = [castle.x + relStartPos[0], castle.y + relStartPos[1]];
-            this.log("Received: ");
-            // this.log(relStartPos);
-        }
-    }
 
     // play defensively
 
