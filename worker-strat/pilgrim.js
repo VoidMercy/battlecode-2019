@@ -197,7 +197,7 @@ function gomine() {
 	var robot;
 
 	var castle_there = false;
-	if (robotmap[castleloc[1]][castleloc[0]] != 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
+	if (robotmap[castleloc[1]][castleloc[0]] > 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
 		castle_there = true;
 	}
 	for (var i = 0; i < robotsnear.length; i++) {
