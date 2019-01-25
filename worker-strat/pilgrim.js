@@ -23,7 +23,7 @@ var CONTESTED = 1;
 var VERY_CONTESTED = 2;
 var MINER = 0;
 var SETTLER = 1;
-var POOR_THRESHOLD = 40;
+var POOR_THRESHOLD = 80;
 var POOR_KARB_AMOUNT = 10;
 
 function get_spawn_loc(tempmap) {
@@ -197,7 +197,7 @@ function gomine() {
 	var robot;
 
 	var castle_there = false;
-	if (robotmap[castleloc[1]][castleloc[0]] != 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]) != null && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
+	if (robotmap[castleloc[1]][castleloc[0]] > 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
 		castle_there = true;
 	}
 	for (var i = 0; i < robotsnear.length; i++) {

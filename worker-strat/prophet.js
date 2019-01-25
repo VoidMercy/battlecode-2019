@@ -167,7 +167,7 @@ export var Prophet = function() {
     // play defensively
     var robotsnear = this.getVisibleRobots();
     var robotmap = this.getVisibleRobotMap();
-
+    
     //M I C R O 
     var damagetaken = {};
     var damagegiven = {};
