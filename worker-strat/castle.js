@@ -427,12 +427,12 @@ function defend() {
             }
         } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
+            if (robot.unit >= 3) {
+            	defensive_health += robot.health;
+            }
             if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
-                if (robot.unit >= 3) {
-                    defensive_health += robot.health;
-                }
             }
         }
     }
@@ -449,7 +449,7 @@ function defend() {
     			return res;
     		}
     	}
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] * 3) {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > friendlies[SPECS.PREACHER] * 3) {
         	underattack = true;
     		i_got_attacked = true;
             this.log("CREATE PREACHER FOR DEFENSE");
@@ -514,7 +514,7 @@ function defend() {
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
             return null;
-        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= defense_units[SPECS.PROPHET] + defense_units[SPECS.PREACHER]) || (i_got_attacked && (defense_units[SPECS.PROPHET] < 2 || defensive_health < 40))) {
+        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= friendlies[SPECS.PROPHET] + friendlies[SPECS.PREACHER]) || (i_got_attacked && (friendlies[SPECS.PROPHET] < 2 || defensive_health < 40))) {
 			underattack = true;
     		i_got_attacked = true;
 			//produce prophet to counter prophet or attack
@@ -595,7 +595,7 @@ function defend() {
 
     if (!underattack && closestEnemy == null && closestNonAttacking != null) {
         //produce these even tho not "under attack" technically
-        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER] && smallestDist <= 25) {
+        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > friendlies[SPECS.PREACHER] && smallestDist <= 25) {
             //spawn preacher for enemy castles/churches
             //todo: make sure distance is low
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
@@ -785,7 +785,7 @@ function offense() {
 	var bestFarAwayLoc = null;
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) {
+    if (this.karbonite > 120 + 10*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
         lategameUnitCount++;
@@ -1113,7 +1113,7 @@ export var Castle = function() {
 			}
 		}
 
-		if (!save_for_church || this.karbonite > 100 || initial_contested > 2) {
+		if (!save_for_church || this.karbonite > 100 || initial_contested > 1) {
 			// send out a worker to establish a new church settlement
 			var next_stronghold_index = find_target_stronghold.call(this);
 

@@ -389,7 +389,6 @@ export var Prophet = function() {
             if (this.distance([this.me.x, this.me.y], waypoints[curwaypoint]) <= 10 && this.distance(waypoints[0], waypoints[curwaypoint]) < 144) {
                 this.log("YO COME GET THIS ASS RIGHT HERE");
                 this.log(waypoints[curwaypoint]);
-                this.log(this.distance(castleLoc, waypoints[curwaypoint]));
 
                 var mindist = 9999999;
                 var best_index = null;
