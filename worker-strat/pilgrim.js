@@ -197,7 +197,7 @@ function gomine() {
 	var robot;
 
 	var castle_there = false;
-	if (robotmap[castleloc[1]][castleloc[0]] != 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
+	if (robotmap[castleloc[1]][castleloc[0]] != 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]) != null && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
 		castle_there = true;
 	}
 	for (var i = 0; i < robotsnear.length; i++) {
@@ -237,7 +237,7 @@ function gomine() {
 					}
 				} else {
 					var robotthere = this.getRobot(robotmap[castleloc[1]][castleloc[0]]);
-					if (robotthere.team == this.me.team && (robotthere.unit == SPECS.CASTLE || robotthere.unit == SPECS.CHURCH)) {
+					if (robotthere != null && robotthere.team == this.me.team && (robotthere.unit == SPECS.CASTLE || robotthere.unit == SPECS.CHURCH)) {
 						return this.give(castleloc[0] - this.me.x, castleloc[1] - this.me.y, this.me.karbonite, this.me.fuel);
 					}
 				}
