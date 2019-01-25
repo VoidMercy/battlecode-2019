@@ -363,10 +363,10 @@ class MyRobot extends BCAbstractRobot {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
-                    if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                    if (this.validCoords(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
-                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
                         }
                     }
                 }
@@ -383,14 +383,14 @@ class MyRobot extends BCAbstractRobot {
             var smallestcoord = [this.me.x, this.me.y];
             var visible = this.getVisibleRobotMap();
 
-            for (var i = this.me.x - Math.sqrt(moveradius); i < this.me.x + Math.sqrt(moveradius); i++) {
-                for (var j = this.me.y - Math.sqrt(moveradius); j < this.me.y + Math.sqrt(moveradius); j++) {
+            for (var i = this.me.x - Math.sqrt(moveradius); i <= this.me.x + Math.sqrt(moveradius); i++) {
+                for (var j = this.me.y - Math.sqrt(moveradius); j <= this.me.y + Math.sqrt(moveradius); j++) {
                     if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
-                        if (visible[j][i] == 0) {
+                        if (visible[j][i] <= 0) {
                                 if (distancetodest[i][j] < smallest) {
                                 smallest = distancetodest[i][j];
                                 smallestcoord = [i, j];
-                            } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
+                            } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) <= this.distance(smallestcoord, dest)) {
                                 smallest = distancetodest[i][j];
                                 smallestcoord = [i, j];
                             }
@@ -431,7 +431,7 @@ class MyRobot extends BCAbstractRobot {
                 if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] && robotmap[nextloc[1]][nextloc[0]] <= 0) {
                     if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                         queue.push(nextloc);
-                        distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                        distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
                     }
                 }
             }
@@ -442,8 +442,8 @@ class MyRobot extends BCAbstractRobot {
         var smallestcoord = [this.me.x, this.me.y];
         var visible = this.getVisibleRobotMap();
 
-        for (var i = this.me.x - Math.ceil(Math.sqrt(moveradius)); i < this.me.x + Math.ceil(Math.sqrt(moveradius)); i++) {
-            for (var j = this.me.y - Math.ceil(Math.sqrt(moveradius)); j < this.me.y + Math.ceil(Math.sqrt(moveradius)); j++) {
+        for (var i = this.me.x - Math.ceil(Math.sqrt(moveradius)); i <= this.me.x + Math.ceil(Math.sqrt(moveradius)); i++) {
+            for (var j = this.me.y - Math.ceil(Math.sqrt(moveradius)); j <= this.me.y + Math.ceil(Math.sqrt(moveradius)); j++) {
                 if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
                     if (visible[j][i] <= 0) {
                             if (distancetodest[i][j] < smallest) {
