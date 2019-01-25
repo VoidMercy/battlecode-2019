@@ -19,6 +19,7 @@ var castlelocs = [];
 var my_church_loc = null;
 var i_got_attacked = false;
 var initial_contested = 0;
+var rush_attempts = [];
 
 //combat vars
 var underattack = false;
@@ -224,28 +225,16 @@ function find_target_stronghold() {
 
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
-			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED || plannedchurches[i][0] == NOT_CONTESTED) {
+			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED || rush_attempts[i] >= 2) {
 				continue;
 			}
 			tempdist = this.distanceFromCenter(plannedchurches[i][1]);
+			if (plannedchurches[i][0] == CONTESTED) {
+				tempdist -= 20;
+			}
 			if (tempdist < mindist && !plannedchurches[i][3]) {
 				mindist = tempdist;
 				closest_stronghold_index = i;
-			}
-		}
-	}
-
-	if (closest_stronghold_index == null) {
-		for (var i = 0; i < plannedchurches.length; i++) {
-			for (var j = 0; j < castlelocs.length; j++) {
-				if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
-					continue;
-				}
-				tempdist = this.distanceFromCenter(plannedchurches[i][1]);
-				if (tempdist < mindist && !plannedchurches[i][3]) {
-					mindist = tempdist;
-					closest_stronghold_index = i;
-				}
 			}
 		}
 	}
@@ -337,7 +326,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && (this.me.turn < 150 || this.fuel < 100) && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -875,7 +864,7 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	this.log(this.karbonite);
 	if (units_needed == 0) {
 		// testing code, remove if bad
-		if (plannedchurches[next_stronghold_index][0] == CONTESTED) {
+		if (plannedchurches[next_stronghold_index][0] == CONTESTED && initial_contested > 1) {
 			plannedchurches[next_stronghold_index][0] = NOT_CONTESTED;
 			return this.turn.call(this);
 		}
@@ -1068,6 +1057,7 @@ export var Castle = function() {
 		for (var i = 0; i < plannedchurches.length; i++) {
 			if (plannedchurches[i] != null && previous_working_on[i] && !plannedchurches[i][3]) {
 				// make it contested
+				rush_attempts[i]++;
 				save_for_church = false;
 				if (plannedchurches[i][0] == NOT_CONTESTED) {
 					plannedchurches[i][0] = CONTESTED;
@@ -1095,6 +1085,7 @@ export var Castle = function() {
 		for (var i = 0; i < plannedchurches.length; i++) {
 			active_strongholds.push(false);
 			contest_units.push([0, 0, 0, 0, 0, 0]);
+			rush_attempts.push(0);
 		}
 		castlelocs.push(my_church_loc);
 	}
