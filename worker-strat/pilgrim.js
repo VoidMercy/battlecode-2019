@@ -1,11 +1,12 @@
 import {SPECS} from 'battlecode';
 import {getLocs} from 'churchloc.js'
 import {Decompress12Bits, Compress12Bits} from 'communication.js'
-import {alldirs, range10} from 'constants.js'
+import {alldirs, range10, CONTESTED_CHURCH_DIST} from 'constants.js'
 
 var churches = null;
 var church_index = null;
 var plannedchurches = [];
+var enemychurches = [];
 var castleloc = null;
 var karblocation = null;
 var karbfuel = null;
@@ -19,10 +20,10 @@ var KARB = 0;
 var FUEL = 1;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
-var TRY_TO_STEAL = 2;
+var VERY_CONTESTED = 2;
 var MINER = 0;
 var SETTLER = 1;
-var POOR_THRESHOLD = 80;
+var POOR_THRESHOLD = 40;
 var POOR_KARB_AMOUNT = 10;
 
 function get_spawn_loc(tempmap) {
@@ -89,6 +90,7 @@ function find_church_locs() {
 		}
 	}
 	parsed_churches.sort(compare_func.bind(this));
+	// this.log(parsed_churches);
 
 	var resource_count = 0;
 	for (var i = 0; i < this.karbonite_map.length; i++) {
@@ -100,6 +102,7 @@ function find_church_locs() {
 			}
 		}
 	}
+	// this.log("NUMBER OF RESOURCES: " + resource_count);
 	var myloc = spawn_loc;
 
 	var temp_karb_map = new Array(this.karbonite_map.length);
@@ -117,48 +120,33 @@ function find_church_locs() {
 		var my_dist_to = this.distance(myloc, nextchurchloc);
 		var enemy_dist_to = this.distance(myloc, this.oppositeCoords(nextchurchloc));
 		var dist_between_churches = this.distance(nextchurchloc, this.oppositeCoords(nextchurchloc));
-		if (my_dist_to <= enemy_dist_to) {
 
-			// on my side
-			
-			var resources_obtained_by_this_church = 0;
+		var resources_obtained_by_this_church = 0;
 
-			for (var i = 0; i < range10.length; i++) {
-				if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
-					resources_obtained_by_this_church += 1;
-					temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-					temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-				}
+		for (var i = 0; i < range10.length; i++) {
+			if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
+				resources_obtained_by_this_church += 1;
+				temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
+				temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
 			}
+		}
 
-			if (resources_obtained_by_this_church > 1) {
-				total_resources_obtained += resources_obtained_by_this_church;
-				// add to planned churches
-				if (dist_between_churches >= 64) {
-					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
+		if (resources_obtained_by_this_church > 1) {
+			total_resources_obtained += resources_obtained_by_this_church;
+			// add to planned churches
+			if (my_dist_to <= enemy_dist_to) {
+				if (dist_between_churches >= CONTESTED_CHURCH_DIST) {
+					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				} else {
-					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church]);
-				}	
-			}
-			
-		} else if (dist_between_churches <= 36) {
-
-			var resources_obtained_by_this_church = 0;
-
-			for (var i = 0; i < range10.length; i++) {
-				if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
-					resources_obtained_by_this_church += 1;
-					temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-					temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
+					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				}
-			}
-
-			if (resources_obtained_by_this_church > 1) {
-				total_resources_obtained += resources_obtained_by_this_church;
-				plannedchurches.push([TRY_TO_STEAL, nextchurchloc, resources_obtained_by_this_church]);
+			} else {
+				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 			}
 		}
 	}
+	this.log("PLANNED CHURCHES");
+	// this.log(plannedchurches);
 }
 
 function stay_away_from_danger() {
@@ -205,6 +193,20 @@ function gomine() {
 	}
 
 	var robotmap = this.getVisibleRobotMap();
+	var robotsnear = this.getVisibleRobots();
+	var robot;
+
+	var castle_there = false;
+	if (robotmap[castleloc[1]][castleloc[0]] != 0 && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).unit == SPECS.CHURCH && this.getRobot(robotmap[castleloc[1]][castleloc[0]]).team == this.me.team) {
+		castle_there = true;
+	}
+	for (var i = 0; i < robotsnear.length; i++) {
+		robot = robotsnear[i];
+		if (this.isVisible(robot) && robot.team != this.me.team && !castle_there) {
+			check = false;
+			break;
+		}
+	}
 
 	if (robotmap[castleloc[1]][castleloc[0]] == 0 && plannedchurches[church_index][0] == CONTESTED) {
 		check = false;
@@ -219,6 +221,9 @@ function gomine() {
 			return null;
 		} else {
 			if (this.distance([this.me.x, this.me.y], castleloc) <= 2) {
+				if (this.me.x == castleloc[0] && this.me.y == castleloc[1]) {
+					return this.greedyMoveAway(castleloc);
+				}
 				// build a church if there isn't a castle or church there
 				
 				if (robotmap[castleloc[1]][castleloc[0]] == 0) {
@@ -238,7 +243,6 @@ function gomine() {
 				}
 				return null;
 			} else {
-
 				return this.moveto(castleloc);
 			}
 		}
@@ -345,11 +349,11 @@ export var Pilgrim = function() {
 
 	if (church_index != null) {
 		// i was sent out to build a church
-		var talk = (1 << 4) | (1 << 7);
+		var talk = 3 << 5;
 		if (serve == SPECS.CASTLE) {
-			talk = talk | (1 << 5);
+			talk = talk | (1 << 7);
 		}
-		if (church_index <= 15) {
+		if (church_index <= 31) {
 			talk = talk | church_index;
 		} else {
 			this.log("This shouldn't happen, more than 16 churches??");

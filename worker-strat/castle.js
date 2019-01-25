@@ -1,12 +1,13 @@
 import {SPECS} from 'battlecode';
 import {getLocs} from 'churchloc.js'
-import {range10, range15, alldirs, lattices} from 'constants.js'
+import {range10, range15, alldirs, lattices, CONTESTED_CHURCH_DIST} from 'constants.js'
 import {Compress12Bits} from 'communication.js'
 
 //worker vars
 var churches = null;
 var previous_working_on = [];
 var plannedchurches = [];
+var enemychurches = [];
 var stronghold_info = [];
 var is_stronghold = false;
 var stronghold_karb = [];
@@ -17,6 +18,7 @@ var contest_units = [];
 var castlelocs = [];
 var my_church_loc = null;
 var i_got_attacked = false;
+var initial_contested = 0;
 
 //combat vars
 var underattack = false;
@@ -40,7 +42,8 @@ var lategameUnitCount = 0;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var VERY_CONTESTED = 2;
-var CONTESTED_UNITS = [0, 0, 0, 0, 2, 1];
+var CONTESTED_UNITS_CLOSE = [0, 0, 0, 0, 2, 1];
+var CONTESTED_UNITS_FAR = [0, 0, 0, 0, 1, 0];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
 function update_strongholds(castle_location) {
@@ -137,8 +140,6 @@ function find_church_locs() {
 	}
 	// this.log("NUMBER OF RESOURCES: " + resource_count);
 	var myloc = this.centerOurSide([this.me.x, this.me.y]);
-	this.log("SAMe LOC");
-	this.log(myloc);
 
 	var temp_karb_map = new Array(this.karbonite_map.length);
 	var temp_fuel_map = new Array(this.fuel_map.length);
@@ -155,51 +156,34 @@ function find_church_locs() {
 		var my_dist_to = this.distance(myloc, nextchurchloc);
 		var enemy_dist_to = this.distance(myloc, this.oppositeCoords(nextchurchloc));
 		var dist_between_churches = this.distance(nextchurchloc, this.oppositeCoords(nextchurchloc));
-		if (my_dist_to <= enemy_dist_to) {
 
-			// on my side
-			
-			var resources_obtained_by_this_church = 0;
+		var resources_obtained_by_this_church = 0;
 
-			for (var i = 0; i < range10.length; i++) {
-				if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
-					resources_obtained_by_this_church += 1;
-					temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-					temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-				}
+		for (var i = 0; i < range10.length; i++) {
+			if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
+				resources_obtained_by_this_church += 1;
+				temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
+				temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
 			}
+		}
 
-			if (resources_obtained_by_this_church > 1) {
-				total_resources_obtained += resources_obtained_by_this_church;
-				// add to planned churches
-				if (dist_between_churches >= 64) {
+		if (resources_obtained_by_this_church > 1) {
+			total_resources_obtained += resources_obtained_by_this_church;
+			// add to planned churches
+			if (my_dist_to <= enemy_dist_to) {
+				if (dist_between_churches >= CONTESTED_CHURCH_DIST) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				} else {
 					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+					initial_contested++;
 				}
-			}
-			
-		} else if (dist_between_churches <= 36) {
-
-			var resources_obtained_by_this_church = 0;
-
-			for (var i = 0; i < range10.length; i++) {
-				if (this.validCoords([range10[i][0] + nextchurchloc[0], range10[i][1] + nextchurchloc[1]]) && (temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] || temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]])) {
-					resources_obtained_by_this_church += 1;
-					temp_karb_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-					temp_fuel_map[range10[i][1] + nextchurchloc[1]][range10[i][0] + nextchurchloc[0]] = false;
-				}
-			}
-
-			if (resources_obtained_by_this_church > 1) {
-				total_resources_obtained += resources_obtained_by_this_church;
+			} else {
 				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 			}
-		} 
+		}
 	}
 	this.log("PLANNED CHURCHES");
 	this.log(plannedchurches);
-
 }
 
 function build_pilgrim_toward(loc) {
@@ -235,13 +219,28 @@ function find_target_stronghold() {
 
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
-			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
+			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED || plannedchurches[i][0] == NOT_CONTESTED) {
 				continue;
 			}
 			tempdist = this.distanceFromCenter(plannedchurches[i][1]);
 			if (tempdist < mindist && !plannedchurches[i][3]) {
 				mindist = tempdist;
 				closest_stronghold_index = i;
+			}
+		}
+	}
+
+	if (closest_stronghold_index == null) {
+		for (var i = 0; i < plannedchurches.length; i++) {
+			for (var j = 0; j < castlelocs.length; j++) {
+				if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
+					continue;
+				}
+				tempdist = this.distanceFromCenter(plannedchurches[i][1]);
+				if (tempdist < mindist && !plannedchurches[i][3]) {
+					mindist = tempdist;
+					closest_stronghold_index = i;
+				}
 			}
 		}
 	}
@@ -333,7 +332,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i]))) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.fuel < 200 && this.karbonite < 200 && this.me.turn < 150 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -359,15 +358,22 @@ function handle_castle_talk() {
 
 	for (var i = 0; i < robotsnear.length; i++) {
 		if (robotsnear[i].castle_talk != null && robotsnear[i].castle_talk > 0) {
-			var church_index = robotsnear[i].castle_talk & 0b1111; // the church this unit is serving
-			// this.log("Castle received Church Index: " + church_index);
-			var unit_type = (robotsnear[i].castle_talk >> 4) & 1; // 5th bit, 1 == pilgrim, 0 == church
+			var church_index = robotsnear[i].castle_talk & 0b11111; // the church this unit is serving
 			if (plannedchurches[church_index] == null) {
 				// it's a castle bro
 				continue;
 			}
-			if (unit_type == 1 && robotsnear[i].castle_talk >> 7 == 1) {
-				var occupied = (robotsnear[i].castle_talk >> 5) & 1 // if 6th bit is set, then it's a castle
+			var unit_type = (robotsnear[i].castle_talk >> 5) & 0b11;
+			// this.log("Castle received Church Index: " + church_index);
+			if (unit_type == 2) {
+				// special directive telling castle to send a pilgrim to which patch
+				this.log("SPECIAL DIRECTIVE: GO GET THAT NEW PATCH");
+				this.log(plannedchurches[church_index]);
+				if (!plannedchurches[church_index][3] && !active_strongholds[church_index]) {
+					plannedchurches[church_index][0] = NOT_CONTESTED;
+				}
+			} else if (unit_type == 3) { // pilgrim
+				var occupied = (robotsnear[i].castle_talk >> 7) & 1 // if 8th bit is set, then it's a castle
 				if (occupied == 1) {
 					// there's already a castle here
 					var already_added = false;
@@ -389,7 +395,7 @@ function handle_castle_talk() {
 				}  else {
 					plannedchurches[church_index][3] = true;
 				}
-			} else if (unit_type == 0 && robotsnear[i].castle_talk >> 7 == 1) {
+			} else if (unit_type == 1) { // church
 				active_strongholds[church_index] = true;
 			}
 		}
@@ -509,8 +515,6 @@ function defend() {
             var result = null;
             if (closestEnemy == null) {
             	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
-            	this.log("CAN I PLEASE DEFEND");
-            	this.log(this.karbonite);
             }
             if (numenemy[SPECS.PREACHER] > 0) {
             	result = this.buildAway(toBuild, [closestEnemy.x, closestEnemy.y]);
@@ -551,7 +555,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                this.log("CREATE PROPHET BITCH");
+                this.log("CREATE DEFENSIVE PROPHET BITCH");
                 return this.buildUnit(toBuild, result[0], result[1]);
             }
             return null;
@@ -798,19 +802,55 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	if (karb_needed - 20 > this.karbonite) {
 		return null;
 	}
+
+	// generate signal
+	
+
+	var churchloc = plannedchurches[next_stronghold_index][1];
+	var next_waypoint_index = null;
+	var mindist = 9999999;
+	var num_waypoint = 1;
+	var dist;
+	// find nearest contested location or enemy castle location
+	for (var i = 0; i < plannedchurches.length; i++) {
+		if (plannedchurches[i] == null || i == next_stronghold_index) {
+			continue;
+		}
+		dist = this.distance(churchloc, plannedchurches[i][1]);
+		if (dist < mindist && (plannedchurches[i][0] == CONTESTED || plannedchurches[i][0] == VERY_CONTESTED) && dist > 10 && dist <= 144) {
+			mindist = dist;
+			next_waypoint_index = i;
+		}
+	}
+	if (next_waypoint_index == null) {
+		for (var i = 0; i < plannedchurches.length; i++) {
+			if (plannedchurches[i] == null || i == next_stronghold_index) {
+				continue;
+			}
+			dist = this.distance(churchloc, plannedchurches[i][1]);
+			if (dist < mindist && dist > 10 && dist <= 144) {
+				mindist = dist;
+				next_waypoint_index = i;
+			}
+		}
+	}
+
+	if (next_waypoint_index != null) {
+		num_waypoint = 2;
+	}
+
+	this.log("Waypoints: ");
+	this.log(next_stronghold_index);
+	this.log(next_waypoint_index);
+	var signal = 5 | (next_stronghold_index << 3) | (next_waypoint_index << 8) | (num_waypoint << 13);
+	//first 3 is 5, next 5 is index, next 5 is index
+	this.log(signal);
+
+	// generate units
 	if (contest_units[next_stronghold_index][SPECS.PREACHER] < target_amount[SPECS.PREACHER]) {
 		// build preacher
-		var churchloc = plannedchurches[next_stronghold_index][1];
 		var res = this.buildNear(SPECS.PREACHER, churchloc);
 		if (res != null) {
-			var otherchurchloc = this.oppositeCoords(churchloc);
-			var middle = null;
-			if (this.symmetry == 1) {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			} else {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			}
-			var signal = this.generateAbsoluteTarget(middle);
 			this.signal(signal, 2);
 			contest_units[next_stronghold_index][SPECS.PREACHER]++;
 			return this.buildUnit(SPECS.PREACHER, ...res);
@@ -819,17 +859,8 @@ function build_contest_units(target_amount, next_stronghold_index) {
 		return null;
 	} if (contest_units[next_stronghold_index][SPECS.PROPHET] < target_amount[SPECS.PROPHET]) {
 		// build propheto
-		var churchloc = plannedchurches[next_stronghold_index][1];
 		var res = this.buildNear(SPECS.PROPHET, churchloc);
 		if (res != null) {
-			var otherchurchloc = this.oppositeCoords(churchloc);
-			var middle = null;
-			if (this.symmetry == 1) {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			} else {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			}
-			var signal = this.generateAbsoluteTarget(middle);
 			this.signal(signal, 2);
 			contest_units[next_stronghold_index][SPECS.PROPHET]++;
 			return this.buildUnit(SPECS.PROPHET, ...res);
@@ -837,22 +868,13 @@ function build_contest_units(target_amount, next_stronghold_index) {
 		this.log("Failed to build prophet to frontlines");
 		return null;
 	} else if (contest_units[next_stronghold_index][SPECS.CRUSADER] < target_amount[SPECS.CRUSADER]) {
-		var churchloc = plannedchurches[next_stronghold_index][1];
 		var res = this.buildNear(SPECS.CRUSADER, churchloc);
 		if (res != null) {
-			var otherchurchloc = this.oppositeCoords(churchloc);
-			var middle = null;
-			if (this.symmetry == 1) {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			} else {
-				middle = [Math.floor((churchloc[0] + otherchurchloc[0]) / 2), Math.floor((churchloc[1] + otherchurchloc[1]) / 2)];
-			}
-			var signal = this.generateAbsoluteTarget(middle);
 			this.signal(signal, 2);
 			contest_units[next_stronghold_index][SPECS.CRUSADER]++;
 			return this.buildUnit(SPECS.CRUSADER, ...res);
 		}
-		this.log(this.karbonite);
+		this.log("Failed to build crusader to frontlines");
 		return null;
 	}
 	return null;
@@ -870,7 +892,12 @@ function handle_unit_production(next_stronghold_index) {
 		}
 	} else if (plannedchurches[next_stronghold_index][0] == CONTESTED) {
 		this.log("CONTESTED SICE");
-		return build_contest_units.call(this, CONTESTED_UNITS, next_stronghold_index);
+		if (initial_contested > 1) {
+			return build_contest_units.call(this, CONTESTED_UNITS_FAR, next_stronghold_index);
+		} else {
+			return build_contest_units.call(this, CONTESTED_UNITS_CLOSE, next_stronghold_index);
+		}
+		
 	} else if (plannedchurches[next_stronghold_index][0] == VERY_CONTESTED) {
 		this.log("VERY CONTESTED");
 		this.log(plannedchurches[next_stronghold_index][1]);
@@ -909,7 +936,11 @@ export var Castle = function() {
 			if (plannedchurches[i] != null && previous_working_on[i] && !plannedchurches[i][3]) {
 				// make it contested
 				save_for_church = false;
-				plannedchurches[i][0] = VERY_CONTESTED;
+				if (plannedchurches[i][0] == NOT_CONTESTED) {
+					plannedchurches[i][0] = CONTESTED;
+				} else if (plannedchurches[i][0] == CONTESTED && initial_contested > 1) {
+					plannedchurches[i][0] = VERY_CONTESTED;
+				}
 				contest_units[i] = [0, 0, 0, 0, 0, 0];
 			}
 		}
