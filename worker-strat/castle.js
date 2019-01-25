@@ -47,7 +47,7 @@ var units_have_died_counter = 0;
 var NOT_CONTESTED = 0;
 var CONTESTED = 1;
 var VERY_CONTESTED = 2;
-var CONTESTED_UNITS_CLOSE = [0, 0, 0, 1, 2, 0];
+var CONTESTED_UNITS_CLOSE = [0, 0, 0, 0, 2, 1];
 var CONTESTED_UNITS_FAR = [0, 0, 0, 0, 1, 0];
 var VERY_CONTESTED_UNITS = [0, 0, 0, 2, 4, 0];
 
@@ -874,6 +874,12 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	this.log(karb_needed);
 	this.log(this.karbonite);
 	if (units_needed == 0) {
+		// testing code, remove if bad
+		if (plannedchurches[next_stronghold_index][0] == CONTESTED) {
+			plannedchurches[next_stronghold_index][0] = NOT_CONTESTED;
+			return this.turn.call(this);
+		}
+		
 		// build a pilgrim
 		this.log("Build pilgrim to sice me!");
 		var res = build_pilgrim_toward.call(this, plannedchurches[next_stronghold_index][1]);
@@ -930,6 +936,9 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	if (next_waypoint_index != null) {
 		num_waypoint = 2;
 	}
+
+	// test shit
+	num_waypoint = 1;
 
 	this.log("Waypoints: ");
 	this.log(next_stronghold_index);
@@ -1113,7 +1122,7 @@ export var Castle = function() {
 			}
 		}
 
-		if (!save_for_church || this.karbonite > 60) {
+		if (!save_for_church || this.karbonite > 100 || initial_contested > 2) {
 			// send out a worker to establish a new church settlement
 			var next_stronghold_index = find_target_stronghold.call(this);
 

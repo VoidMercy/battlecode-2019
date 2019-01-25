@@ -154,8 +154,8 @@ function stay_away_from_danger() {
 		if (this.isVisible(robotsnear[i]) && robotsnear[i].team != this.me.team) {
 			if (SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != 0) {
 				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
-				if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * SPECS.UNITS[this.me.unit].SPEED) {
-					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * 3) {
+				if (dist_to_robot <= 100) {
+					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * 4) {
 						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);;
 					}
 					return null;

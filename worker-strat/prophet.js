@@ -155,7 +155,7 @@ export var Prophet = function() {
     // play defensively
     var robotsnear = this.getVisibleRobots();
     var robotmap = this.getVisibleRobotMap();
-    
+
     //M I C R O 
     var damagetaken = {};
     var damagegiven = {};
@@ -203,26 +203,26 @@ export var Prophet = function() {
             }
         }
     }
-    var firstBetterThanSecond = function(dir1, dir2) {
-        if (damagetaken[dir1] < damagetaken[dir2]) {
-            return true;
-        }
-        if (damagetaken[dir2] < damagetaken[dir1]) {
-            return false;
-        }
-        if (closestEnem[dir1][1]) {
-            if (!closestEnem[dir2][1]) {
-                //second param cant be attacced but first one can
+    if (nearbyEnemy) {
+        var firstBetterThanSecond = function(dir1, dir2) {
+            if (damagetaken[dir1] < damagetaken[dir2]) {
                 return true;
             }
-            return closestEnem[dir1][0] >= closestEnem[dir2][0];
+            if (damagetaken[dir2] < damagetaken[dir1]) {
+                return false;
+            }
+            if (closestEnem[dir1][1]) {
+                if (!closestEnem[dir2][1]) {
+                    //second param cant be attacced but first one can
+                    return true;
+                }
+                return closestEnem[dir1][0] >= closestEnem[dir2][0];
+            }
+            if (closestEnem[dir2][1]) {
+                return false;
+            }
+            return closestEnem[dir1][0] <= closestEnem[dir2][0];
         }
-        if (closestEnem[dir2][1]) {
-            return false;
-        }
-        return closestEnem[dir1][0] <= closestEnem[dir2][0];
-    }
-    if (nearbyEnemy) {
         //start at 1 because bestIndex starts at 0
         var bestIndex = -1;
         for (var i = 0; i < range4.length; i++) {
@@ -385,8 +385,8 @@ export var Prophet = function() {
     }*/
 
     if (im_contested_rushing) {
-        if ((this.me.x == waypoints[curwaypoint][0] && this.me.y == waypoints[curwaypoint][1]) || (robotmap[waypoints[curwaypoint][1]][waypoints[curwaypoint][0]] > 0)) {
-            if (this.me.x == waypoints[curwaypoint][0] && this.me.y == waypoints[curwaypoint][1] && this.distance(waypoints[0], waypoints[curwaypoint]) < 144) {
+        if (this.distance([this.me.x, this.me.y], waypoints[curwaypoint]) <= 10 || (robotmap[waypoints[curwaypoint][1]][waypoints[curwaypoint][0]] > 0)) {
+            if (this.distance([this.me.x, this.me.y], waypoints[curwaypoint]) <= 10 && this.distance(waypoints[0], waypoints[curwaypoint]) < 144) {
                 this.log("YO COME GET THIS ASS RIGHT HERE");
                 this.log(waypoints[curwaypoint]);
                 this.log(this.distance(castleLoc, waypoints[curwaypoint]));
