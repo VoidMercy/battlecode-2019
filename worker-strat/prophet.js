@@ -142,6 +142,7 @@ export var Prophet = function() {
                             relStartPos = this.decodeSignal(robot.signal);
                             target = [robot.x + relStartPos[0], robot.y + relStartPos[1]];
                         }
+                        //this.log(target);
                     } else {
                         target = nextLoc;
                     }
