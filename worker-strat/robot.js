@@ -5,8 +5,7 @@ import { Pilgrim } from 'pilgrim.js'
 import { Prophet } from 'prophet.js'
 import { Crusader } from 'crusader.js'
 import { Preacher } from 'preacher.js'
-
-import {alldirs, crusaderdirs, otherdirs} from 'constants.js'
+import {alldirs, crusaderdirs, otherdirs, lattices} from 'constants.js'
 
 var symmetry; //1 is vertical, 0 is horizontal
 
@@ -14,6 +13,29 @@ var symmetry; //1 is vertical, 0 is horizontal
 var dict = {};
 
 class MyRobot extends BCAbstractRobot {
+
+    find_idle_spot() {
+        var robotmap = this.getVisibleRobotMap();
+        for (var index = 0; index < lattices.length; index++) {
+            var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
+            if (this.validCoords(latticeloc) /* coordinates are valid */ && 
+                this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+                robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
+                !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */) {
+                var num_adjacent_deposits = 0;
+                for (var i = 0; i < alldirs.length; i++) {
+                    var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+                    if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+                        num_adjacent_deposits++;
+                    }
+                }
+                if (num_adjacent_deposits <= 1) {
+                    return latticeloc;
+                }
+            }
+        }
+    }
 
     buildSpread(unittype, loc) {
         var dist = 999999;
@@ -71,7 +93,7 @@ class MyRobot extends BCAbstractRobot {
         if (this.fuel >= this.distance(maxDir, [0,0]) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
             return this.move(maxDir[0], maxDir[1]);
         } else {
-            return null
+            return null;
         }
     }
 
@@ -360,12 +382,10 @@ class MyRobot extends BCAbstractRobot {
             var smallest = distancetodest[this.me.x][this.me.y];
             var smallestcoord = [this.me.x, this.me.y];
             var visible = this.getVisibleRobotMap();
-            var idealcoord = null;
 
             for (var i = this.me.x - Math.sqrt(moveradius); i < this.me.x + Math.sqrt(moveradius); i++) {
                 for (var j = this.me.y - Math.sqrt(moveradius); j < this.me.y + Math.sqrt(moveradius); j++) {
                     if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
-                        idealcoord = [i, j];
                         if (visible[j][i] == 0) {
                                 if (distancetodest[i][j] < smallest) {
                                 smallest = distancetodest[i][j];
@@ -383,14 +403,69 @@ class MyRobot extends BCAbstractRobot {
             //this.log(this.me.id);
             //this.log([this.me.x, this.me.y]);
             //this.log(smallestcoord);
-            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y && idealcoord != null) {
-                return this.greedyMove(idealcoord);
+            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+                return this.singlebfs(dest);//this.greedyMove(idealcoord);
             }
             if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
                 return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
             } else {
                 return null;
             }
+        }
+    }
+
+    singlebfs(dest) {
+        var robotmap = this.getVisibleRobotMap();
+        var queue = [];
+        var visited = [];
+        queue.push(dest);
+        var y = this.map.length;
+        var x = this.map[0].length;
+        var starthash = this.hash(this.me.x, this.me.y);
+        var distancetodest = this.createarr(x, y);
+        distancetodest[dest[0]][dest[1]] = 0;
+        while (queue.length != 0) {
+            var cur = queue.shift();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] && robotmap[nextloc[1]][nextloc[0]] <= 0) {
+                    if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                        queue.push(nextloc);
+                        distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + 1;
+                    }
+                }
+            }
+        }
+
+        var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+        var smallest = 999999999;
+        var smallestcoord = [this.me.x, this.me.y];
+        var visible = this.getVisibleRobotMap();
+
+        for (var i = this.me.x - Math.ceil(Math.sqrt(moveradius)); i < this.me.x + Math.ceil(Math.sqrt(moveradius)); i++) {
+            for (var j = this.me.y - Math.ceil(Math.sqrt(moveradius)); j < this.me.y + Math.ceil(Math.sqrt(moveradius)); j++) {
+                if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                    if (visible[j][i] <= 0) {
+                            if (distancetodest[i][j] < smallest) {
+                            smallest = distancetodest[i][j];
+                            smallestcoord = [i, j];
+                        } else if (distancetodest[i][j] == smallest && this.distance([i, j], dest) < this.distance(smallestcoord, dest)) {
+                            smallest = distancetodest[i][j];
+                            smallestcoord = [i, j];
+                        }
+                    }
+                }
+            }
+        }
+
+        if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+            return null;
+        }
+
+        if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+        } else {
+            return null;
         }
     }
 
