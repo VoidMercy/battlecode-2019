@@ -364,6 +364,147 @@ class MyRobot extends BCAbstractRobot {
         return best;
     }
 
+    workermoveto(dest) {
+        if (dest[0] == this.me.x && dest[1] == this.me.y) {
+            return; //at target, do nothing
+        }
+        if (!(this.hash(...dest) in dict)) {
+            //this.log("START BFS");
+            //run bfs
+            var queue = [];
+            var visited = [];
+            queue.push(dest);
+            var y = this.map.length;
+            var x = this.map[0].length;
+            var starthash = this.hash(this.me.x, this.me.y);
+            var distancetodest = this.createarr(x, y);
+            distancetodest[dest[0]][dest[1]] = 0;
+            while (queue.length != 0) {
+                var cur = queue.shift();
+                for (var i = 0; i < alldirs.length; i++) {
+                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                    if (this.validCoords(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                            queue.push(nextloc);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
+                        }
+                    }
+                }
+            }
+
+            dict[this.hash(...dest)] = distancetodest;
+            //this.log("BFS DONE");
+            return this.workermoveto(dest);
+        } else {
+
+            var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+            var distancetodest = dict[this.hash(...dest)];
+            var smallest = 9999999;
+            var smallestcoord = [this.me.x, this.me.y];
+            var visible = this.getVisibleRobotMap();
+            var robotsnear = this.getVisibleRobots();
+            var robot;
+
+            for (var i = this.me.x - Math.sqrt(moveradius); i <= this.me.x + Math.sqrt(moveradius); i++) {
+                for (var j = this.me.y - Math.sqrt(moveradius); j <= this.me.y + Math.sqrt(moveradius); j++) {
+                    if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                        if (visible[j][i] <= 0) {
+                            if (distancetodest[i][j] < smallest || (distancetodest[i][j] == smallest && this.distance([i, j], dest) <= this.distance(smallestcoord, dest))) {
+                                var good = true;
+                                for (var a = 0; a < robotsnear.length; a++) {
+                                    if (robotsnear[a].team != this.me.team && robotsnear[a].unit >= 3 && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= SPECS.UNITS[robotsnear[a].unit].ATTACK_RADIUS[1]) {
+                                        good = false;
+                                        distancetodest[i][j]++;
+                                        break;
+                                    }
+                                }
+                                if (good) {
+                                    smallest = distancetodest[i][j];
+                                    smallestcoord = [i, j];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //this.log("MOVING");
+            //this.log(this.me.id);
+            //this.log([this.me.x, this.me.y]);
+            //this.log(smallestcoord);
+            if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+                return this.singleworkerbfs(dest);//this.greedyMove(idealcoord);
+            }
+            if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+                return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    singleworkerbfs(dest) {
+        var robotmap = this.getVisibleRobotMap();
+        var queue = [];
+        var visited = [];
+        queue.push(dest);
+        var y = this.map.length;
+        var x = this.map[0].length;
+        var starthash = this.hash(this.me.x, this.me.y);
+        var distancetodest = this.createarr(x, y);
+        distancetodest[dest[0]][dest[1]] = 0;
+        while (queue.length != 0) {
+            var cur = queue.shift();
+            for (var i = 0; i < alldirs.length; i++) {
+                var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                if (this._bc_check_on_map(...nextloc) && this.map[nextloc[1]][nextloc[0]] && robotmap[nextloc[1]][nextloc[0]] <= 0) {
+                    if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                        queue.push(nextloc);
+                        distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
+                    }
+                }
+            }
+        }
+
+        var moveradius = SPECS.UNITS[this.me.unit].SPEED;
+        var smallest = 999999999;
+        var smallestcoord = [this.me.x, this.me.y];
+        var visible = this.getVisibleRobotMap();
+        var robotsnear = this.getVisibleRobots();
+        var robot;
+
+        for (var i = this.me.x - Math.ceil(Math.sqrt(moveradius)); i <= this.me.x + Math.ceil(Math.sqrt(moveradius)); i++) {
+            for (var j = this.me.y - Math.ceil(Math.sqrt(moveradius)); j <= this.me.y + Math.ceil(Math.sqrt(moveradius)); j++) {
+                if (this.validCoords([i, j]) && distancetodest[i][j] != undefined && this.distance([this.me.x, this.me.y], [i, j]) <= moveradius) {
+                    if (visible[j][i] <= 0) {
+                            if (distancetodest[i][j] < smallest || (distancetodest[i][j] == smallest && this.distance([i, j], dest) <= this.distance(smallestcoord, dest))) {
+                                var good = true;
+                                for (var a = 0; a < robotsnear.length; a++) {
+                                    if (robotsnear[a].team != this.me.team && robotsnear[a].unit >= 3 && this.distance([i, j], [robotsnear[a].x, robotsnear[a].y]) <= SPECS.UNITS[robotsnear[a].unit].ATTACK_RADIUS[1]) {
+                                        good = false;
+                                    }
+                                }
+                                if (good) {
+                                    smallest = distancetodest[i][j];
+                                    smallestcoord = [i, j];
+                                }
+                            }
+                        }
+                }
+            }
+        }
+
+        if (smallestcoord[0] - this.me.x == 0 && 0 == smallestcoord[1] - this.me.y) {
+            return null;
+        }
+
+        if (this.fuel >= this.distance([this.me.x, this.me.y], smallestcoord) * SPECS.UNITS[this.me.unit].FUEL_PER_MOVE) {
+            return this.move(smallestcoord[0] - this.me.x, smallestcoord[1] - this.me.y);
+        } else {
+            return null;
+        }
+    }
+
     moveto(dest) {
         if (dest[0] == this.me.x && dest[1] == this.me.y) {
             return; //at target, do nothing

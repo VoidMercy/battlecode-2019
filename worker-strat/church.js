@@ -242,12 +242,12 @@ function defend() {
             }
         } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
+            if (robot.unit >= 3) {
+            	defensive_health += robot.health;
+            }
             if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
-                if (robot.unit >= 3) {
-                    defensive_health += robot.health;
-                }
             }
         }
     }
@@ -517,7 +517,7 @@ function offense() {
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
 
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) { // new heuristic
+    if (this.karbonite > 120 + 10*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450) { // new heuristic
     // if (this.karbonite > 200 + 5*friendlyAttackUnits && this.fuel > 500) { // old heuristic
         // lmoa build a prophet
         lategameUnitCount++;

@@ -19,6 +19,7 @@ var castlelocs = [];
 var my_church_loc = null;
 var i_got_attacked = false;
 var initial_contested = 0;
+var rush_attempts = [];
 
 //combat vars
 var underattack = false;
@@ -224,28 +225,16 @@ function find_target_stronghold() {
 
 	for (var i = 0; i < plannedchurches.length; i++) {
 		for (var j = 0; j < castlelocs.length; j++) {
-			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED || plannedchurches[i][0] == NOT_CONTESTED) {
+			if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED || rush_attempts[i] >= 2) {
 				continue;
 			}
 			tempdist = this.distanceFromCenter(plannedchurches[i][1]);
+			if (plannedchurches[i][0] == CONTESTED) {
+				tempdist -= 20;
+			}
 			if (tempdist < mindist && !plannedchurches[i][3]) {
 				mindist = tempdist;
 				closest_stronghold_index = i;
-			}
-		}
-	}
-
-	if (closest_stronghold_index == null) {
-		for (var i = 0; i < plannedchurches.length; i++) {
-			for (var j = 0; j < castlelocs.length; j++) {
-				if (plannedchurches[i] == null || plannedchurches[i][0] == VERY_CONTESTED) {
-					continue;
-				}
-				tempdist = this.distanceFromCenter(plannedchurches[i][1]);
-				if (tempdist < mindist && !plannedchurches[i][3]) {
-					mindist = tempdist;
-					closest_stronghold_index = i;
-				}
 			}
 		}
 	}
@@ -337,7 +326,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && (this.me.turn < 150 || this.fuel < 100) && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -438,12 +427,12 @@ function defend() {
             }
         } else if (this.isVisible(robot)) {
             friendlies[robot.unit]++;
+            if (robot.unit >= 3) {
+            	defensive_health += robot.health;
+            }
             if (this.distance([this.me.x, this.me.y], [robot.x, robot.y]) < 10) {
                 defense_units[robot.unit]++;
                 defense_robots.push(robot.unit);
-                if (robot.unit >= 3) {
-                    defensive_health += robot.health;
-                }
             }
         }
     }
@@ -460,7 +449,7 @@ function defend() {
     			return res;
     		}
     	}
-        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] * 3) {
+        if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > friendlies[SPECS.PREACHER] * 3) {
         	underattack = true;
     		i_got_attacked = true;
             this.log("CREATE PREACHER FOR DEFENSE");
@@ -525,7 +514,7 @@ function defend() {
                 return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
             }
             return null;
-        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= defense_units[SPECS.PROPHET] + defense_units[SPECS.PREACHER]) || (i_got_attacked && (defense_units[SPECS.PROPHET] < 2 || defensive_health < 40))) {
+        } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= friendlies[SPECS.PROPHET] + friendlies[SPECS.PREACHER]) || (i_got_attacked && (friendlies[SPECS.PROPHET] < 2 || defensive_health < 40))) {
 			underattack = true;
     		i_got_attacked = true;
 			//produce prophet to counter prophet or attack
@@ -606,7 +595,7 @@ function defend() {
 
     if (!underattack && closestEnemy == null && closestNonAttacking != null) {
         //produce these even tho not "under attack" technically
-        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > defense_units[SPECS.PREACHER] && smallestDist <= 25) {
+        if ((numenemy[SPECS.CASTLE] + numenemy[SPECS.CHURCH]) * 2 > friendlies[SPECS.PREACHER] && smallestDist <= 25) {
             //spawn preacher for enemy castles/churches
             //todo: make sure distance is low
             this.log("CREATE PREACHER FOR ATTACKING ENEMY CHURCH/CASTLE");
@@ -781,7 +770,7 @@ function offense() {
 	var bestFarAwayLoc = null;
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if (this.karbonite > 120 + 5*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450 + distanceToCenter/8) {
+    if (this.karbonite > 120 + 10*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
         lategameUnitCount++;
@@ -860,7 +849,7 @@ function build_contest_units(target_amount, next_stronghold_index) {
 	this.log(this.karbonite);
 	if (units_needed == 0) {
 		// testing code, remove if bad
-		if (plannedchurches[next_stronghold_index][0] == CONTESTED) {
+		if (plannedchurches[next_stronghold_index][0] == CONTESTED && initial_contested > 1) {
 			plannedchurches[next_stronghold_index][0] = NOT_CONTESTED;
 			return this.turn.call(this);
 		}
@@ -1053,6 +1042,7 @@ export var Castle = function() {
 		for (var i = 0; i < plannedchurches.length; i++) {
 			if (plannedchurches[i] != null && previous_working_on[i] && !plannedchurches[i][3]) {
 				// make it contested
+				rush_attempts[i]++;
 				save_for_church = false;
 				if (plannedchurches[i][0] == NOT_CONTESTED) {
 					plannedchurches[i][0] = CONTESTED;
@@ -1080,6 +1070,7 @@ export var Castle = function() {
 		for (var i = 0; i < plannedchurches.length; i++) {
 			active_strongholds.push(false);
 			contest_units.push([0, 0, 0, 0, 0, 0]);
+			rush_attempts.push(0);
 		}
 		castlelocs.push(my_church_loc);
 	}
@@ -1107,7 +1098,7 @@ export var Castle = function() {
 			}
 		}
 
-		if (!save_for_church || this.karbonite > 100 || initial_contested > 2) {
+		if (!save_for_church || this.karbonite > 100 || initial_contested > 1) {
 			// send out a worker to establish a new church settlement
 			var next_stronghold_index = find_target_stronghold.call(this);
 

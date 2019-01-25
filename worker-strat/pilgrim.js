@@ -155,18 +155,9 @@ function stay_away_from_danger() {
 			if (SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_DAMAGE != 0) {
 				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
 				if (dist_to_robot <= 100) {
-					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] + SPECS.UNITS[this.me.unit].SPEED * 4) {
+					if (dist_to_robot <= SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1]) {
 						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);;
 					}
-					return null;
-				}
-			} else if (robotsnear[i].unit == SPECS.CHURCH) {
-				var dist_to_robot = this.distance([this.me.x, this.me.y], [robotsnear[i].x, robotsnear[i].y]);
-				if (dist_to_robot <= 64 + SPECS.UNITS[this.me.unit].SPEED * SPECS.UNITS[this.me.unit].SPEED) {
-					if (dist_to_robot <= 64 + SPECS.UNITS[this.me.unit].SPEED * 3) {
-						return this.greedyMoveAway([robotsnear[i].x, robotsnear[i].y]);
-					}
-					return null;
 				}
 			}
 		}
@@ -243,13 +234,13 @@ function gomine() {
 				}
 				return null;
 			} else {
-				return this.moveto(castleloc);
+				return this.workermoveto(castleloc);
 			}
 		}
 		
 	} else {
 		// if i would be walking into enemy range, then do nothing
-		return this.moveto(karblocation);
+		return this.workermoveto(karblocation);
 	}
 }
 
@@ -306,7 +297,7 @@ function gosettle() {
 
 function gosuicide() {
 	this.log("SUICIDING!!!");
-	return this.moveto([0, 0]);
+	return this.workermoveto([0, 0]);
 }
 
 function get_church_index() {
