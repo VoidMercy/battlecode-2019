@@ -182,7 +182,7 @@ export var Prophet = function() {
                     //this.log(enemloc);
                     //this.log([this.me.x, this.me.y]);
                     //this.log(range4[j]);
-                    if ((SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != 0) &&  SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[0] <= this.distance(newloc, enemloc) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] >= this.distance(newloc, enemloc)) {
+                    if ((SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != null && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS != 0) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[0] <= this.distance(newloc, enemloc) && SPECS.UNITS[robotsnear[i].unit].ATTACK_RADIUS[1] >= this.distance(newloc, enemloc)) {
                         //this.log("damage taken??");
                         //this.log(range4[j]);
                         //this.log(damagetaken);
@@ -410,7 +410,7 @@ export var Prophet = function() {
         if (waypoints_siced == waypoints.length || (this.me.x == waypoints[curwaypoint][0] && this.me.y == waypoints[curwaypoint][1])) {
             this.log("STOP COCK BLOCKING");
             im_contested_rushing = false;
-            target = this.find_idle_spot();
+            target = this.find_idle_spot(castleLoc);
             this.log(target);
             // return this.moveto(this.oppositeCoords(castleLoc));
         } else {

@@ -494,10 +494,10 @@ function defend() {
 						}
 						if (num_adjacent_deposits <= 1) {
                             //dont want too many fuel depos
-                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                            if (this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
                                 //lattice is towards their side of the map and its the right time to do so
                                 break; //found tile :O
-                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                            } else if (!this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y])) {
                                 if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
                                     break; //found tile :O
                                 }
@@ -561,10 +561,10 @@ function defend() {
 						}
 						if (num_adjacent_deposits <= 1) {
                             //dont want too many fuel depos
-                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                            if (this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
                                 //lattice is towards their side of the map and its the right time to do so
                                 break; //found tile :O
-                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                            } else if (!this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y])) {
                                 if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
                                     break; //found tile :O
                                 }
@@ -630,10 +630,10 @@ function defend() {
 						}
 						if (num_adjacent_deposits <= 1) {
                             //dont want too many fuel depos
-                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                            if (this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
                                 //lattice is towards their side of the map and its the right time to do so
                                 break; //found tile :O
-                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                            } else if (!this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y])) {
                                 if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
                                     break; //found tile :O
                                 }
@@ -685,10 +685,10 @@ function defend() {
 						}
 						if (num_adjacent_deposits <= 1) {
                             //dont want too many fuel depos
-                            if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+                            if (this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
                                 //lattice is towards their side of the map and its the right time to do so
                                 break; //found tile :O
-                            } else if (!isTowardsTheirSide.call(this, lattices[index])) {
+                            } else if (!this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y])) {
                                 if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
                                     break; //found tile :O
                                 }
@@ -776,21 +776,6 @@ function castleAttack() {
 	}
 }
 
-function isTowardsTheirSide(relloc) {
-	var baseloc = [this.me.x, this.me.y];
-    var oppRelLoc = this.oppositeCoords(baseloc);
-    var iToCheck = 1 - this.get_symmetry();
-    //this.log(iToCheck);
-    //this.log(oppRelLoc);
-    //this.log(baseloc);
-    //this.log(relloc);
-    if ((oppRelLoc[iToCheck] > baseloc[iToCheck] && relloc[iToCheck] >= 0) || (oppRelLoc[iToCheck] < baseloc[iToCheck] && relloc[iToCheck] <= 0)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 function offense() {
 	//offensive code lategame
 	var bestFarAwayLoc = null;
@@ -824,10 +809,10 @@ function offense() {
 					}
 					if (num_adjacent_deposits <= 1) {
 						//dont want too many fuel depos
-						if (isTowardsTheirSide.call(this, lattices[index]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
+						if (this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y]) && (prioritize_enemy_counter % 12 != 11 || units_have_died)) {
 							//lattice is towards their side of the map and its the right time to do so
 							break; //found tile :O
-						} else if (!isTowardsTheirSide.call(this, lattices[index])) {
+						} else if (!this.isTowardsTheirSide(lattices[index], [this.me.x, this.me.y])) {
 							if ((prioritize_enemy_counter % 12 == 11 && !units_have_died)) {
 								break; //found tile :O
 							}

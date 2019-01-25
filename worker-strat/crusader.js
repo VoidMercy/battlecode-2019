@@ -211,7 +211,7 @@ export var Crusader = function() {
         if (waypoints_siced == waypoints.length || (this.me.x == waypoints[curwaypoint][0] && this.me.y == waypoints[curwaypoint][1])) {
             this.log("STOP COCK BLOCKING");
             im_contested_rushing = false;
-            target = this.find_idle_spot();
+            target = this.find_idle_spot(castleLoc);
             this.log(target);
             // return this.moveto(this.oppositeCoords(castleLoc));
         } else {

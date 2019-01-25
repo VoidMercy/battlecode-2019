@@ -14,11 +14,27 @@ var dict = {};
 
 class MyRobot extends BCAbstractRobot {
 
+    isTowardsTheirSide(relloc, oursideloc) {
+        var baseloc = oursideloc;
+        var oppRelLoc = this.oppositeCoords(baseloc);
+        var iToCheck = 1 - this.get_symmetry();
+        //this.log(iToCheck);
+        //this.log(oppRelLoc);
+        //this.log(baseloc);
+        //this.log(relloc);
+        if ((oppRelLoc[iToCheck] > baseloc[iToCheck] && relloc[iToCheck] >= 0) || (oppRelLoc[iToCheck] < baseloc[iToCheck] && relloc[iToCheck] <= 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     get_symmetry() {
         return symmetry;
     }
 
-    find_idle_spot() {
+    find_idle_spot(castleLoc) {
+        //assume theres a spot since if we're rushing it isnt gonna be full of units lol
         var robotmap = this.getVisibleRobotMap();
         for (var index = 0; index < lattices.length; index++) {
             var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
@@ -34,7 +50,7 @@ class MyRobot extends BCAbstractRobot {
                         num_adjacent_deposits++;
                     }
                 }
-                if (num_adjacent_deposits <= 1) {
+                if (num_adjacent_deposits <= 1 && this.isTowardsTheirSide(lattices[index], castleLoc)) {
                     return latticeloc;
                 }
             }
