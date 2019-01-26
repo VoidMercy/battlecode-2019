@@ -1,6 +1,6 @@
 import {SPECS} from 'battlecode';
 import {getLocs} from 'churchloc.js'
-import {range10, range15, alldirs, lattices, CONTESTED_CHURCH_DIST} from 'constants.js'
+import {range10, range15, alldirs, lattices, CONTESTED_CHURCH_DIST, crusaderlattice} from 'constants.js'
 import {Compress12Bits} from 'communication.js'
 
 //worker vars
@@ -43,6 +43,7 @@ var units_have_died = false;
 var latest_target_in_vision = null;
 var prioritize_enemy_counter = 0;
 var units_have_died_counter = 0;
+var spam_crusaders = false;
 
 //some constants
 var NOT_CONTESTED = 0;
@@ -776,7 +777,51 @@ function offense() {
 	//offensive code lategame
 	var bestFarAwayLoc = null;
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
-    var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
+	var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
+	if ((this.me.turn >= 950 || spam_crusaders) && this.fuel > 1000) {
+		lategameUnitCount++;
+		this.log("building lategame crusader to cheese unit hp");
+		var unitBuilder = SPECS.CRUSADER;
+		var result = this.build(unitBuilder);
+		if (result != null) {
+            var nextloc = null;
+            var index = -1;
+            for (index = 0; index < crusaderlattice.length; index++) {
+                    var latticeloc = [this.me.x + crusaderlattice[index][0], this.me.y + crusaderlattice[index][1]];
+                    if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                    this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
+                    robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                    !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
+                    !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
+                    !used_lattice_locs.includes(index) /* havent used in past few turns */) {
+					var num_adjacent_deposits = 0;
+					for (var i = 0; i < alldirs.length; i++) {
+						var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
+						if (this.validCoords(checkloc) && (this.karbonite_map[checkloc[1]][checkloc[0]] || this.fuel_map[checkloc[1]][checkloc[0]])) {
+							num_adjacent_deposits++;
+						}
+					}
+					if (num_adjacent_deposits <= 1) {
+						//dont want too many fuel depos
+						break; //found tile :O
+					}
+				}
+			}
+			//send signal for starting pos
+			if (index != -1 && (index != crusaderlattice.length || (index == crusaderlattice.length && bestFarAwayLoc != null))) {
+				latest_target_in_vision = this.distance([0, 0], crusaderlattice[index]) <= 100;
+				used_lattice_locs.push(index);
+				turns_since_used_lattice.push(0);
+				prioritize_enemy_counter++;
+                var signal = this.generateInitialPosSignalVal(crusaderlattice[index]);
+                //this.log("sent: ");
+                //this.log(lattices[index]);
+                //this.log(signal);
+                this.signal(signal, 2); // todo maybe: check if required r^2 is 1
+                return this.buildUnit(unitBuilder, result[0], result[1]);
+            }
+        }
+	}
     if (this.karbonite > 120 + 10*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
@@ -1030,7 +1075,27 @@ export var Castle = function() {
         } else {
             units_have_died_counter++;
         }
-    }
+	}
+
+	for (var i = 0; i < robotsnear.length; i++) {
+		if (robotsnear[i].signal == 422) {
+			var signalloc = [robotsnear[i].x, robotsnear[i].y];
+			//make sure its on our side to reduce counterfeit
+			if (this.distance([this.me.x, this.me.y], signalloc) < this.distance(this.oppositeCoords([this.me.x, this.me.y]), signalloc)) {
+				spam_crusaders = true;
+			} else {
+				//not form our side, bad!
+				this.log("fake signal wtf");
+			}
+		}
+	}
+	
+	if (this.me.turn >= 950 && this.fuel > 2000 && !spam_crusaders) {
+		//signal across map to produce crusaders
+		var myloc = [this.me.x, this.me.y];
+		var cover_map_cost = Math.max(this.distance(myloc, [0,0]), this.distance(myloc, [this.map.length-1, 0]), this.distance(myloc, [this.map.length -1, this.map.length -1]), this.distance(myloc, [0,this.map.length-1]));
+		this.signal(422, cover_map_cost);
+	}
 	
 	if (this.me.turn != 1) {
 

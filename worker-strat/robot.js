@@ -118,7 +118,7 @@ class MyRobot extends BCAbstractRobot {
     }
 
     decodeSignal(signal) {
-        if (signal % 8 == 7 || signal % 8 == 6) { //decoding is the same
+        if (signal % 8 == 7) { //decoding is the same
             //initial pos signal or reposition signal
             var ret = [signal >> 10,(signal >> 4) % 64];
             for (var i = 0; i < 2; i++) {
