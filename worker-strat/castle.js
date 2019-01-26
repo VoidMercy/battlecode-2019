@@ -478,7 +478,7 @@ function defend() {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
                      if (this.validCoords(latticeloc) /* coordinates are valid */ && 
                         this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
-                        robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                        robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -545,7 +545,7 @@ function defend() {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
                      if (this.validCoords(latticeloc) /* coordinates are valid */ && 
                         this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
-                        robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                        robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -614,7 +614,7 @@ function defend() {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
                      if (this.validCoords(latticeloc) /* coordinates are valid */ && 
                         this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
-                        robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                        robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -669,7 +669,7 @@ function defend() {
                      var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
                      if (this.validCoords(latticeloc) /* coordinates are valid */ && 
                         this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
-                        robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                        robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                         !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                         !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                         !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -790,7 +790,7 @@ function offense() {
                     var latticeloc = [this.me.x + crusaderlattice[index][0], this.me.y + crusaderlattice[index][1]];
                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
                     this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
-                    robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                    robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                     !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -822,7 +822,7 @@ function offense() {
             }
         }
 	}
-    if (this.karbonite > 120 + 10*friendlyAttackUnits + distanceToCenter/8 && this.fuel > 450) {
+    if (this.karbonite > 120 + 10*friendlyAttackUnits && this.fuel > 450) {
     // if (this.karbonite > 150 + 5*friendlyAttackUnits && this.fuel > 500) { // old lattice code
         // lmoa build a prophet
         lategameUnitCount++;
@@ -837,7 +837,7 @@ function offense() {
                     var latticeloc = [this.me.x + lattices[index][0], this.me.y + lattices[index][1]];
                     if (this.validCoords(latticeloc) /* coordinates are valid */ &&
                     this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
-                    robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
+                    robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
                     !used_lattice_locs.includes(index) /* havent used in past few turns */) {
@@ -1062,7 +1062,7 @@ export var Castle = function() {
         var nrobot = this.getRobot(parseInt(ids[i]));
         if (nrobot == null && !ids_to_targets[ids[i]]) {
             //robot is out of vision or dead, and it shouldn't be out of vision
-            this.log("woaw a unit has died, only produce units towards enemy!");
+            //this.log("woaw a unit has died, only produce units towards enemy!");
             units_have_died = true;
             units_have_died_counter = 0;
         }
