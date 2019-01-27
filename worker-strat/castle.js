@@ -240,7 +240,7 @@ function find_target_stronghold() {
 			}
 			tempdist = this.distanceFromCenter(plannedchurches[i][1]);
 			if (plannedchurches[i][0] == CONTESTED) {
-				tempdist -= 20;
+				tempdist = Math.pow(Math.sqrt(tempdist) - 8, 2);
 			}
 			if (tempdist < mindist && !plannedchurches[i][3]) {
 				mindist = tempdist;
