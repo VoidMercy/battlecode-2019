@@ -461,7 +461,8 @@ function defend() {
     	}
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > friendlies[SPECS.PREACHER] * 3) {
         	underattack = true;
-    		i_got_attacked = true;
+			i_got_attacked = true;
+			var toBuild = (closestEnemy != null && this.distance([this.me.x, this.me.y], [closestEnemy.x, closestEnemy.y]) <= 36) ? SPECS.PREACHER : SPECS.PROPHET;
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
             if (closestEnemy == null) {
@@ -469,9 +470,9 @@ function defend() {
             }
             if (closestEnemy.unit == SPECS.PREACHER) {
                 this.log("ohno");
-				result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+				result = this.buildSpread(toBuild, [closestEnemy.x, closestEnemy.y]);
             } else {
-                result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
             }
             
             if (result != null) {
@@ -521,7 +522,7 @@ function defend() {
                     //this.log(signal);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
             return null;
         } else if ((numenemy[SPECS.PROPHET] + numenemy[SPECS.PREACHER] >= friendlies[SPECS.PROPHET] + friendlies[SPECS.PREACHER]) || (i_got_attacked && (friendlies[SPECS.PROPHET] < 2 || defensive_health < 40))) {
@@ -1036,6 +1037,7 @@ function handle_unit_production(next_stronghold_index) {
 }
 
 export var Castle = function() {
+	this.log("########################## TURN " + this.me.turn);
 
     for (var i = 0; i < used_lattice_locs.length; i++) {
         if (turns_since_used_lattice[i] > used_lattice_locs[i][0] + used_lattice_locs[i][1] + 2) {

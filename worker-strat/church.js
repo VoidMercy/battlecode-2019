@@ -262,15 +262,16 @@ function defend() {
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > defense_units[SPECS.PREACHER] || defensive_health < enemy_health) {
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
+            var toBuild = (closestEnemy != null && this.distance([this.me.x, this.me.y], [closestEnemy.x, closestEnemy.y]) <= 36) ? SPECS.PREACHER : SPECS.PROPHET;
             if (closestEnemy == null) {
                 this.log("THIS SHOULD RARELY HAPPEN");
-                result = this.buildNear(SPECS.PREACHER, [lastenemyseen.x, lastenemyseen.y]);
+                result = this.buildNear(toBuild, [lastenemyseen.x, lastenemyseen.y]);
             } else {
                 if (underattack && closestEnemy.unit == SPECS.PREACHER) {
                     this.log("ohno");
-                    result = this.buildSpread(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                    result = this.buildSpread(toBuild, [closestEnemy.x, closestEnemy.y]);
                 } else {
-                    result = this.buildNear(SPECS.PREACHER, [closestEnemy.x, closestEnemy.y]);
+                    result = this.buildNear(toBuild, [closestEnemy.x, closestEnemy.y]);
                 }
             }
 
@@ -324,7 +325,7 @@ function defend() {
                     //this.log(lattices[index]);
                     this.signal(signal, 2); // todo maybe: check if required r^2 is 1
                 }
-                return this.buildUnit(SPECS.PREACHER, result[0], result[1]);
+                return this.buildUnit(toBuild, result[0], result[1]);
             }
             return null;
         } else if ((numenemy[SPECS.PROPHET]) * 2 > defense_units[SPECS.PROPHET] || defense_robots[SPECS.PROPHET] + defense_robots[SPECS.PREACHER] == 0 || (defense_robots[SPECS.PROPHET] == 0 && numenemy[SPECS.PILGRIM] != 0)) {
