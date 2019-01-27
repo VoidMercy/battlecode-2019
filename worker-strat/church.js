@@ -518,7 +518,7 @@ function offense() {
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
 
     var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-    if ((this.me.turn >= 950 || spam_crusaders) && this.fuel > 1000) {
+    if ((this.me.turn >= 900 || spam_crusaders) && this.fuel > 1000) {
 		lategameUnitCount++;
         this.log("building lategame crusader to cheese unit hp");
         var unitBuilder = SPECS.CRUSADER;

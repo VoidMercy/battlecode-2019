@@ -778,7 +778,7 @@ function offense() {
 	var bestFarAwayLoc = null;
     var friendlyAttackUnits = friendlies[SPECS.CRUSADER] + friendlies[SPECS.PREACHER] + friendlies[SPECS.PROPHET];
 	var distanceToCenter = this.distanceFromCenter([this.me.x, this.me.y]);
-	if ((this.me.turn >= 950 || spam_crusaders) && this.fuel > 1000) {
+	if ((this.me.turn >= 900) && this.fuel > 1000) {
 		lategameUnitCount++;
 		this.log("building lategame crusader to cheese unit hp");
 		var unitBuilder = SPECS.CRUSADER;
@@ -1090,7 +1090,7 @@ export var Castle = function() {
 		}
 	}
 	
-	if (this.me.turn >= 950 && this.fuel > 2000 && !spam_crusaders) {
+	if (this.me.turn >= 900 && this.fuel > 2000 && !spam_crusaders) {
 		//signal across map to produce crusaders
 		var myloc = [this.me.x, this.me.y];
 		var cover_map_cost = Math.max(this.distance(myloc, [0,0]), this.distance(myloc, [this.map.length-1, 0]), this.distance(myloc, [this.map.length -1, this.map.length -1]), this.distance(myloc, [0,this.map.length-1]));
