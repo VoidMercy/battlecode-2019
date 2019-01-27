@@ -198,8 +198,12 @@ function find_church_locs() {
 					initial_contested++;
 				}
 			} else {
-				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
-				originalplanned.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+				var otherchurch = this.oppositeCoords(nextchurchloc);
+				var distbetween = Math.sqrt(this.distance(nextchurchloc, otherchurch)) / 2;
+				if (distbetween >= 3) {
+					plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+					originalplanned.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+				}
 			}
 		}
 	}
