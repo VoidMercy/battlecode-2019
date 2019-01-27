@@ -444,11 +444,25 @@ export var Prophet = function() {
 
     // check around me for gucci church positions
 
+    for (var i = 0; i < robotsnear.length; i++) {
+        if (this.isVisible(robotsnear[i]) && robotsnear[i].unit == SPECS.CASTLE && robotsnear[i].team == this.me.team) {
+            //found castle, now iterate thru planned churches and make null xd
+            for (var j = 0; j < plannedchurches.length; j++) {
+                if (plannedchurches[j] != null && this.distance(plannedchurches[j][1], [robotsnear[i].x, robotsnear[i].y]) <= 10) {
+                    //too close to castle xd
+                    plannedchurches[j] = null;
+                }
+            }
+        }
+    }
     for (var i = 0; i < plannedchurches.length; i++) {
-        var loc = plannedchurches[i][1];
-        if (this.me.turn > 50 && robotmap[loc[1]][loc[0]] == 0 && this.distance([this.me.x, this.me.y], loc) <= 15) {
-            this.log("Wow come build a church near this square im guarding");
-            this.castleTalk(i | (2 << 5));
+        if (plannedchurches[i] != null) {
+            var loc = plannedchurches[i][1];
+            if (this.me.turn > 50 && robotmap[loc[1]][loc[0]] == 0 && this.distance([this.me.x, this.me.y], loc) <= 15) {
+                this.log("Wow come build a church near this square im guarding");
+                this.log(loc);
+                this.castleTalk(i | (2 << 5));
+            }
         }
     }
     return;
