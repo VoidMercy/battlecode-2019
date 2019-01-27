@@ -446,7 +446,7 @@ export var Prophet = function() {
 
     for (var i = 0; i < plannedchurches.length; i++) {
         var loc = plannedchurches[i][1];
-        if (this.me.turn > 50 && (robotmap[loc[1]][loc[0]] == 0 || this.getRobot(robotmap[loc[1]][loc[0]]).unit != SPECS.CHURCH) && this.distance([this.me.x, this.me.y], loc) <= 15) {
+        if (this.me.turn > 50 && robotmap[loc[1]][loc[0]] == 0 && this.distance([this.me.x, this.me.y], loc) <= 15) {
             this.log("Wow come build a church near this square im guarding");
             this.castleTalk(i | (2 << 5));
         }
