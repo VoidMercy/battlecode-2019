@@ -207,8 +207,6 @@ class MyRobot extends BCAbstractRobot {
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                 if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-                    //this.log("Create unit!");
-                    this.log(this.getBFSDistance(nextloc, loc));
                     if(this.getBFSDistance(nextloc, loc) < dist) {
                         dist = this.getBFSDistance(nextloc, loc);
                         best = alldirs[i];
