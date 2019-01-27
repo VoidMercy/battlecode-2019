@@ -24,7 +24,9 @@ var rush_attempts = [];
 //combat vars
 var underattack = false;
 var used_lattice_locs = [];
+var used_lattice_locs_crusaders = [];
 var turns_since_used_lattice = [];
+var turns_since_used_lattice_crusaders = [];
 var robotmap = null;
 var robotsnear = null;
 var numenemy = null; // crusaders, prophets, preachers
@@ -793,7 +795,7 @@ function offense() {
                     robotmap[latticeloc[1]][latticeloc[0]] <= 0 /* not occupied */ &&
                     !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                     !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */ &&
-                    !used_lattice_locs.includes(index) /* havent used in past few turns */) {
+                    !used_lattice_locs_crusaders.includes(index) /* havent used in past few turns */) {
 					var num_adjacent_deposits = 0;
 					for (var i = 0; i < alldirs.length; i++) {
 						var checkloc = [latticeloc[0] + alldirs[i][0], latticeloc[1] + alldirs[i][1]];
@@ -810,8 +812,8 @@ function offense() {
 			//send signal for starting pos
 			if (index != -1 && (index != crusaderlattice.length || (index == crusaderlattice.length && bestFarAwayLoc != null))) {
 				latest_target_in_vision = this.distance([0, 0], crusaderlattice[index]) <= 100;
-				used_lattice_locs.push(index);
-				turns_since_used_lattice.push(0);
+				used_lattice_locs_crusaders.push(index);
+				turns_since_used_lattice_crusaders.push(0);
 				prioritize_enemy_counter++;
                 var signal = this.generateInitialPosSignalVal(crusaderlattice[index]);
                 //this.log("sent: ");
@@ -1044,6 +1046,17 @@ export var Castle = function() {
             turns_since_used_lattice[i]++;
         }
 	}
+
+	for (var i = 0; i < used_lattice_locs_crusaders.length; i++) {
+        if (turns_since_used_lattice_crusaders[i] > used_lattice_locs_crusaders[i][0] + used_lattice_locs_crusaders[i][1] + 2) {
+            //pop since its been long enough probably
+            turns_since_used_lattice_crusaders.splice(i, 1);
+            used_lattice_locs_crusaders.splice(i, 1);
+        } else {
+            turns_since_used_lattice_crusaders[i]++;
+        }
+	}
+
     var robotsnear = this.getVisibleRobots();
     //check for newly spawned combat units
     for (var i = 0; i < robotsnear.length; i++) {
