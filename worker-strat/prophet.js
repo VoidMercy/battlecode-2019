@@ -441,5 +441,15 @@ export var Prophet = function() {
         //this.log("prophet moving to defensive position!");
         return this.moveto(target);
     }
+
+    // check around me for gucci church positions
+
+    for (var i = 0; i < plannedchurches.length; i++) {
+        var loc = plannedchurches[i][1];
+        if (this.me.turn > 50 && this.distance([this.me.x, this.me.y], loc) <= 15) {
+            this.log("Wow come build a church near this square im guarding");
+            this.castleTalk(i | (2 << 5));
+        }
+    }
     return;
 }
