@@ -214,7 +214,7 @@ function build_pilgrim_toward(loc) {
 	for (var i = 0; i < alldirs.length; i++) {
 		nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
         if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-        	temp = this.distance(nextloc, loc);
+        	temp = this.getBFSDistance(nextloc, loc);
             if (temp < mindist) {
             	mindist = temp;
             	bestindex = i;
@@ -466,7 +466,7 @@ function defend() {
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
             if (closestEnemy == null) {
-            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
+            	closestEnemy = {"x":Math.floor(this.map[0].length / 2), "y":Math.floor(this.map.length / 2), "unit":SPECS.PREACHER};
             }
             if (closestEnemy.unit == SPECS.PREACHER) {
                 this.log("ohno");
@@ -534,7 +534,7 @@ function defend() {
             var toBuild = SPECS.PROPHET;
             var result = null;
             if (closestEnemy == null) {
-            	closestEnemy = {"x":this.map[0].length / 2, "y":this.map.length / 2, "unit":SPECS.PREACHER};
+            	closestEnemy = {"x":Math.floor(this.map[0].length / 2), "y":Math.floor(this.map.length / 2), "unit":SPECS.PREACHER};
             }
             if (numenemy[SPECS.PREACHER] > 0) {
             	result = this.buildAway(toBuild, [closestEnemy.x, closestEnemy.y]);

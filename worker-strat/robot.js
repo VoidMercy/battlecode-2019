@@ -208,8 +208,9 @@ class MyRobot extends BCAbstractRobot {
                 var nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
                 if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
                     //this.log("Create unit!");
-                    if(this.distance(loc, nextloc) < dist) {
-                        dist = this.distance(loc, nextloc);
+                    this.log(this.getBFSDistance(nextloc, loc));
+                    if(this.getBFSDistance(nextloc, loc) < dist) {
+                        dist = this.getBFSDistance(nextloc, loc);
                         best = alldirs[i];
                     }
                 }
@@ -319,6 +320,43 @@ class MyRobot extends BCAbstractRobot {
         return x;
     }
 
+
+    getBFSDistance(startloc, dest) {
+        if (!(this.hash(...dest) in dict)) {
+            //this.log("START BFS");
+            //run bfs
+            var queue = [];
+            var visited = [];
+            queue.push(dest);
+            var y = this.map.length;
+            var x = this.map[0].length;
+            var starthash = this.hash(this.me.x, this.me.y);
+            var distancetodest = this.createarr(x, y);
+            distancetodest[dest[0]][dest[1]] = 0;
+            while (queue.length != 0) {
+                var cur = queue.shift();
+                for (var i = 0; i < alldirs.length; i++) {
+                    var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                        if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
+                            queue.push(nextloc);
+                            distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
+                        }
+                    }
+                }
+            }
+            //this.log(distancetodest);
+            dict[this.hash(...dest)] = distancetodest;
+            //this.log("BFS DONE");
+            return this.getBFSDistance(startloc, dest);
+        } else {
+            //this.log(startloc);
+            //this.log(dict[this.hash(...dest)]);
+            //this.log(dict[this.hash(...dest)][startloc[0]][startloc[1]]);
+            return dict[this.hash(...dest)][startloc[0]][startloc[1]];
+        }
+    }
+
     greedyMove(dest) {
         //TODO: make it possible to move multiple tiles at once xd
         //note: this moves backwards if it cant move closer lol
@@ -383,7 +421,7 @@ class MyRobot extends BCAbstractRobot {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
-                    if (this.validCoords(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]]) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
                             distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);
@@ -524,7 +562,7 @@ class MyRobot extends BCAbstractRobot {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
-                    if (this.validCoords(...nextloc) && this.map[nextloc[1]][nextloc[0]]) {
+                    if (this.validCoords(nextloc) && this.map[nextloc[1]][nextloc[0]]) {
                         if (distancetodest[nextloc[0]][nextloc[1]] == undefined) {
                             queue.push(nextloc);
                             distancetodest[nextloc[0]][nextloc[1]] = distancetodest[cur[0]][cur[1]] + this.distance([0, 0], alldirs[i]);

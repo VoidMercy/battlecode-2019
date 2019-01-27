@@ -174,7 +174,7 @@ function build_pilgrim_toward(loc) {
 	for (var i = 0; i < alldirs.length; i++) {
 		nextloc = [this.me.x + alldirs[i][0], this.me.y + alldirs[i][1]];
         if (this.validCoords(nextloc) && robotsnear[nextloc[1]][nextloc[0]] == 0 && this.map[nextloc[1]][nextloc[0]] == true) {
-        	temp = this.distance(nextloc, loc);
+        	temp = this.getBFSDistance(nextloc, loc);
             if (temp < mindist) {
             	mindist = temp;
             	bestindex = i;
