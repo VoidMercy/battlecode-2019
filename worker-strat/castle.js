@@ -7,6 +7,7 @@ import {Compress12Bits} from 'communication.js'
 var churches = null;
 var previous_working_on = [];
 var plannedchurches = [];
+var originalplanned = [];
 var enemychurches = [];
 var stronghold_info = [];
 var is_stronghold = false;
@@ -20,6 +21,7 @@ var my_church_loc = null;
 var i_got_attacked = false;
 var initial_contested = 0;
 var rush_attempts = [];
+var castles_alive = null;
 
 //combat vars
 var underattack = false;
@@ -189,12 +191,15 @@ function find_church_locs() {
 			if (my_dist_to <= enemy_dist_to) {
 				if (dist_between_churches >= CONTESTED_CHURCH_DIST) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+					originalplanned.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				} else {
 					plannedchurches.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+					originalplanned.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 					initial_contested++;
 				}
 			} else {
 				plannedchurches.push([VERY_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
+				originalplanned.push([CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 			}
 		}
 	}
@@ -336,7 +341,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(!i_got_attacked && this.karbonite < 200 && this.fuel > 300 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;
@@ -359,12 +364,16 @@ function handle_my_stronghold() {
 
 function handle_castle_talk() {
 	var robotsnear = this.getVisibleRobots();
+	castles_alive = [];
 
 	for (var i = 0; i < robotsnear.length; i++) {
 		if (robotsnear[i].castle_talk != null && robotsnear[i].castle_talk > 0) {
 			var church_index = robotsnear[i].castle_talk & 0b11111; // the church this unit is serving
 			if (plannedchurches[church_index] == null) {
 				// it's a castle bro
+				if (!castles_alive.includes(church_index)) {
+					castles_alive.push(church_index);
+				}
 				continue;
 			}
 			var unit_type = (robotsnear[i].castle_talk >> 5) & 0b11;
@@ -404,6 +413,7 @@ function handle_castle_talk() {
 			}
 		}
 	}
+	this.log("Num castles alive: " + castles_alive.length);
 }
 
 function defend() {
@@ -462,7 +472,7 @@ function defend() {
         if (numenemy[SPECS.CRUSADER] + numenemy[SPECS.PREACHER] > friendlies[SPECS.PREACHER] * 3) {
         	underattack = true;
 			i_got_attacked = true;
-			var toBuild = (closestEnemy != null && this.distance([this.me.x, this.me.y], [closestEnemy.x, closestEnemy.y]) <= 36) ? SPECS.PREACHER : SPECS.PROPHET;
+			var toBuild = SPECS.PREACHER;
             this.log("CREATE PREACHER FOR DEFENSE");
             var result = null;
             if (closestEnemy == null) {
@@ -1142,6 +1152,29 @@ export var Castle = function() {
 	}
 
 	handle_castle_talk.call(this);
+
+	// check for alive castles and attack
+	if (this.me.turn >= 400 && this.me.turn % 100 == 0 && this.fuel > 2000 && castles_alive.length < castlelocs.length) {
+		var mindist = 9999999;
+		var minloc = null;
+		for (var i = 0; i < castles_alive.length; i++) {
+			var temp = this.distanceFromCenter(originalplanned[castles_alive[i]][1]);
+			if (temp < mindist) {
+				mindist = temp;
+				minloc = originalplanned[castles_alive[i]][1];
+			}
+		}
+		if (this.hash(...minloc) == this.hash(...my_church_loc)) {
+			var myloc = [this.me.x, this.me.y];
+			var cover_map_cost = Math.max(this.distance(myloc, [0,0]), this.distance(myloc, [this.map.length-1, 0]), this.distance(myloc, [this.map.length -1, this.map.length -1]), this.distance(myloc, [0,this.map.length-1]));
+			this.signal((4 << 12) | Compress12Bits(...this.oppositeCoords(myloc)), cover_map_cost);
+			this.log("Signal attacc");
+			this.log(myloc);
+			this.log(this.oppositeCoords(myloc));
+		}
+	}
+
+	
 
 	// find if i need to save for church
 	for (var i = 0; i < plannedchurches.length; i++) {

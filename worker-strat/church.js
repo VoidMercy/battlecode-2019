@@ -193,7 +193,7 @@ function handle_my_stronghold() {
 	var tempdist;
 	var mindist = 99999;
 	for (var i = 0; i < stronghold_karb.length; i++) {
-		if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.karbonite < 200 && this.me.turn < 75 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
+        if (!working_workers.includes(this.hash(...stronghold_karb[i])) && !(this.karbonite < 200 && this.fuel > 300 && this.fuel_map[stronghold_karb[i][1]][stronghold_karb[i][0]])) {
 			tempdist = this.distance([this.me.x, this.me.y], stronghold_karb[i]);
 			if (tempdist < mindist) {
 				mindist = tempdist;

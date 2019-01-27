@@ -1,4 +1,5 @@
 import {SPECS} from 'battlecode'
+import {Decompress12Bits} from 'communication.js'
 import {alldirs, range4, range10, CONTESTED_CHURCH_DIST} from 'constants.js'
 import {getLocs} from 'churchloc.js'
 
@@ -14,6 +15,8 @@ var receivedCastleLocs = 0;
 var enemy_castle_locs = [];
 var im_contested_rushing = false;
 var occupied_targetting_counter = 0;
+var late_game_attacc = false;
+var saved_pos = null;
 
 // find church stuff
 var plannedchurches = [];
@@ -436,11 +439,26 @@ export var Prophet = function() {
         }
     }
 
+    // check for attack signal
+    for (var i = 0; i < robotsnear.length; i++) {
+        if (robotsnear[i].signal >> 12 == 4) {
+            this.log("ATTACK CUZ WERE GETTING REKT");
+            saved_pos = target;
+            target = Decompress12Bits(robotsnear[i].signal & 0b111111111111);
+            this.log("TARGET: " + target);
+            late_game_attacc = true;
+        }
+    }
+
     // go to position
     if (target != null && (this.me.x != target[0] || this.me.y != target[1])) {
         //this.log("prophet moving to defensive position!");
         return this.moveto(target);
+    } else if (late_game_attacc && target != null && this.distance([this.me.x, this.me.y], target) <= 40) {
+        late_game_attacc = false;
+        target = saved_pos;
     }
+
 
     // check around me for gucci church positions
 
@@ -465,5 +483,7 @@ export var Prophet = function() {
             }
         }
     }
+
+
     return;
 }
