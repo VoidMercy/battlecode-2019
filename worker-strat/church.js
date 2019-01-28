@@ -106,7 +106,7 @@ function find_church_locs() {
 		if (resources_obtained_by_this_church > 1) {
 			total_resources_obtained += resources_obtained_by_this_church;
 			// add to planned churches
-			if (my_dist_to <= enemy_dist_to) {
+			if (my_dist_to <= enemy_dist_to || dist_between_churches <= 36) {
 				if (dist_between_churches >= CONTESTED_CHURCH_DIST) {
 					plannedchurches.push([NOT_CONTESTED, nextchurchloc, resources_obtained_by_this_church, false]);
 				} else {
