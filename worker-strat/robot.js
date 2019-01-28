@@ -6,11 +6,14 @@ import { Prophet } from 'prophet.js'
 import { Crusader } from 'crusader.js'
 import { Preacher } from 'preacher.js'
 import {alldirs, crusaderdirs, otherdirs, lattices} from 'constants.js'
+import { Deque } from 'deque.js'
 
 var symmetry; //1 is vertical, 0 is horizontal
 
 //pathfinding vars
 var dict = {};
+
+const queue = new Deque(64 * 64);
 
 class MyRobot extends BCAbstractRobot {
 
@@ -38,8 +41,8 @@ class MyRobot extends BCAbstractRobot {
         var robotmap = this.getVisibleRobotMap();
         for (var index = 0; index < lattices.length; index++) {
             var latticeloc = [centerloc[0] + lattices[index][0], centerloc[1] + lattices[index][1]];
-            if (this.validCoords(latticeloc) /* coordinates are valid */ && 
-                this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ && 
+            if (this.validCoords(latticeloc) /* coordinates are valid */ &&
+                this.map[latticeloc[1]][latticeloc[0]] /* is passable terrain */ &&
                 robotmap[latticeloc[1]][latticeloc[0]] == 0 /* not occupied */ &&
                 !this.karbonite_map[latticeloc[1]][latticeloc[0]] /* not karbonite */ &&
                 !this.fuel_map[latticeloc[1]][latticeloc[0]] /* not fuel */) {
@@ -80,7 +83,7 @@ class MyRobot extends BCAbstractRobot {
                             best = alldirs[i];
                         }
                     }
-                    
+
                 }
             }
         }
@@ -323,7 +326,7 @@ class MyRobot extends BCAbstractRobot {
         if (!(this.hash(...dest) in dict)) {
             //this.log("START BFS");
             //run bfs
-            var queue = [];
+            queue.clear();
             var visited = [];
             queue.push(dest);
             var y = this.map.length;
@@ -331,7 +334,7 @@ class MyRobot extends BCAbstractRobot {
             var starthash = this.hash(this.me.x, this.me.y);
             var distancetodest = this.createarr(x, y);
             distancetodest[dest[0]][dest[1]] = 0;
-            while (queue.length != 0) {
+            while (queue._length != 0) {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
@@ -407,7 +410,7 @@ class MyRobot extends BCAbstractRobot {
         if (!(this.hash(...dest) in dict)) {
             //this.log("START BFS");
             //run bfs
-            var queue = [];
+            queue.clear()
             var visited = [];
             queue.push(dest);
             var y = this.map.length;
@@ -415,7 +418,7 @@ class MyRobot extends BCAbstractRobot {
             var starthash = this.hash(this.me.x, this.me.y);
             var distancetodest = this.createarr(x, y);
             distancetodest[dest[0]][dest[1]] = 0;
-            while (queue.length != 0) {
+            while (queue._length != 0) {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
@@ -481,7 +484,7 @@ class MyRobot extends BCAbstractRobot {
 
     singleworkerbfs(dest) {
         var robotmap = this.getVisibleRobotMap();
-        var queue = [];
+        queue.clear()
         var visited = [];
         queue.push(dest);
         var y = this.map.length;
@@ -489,7 +492,7 @@ class MyRobot extends BCAbstractRobot {
         var starthash = this.hash(this.me.x, this.me.y);
         var distancetodest = this.createarr(x, y);
         distancetodest[dest[0]][dest[1]] = 0;
-        while (queue.length != 0) {
+        while (queue._length != 0) {
             var cur = queue.shift();
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
@@ -548,7 +551,7 @@ class MyRobot extends BCAbstractRobot {
         if (!(this.hash(...dest) in dict)) {
             //this.log("START BFS");
             //run bfs
-            var queue = [];
+            queue.clear()
             var visited = [];
             queue.push(dest);
             var y = this.map.length;
@@ -556,7 +559,7 @@ class MyRobot extends BCAbstractRobot {
             var starthash = this.hash(this.me.x, this.me.y);
             var distancetodest = this.createarr(x, y);
             distancetodest[dest[0]][dest[1]] = 0;
-            while (queue.length != 0) {
+            while (queue._length != 0) {
                 var cur = queue.shift();
                 for (var i = 0; i < alldirs.length; i++) {
                     var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
@@ -613,7 +616,7 @@ class MyRobot extends BCAbstractRobot {
 
     singlebfs(dest) {
         var robotmap = this.getVisibleRobotMap();
-        var queue = [];
+        queue.clear()
         var visited = [];
         queue.push(dest);
         var y = this.map.length;
@@ -621,7 +624,7 @@ class MyRobot extends BCAbstractRobot {
         var starthash = this.hash(this.me.x, this.me.y);
         var distancetodest = this.createarr(x, y);
         distancetodest[dest[0]][dest[1]] = 0;
-        while (queue.length != 0) {
+        while (queue._length != 0) {
             var cur = queue.shift();
             for (var i = 0; i < alldirs.length; i++) {
                 var nextloc = [cur[0] + alldirs[i][0], cur[1] + alldirs[i][1]];
