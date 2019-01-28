@@ -445,7 +445,9 @@ export var Prophet = function() {
 
     // check for attack signal
     for (var i = 0; i < robotsnear.length; i++) {
-        if (robotsnear[i].signal >> 12 == 4) {
+        if (robotsnear[i].signal >> 12 == 4 && 
+            robotsnear[i].x == this.oppositeCoords(Decompress12Bits(robotsnear[i].signal & 0b111111111111))[0] && 
+            robotsnear[i].y == this.oppositeCoords(Decompress12Bits(robotsnear[i].signal & 0b111111111111))[1]) {
             this.log("ATTACK CUZ WERE GETTING REKT");
             saved_pos = target;
             target = Decompress12Bits(robotsnear[i].signal & 0b111111111111);
